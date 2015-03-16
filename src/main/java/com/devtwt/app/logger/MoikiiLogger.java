@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class MoikiiLogger {
 	
-	@Before("execution(* exec(..))")
-	public void outMsgBefCommand() {
-		System.out.println("bef");
+	@Before("execution(* com.devtwt.app.command.*.*(..))")
+	public void before() {
+		System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 	}
 	
-	@After("execution(* exec(..))")
-	public void outMsgAftCommand() {
-		System.out.println("aft");
+	@After("execution(* com.devtwt.app.command.*.*(..))")
+	public void after() {
+		System.out.println("AFFFBBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 	}
 	
 }
