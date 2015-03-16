@@ -24,8 +24,6 @@ public class DbacMockCommandImpl implements MockCommandInterface {
 	public void exec() {
 		
 		String num = bean.getDbacMock().getSelectedTBL();
-		System.out.println(num);
-		
 		
 		try {
 			
