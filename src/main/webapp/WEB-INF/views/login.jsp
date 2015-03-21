@@ -16,25 +16,21 @@
 <!-- ******** js ******** -->
 <script type="text/javascript" src="resources/js/base.js"></script>
 
-	<title>auth</title>
-</head>
-<body>
-<h1>
-	auth
-</h1>
-<P>  The time on the server is ${serverTime}. </P>
+<title>MOIKII.momo</title>
 
-	<form:form modelAttribute="placeAttrModel" action="${pageContext.request.contextPath}/login_auth" id="mainForm">
-	
+</head>
+
+<body>
+<h1>MOIKII.momo</h1>
+<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/login" id="mainForm">
 	<div id="authMain">
-		<label class="itn_auth">Name:     </label><input type="text" id="authName" size="20">
+		<label class="itn_auth">Name:     </label><form:input path="user.userName" type="text" id="userName" size="20"></form:input>
 		<br>
-		<label class="itn_auth">Password: </label><input type="text" id="authPassword" size="20">
+		<label class="itn_auth">Password: </label><form:input path="user.userPassword" type="text" id="userPassword" size="20"></form:input>
 		<br>
 		<input type="button" value="LOGIN!!!!!" id="loginBtn" onclick="login()">
 	</div>
-
-	</form:form>
+</form:form>
 
 </body>
 </html>

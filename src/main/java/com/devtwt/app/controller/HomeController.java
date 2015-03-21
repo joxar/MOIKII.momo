@@ -26,9 +26,11 @@ public class HomeController {
 	
 	@Autowired
 	InitializeCommand initilize;
-	@Autowired
-	MockCommandInterface dm;
 	
+	MockCommandInterface dm;
+	LoginCommandInterface lc;
+	
+	@Autowired
 	RootBean bean;
 	
 	@ModelAttribute("rootData")
@@ -41,18 +43,23 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+	public String home(RootBean bean, Model model) {
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		initilize.exec();
 		
-		String formattedDate = dateFormat.format(date);
+		return "login";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(RootBean bean, Model model) {
 		
-		model.addAttribute("serverTime", formattedDate );
+		initilize.exec();
+		this.bean = bean;
+		lc = new LoginCommandImpl();
 		
-		
-		return "home";
+		model.addAttribute("rootData", lc.loginProc(this.bean));
+
+		return "login";
 	}
 	
 	@RequestMapping(value = "/test1", method = RequestMethod.POST)
@@ -101,6 +108,7 @@ public class HomeController {
 
 		initilize.exec();
 		this.bean = bean;
+		dm = new DbacMockCommandImpl();
 		
 		dm.preProc(bean);
 		dm.exec();

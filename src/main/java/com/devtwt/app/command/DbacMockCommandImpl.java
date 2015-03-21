@@ -8,13 +8,14 @@ import org.springframework.stereotype.Component;
 
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.bean.SubDbacMockBean;
+import com.devtwt.app.dao.CopyOfDbacMockDaoImpl;
 import com.devtwt.app.dao.DaoInterface;
+import com.devtwt.app.dao.DbacMockDaoImpl;
 
 @Component
 public class DbacMockCommandImpl implements MockCommandInterface {
-	
-	@Autowired
-	private DaoInterface dao;
+
+	private DaoInterface dao = new DbacMockDaoImpl();
 	@Autowired
 	private RootBean bean;
 	
