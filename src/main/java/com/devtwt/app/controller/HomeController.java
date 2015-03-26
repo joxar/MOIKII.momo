@@ -1,7 +1,5 @@
 package com.devtwt.app.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -26,12 +24,11 @@ public class HomeController {
 	
 	@Autowired
 	InitializeCommand initilize;
+	@Autowired
+	RootBean bean;
 	
 	MockCommandInterface dm;
 	LoginCommandInterface lc;
-	
-	@Autowired
-	RootBean bean;
 	
 	@ModelAttribute("rootData")
 	public RootBean setUpRootBean() {
@@ -56,6 +53,7 @@ public class HomeController {
 		initilize.exec();
 		this.bean = bean;
 		lc = new LoginCommandImpl();
+		lc.loginProc(this.bean);
 		
 		model.addAttribute("rootData", lc.loginProc(this.bean));
 

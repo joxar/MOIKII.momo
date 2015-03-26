@@ -30,6 +30,7 @@
 	<context:component-scan base-package="com.devtwt.app.controller"></context:component-scan>
 	<context:component-scan base-package="com.devtwt.app.dao"></context:component-scan>
 	<context:component-scan base-package="com.devtwt.app.util"></context:component-scan>
+	<context:component-scan base-package="com.devtwt.app.logger"></context:component-scan>
 
 	<aop:aspectj-autoproxy/>
 	
