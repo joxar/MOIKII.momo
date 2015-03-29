@@ -17,7 +17,32 @@ public class RootBean implements Serializable {
 	DbacMockBean dbacMock;
 	@Autowired
 	UserBean user;
+	@Autowired
+	GroupBean group;
+	@Override
+	public String toString() {
+		return "RootBean [dbacMock=" + dbacMock + ", user=" + user + ", group="
+				+ group + ", common=" + common + ", getCommon()=" + getCommon()
+				+ ", getGroup()=" + getGroup() + ", getUser()=" + getUser()
+				+ ", getDbacMock()=" + getDbacMock() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
+	@Autowired
+	CommonInfoBean common;
 	
+	public CommonInfoBean getCommon() {
+		return common;
+	}
+	public void setCommon(CommonInfoBean common) {
+		this.common = common;
+	}
+	public GroupBean getGroup() {
+		return group;
+	}
+	public void setGroup(GroupBean group) {
+		this.group = group;
+	}
 	public UserBean getUser() {
 		return user;
 	}
@@ -30,9 +55,7 @@ public class RootBean implements Serializable {
 	public void setDbacMock(DbacMockBean dbacMock) {
 		this.dbacMock = dbacMock;
 	}
-	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 }

@@ -11,10 +11,12 @@
 
 <!-- ******** css ******** -->
 <!-- lib css -->
-<link rel="stylesheet" type="text/css" href='<spring:url value="resources/css/base.css" />' />
+<spring:url var="baseCss" value="/resources/css/base.css" />
+<link rel="stylesheet" type="text/css" href='${baseCss}' />
 
 <!-- ******** js ******** -->
-<script type="text/javascript" src="resources/js/base.js"></script>
+<spring:url var="baseJs" value="/resources/js/base.js" />
+<script type="text/javascript" src="${baseJs}"></script>
 
 <title>MOIKII.momo</title>
 
@@ -22,7 +24,7 @@
 
 <body>
 <h1>MOIKII.momo</h1>
-<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/login" id="mainForm">
+<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/init" id="mainForm">
 	<div id="authMain">
 		<label class="itn_auth">Name:     </label><form:input path="user.userName" type="text" id="userName" size="20"></form:input>
 		<br>

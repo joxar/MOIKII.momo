@@ -25,6 +25,8 @@ public class HomeController {
 	@Autowired
 	InitializeCommand initilize;
 	@Autowired
+	FinalizeCommand finalize;
+	@Autowired
 	RootBean bean;
 	
 	MockCommandInterface dm;
@@ -113,6 +115,34 @@ public class HomeController {
 		model.addAttribute("rootData", dm.postProc());
 		
 		return "dbAccessMock";
+	}
+	
+	@RequestMapping(value = "/group/create/init", method = RequestMethod.POST)
+	public String groupCreateInit(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		dm = new GroupCreateCommandImpl();	
+		dm.preProc(bean);
+		//dm.exec();
+		model.addAttribute("rootData", dm.postProc());
+		finalize.exec();
+		
+		return "groupCreate";
+	}
+	
+	@RequestMapping(value = "/group/create/exec", method = RequestMethod.POST)
+	public String groupCreateExec(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		dm = new GroupCreateCommandImpl();
+		dm.preProc(bean);
+		dm.exec();
+		model.addAttribute("rootData", dm.postProc());
+		finalize.exec();
+		
+		return "groupCreate";
 	}
 	
 }

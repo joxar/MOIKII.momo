@@ -16,7 +16,6 @@ public class UserBean implements Serializable {
 	private String userName;
 	private String userPassword;
 	
-
 	public String getUserPassword() {
 		return userPassword;
 	}
@@ -49,6 +48,13 @@ public class UserBean implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+
+	@Override
+	public String toString() {
+		return "UserBean [userId=" + userId + ", userName=" + userName
+				+ ", userPassword=" + userPassword + "]";
 	}
 
 }

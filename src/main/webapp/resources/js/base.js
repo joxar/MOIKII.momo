@@ -12,8 +12,11 @@ function submitProc() {
 	formData.submit();
 }
 
+function jumpProc() {
+	var formData = document.getElementById("mainForm");
+	formData.submit();
+}
+
 function showDBData() {
 	submitProc();
 }
-
-

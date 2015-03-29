@@ -29,6 +29,11 @@ public class DbacMockBean implements Serializable {
 	public void setTestDataList(List<SubDbacMockBean> testDataList) {
 		this.testDataList = testDataList;
 	}
+	@Override
+	public String toString() {
+		return "DbacMockBean [selectedTBL=" + selectedTBL + ", testDataList="
+				+ testDataList + "]";
+	}
 		
 
 
