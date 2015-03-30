@@ -14,7 +14,7 @@ public class DbacMockBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String selectedTBL;
+	private String selectedTBL = "";
 	private List<SubDbacMockBean> testDataList = new ArrayList<SubDbacMockBean>();
 	
 	public String getSelectedTBL() {

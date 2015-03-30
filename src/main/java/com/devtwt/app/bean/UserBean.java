@@ -12,9 +12,9 @@ public class UserBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String userId;
-	private String userName;
-	private String userPassword;
+	private String userId = "";
+	private String userName = "";
+	private String userPassword = "";
 	
 	public String getUserPassword() {
 		return userPassword;
