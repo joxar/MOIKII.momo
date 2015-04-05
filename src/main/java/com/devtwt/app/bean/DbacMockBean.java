@@ -8,10 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DbacMockBean implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String selectedTBL = "";
@@ -34,7 +30,5 @@ public class DbacMockBean implements Serializable {
 		return "DbacMockBean [selectedTBL=" + selectedTBL + ", testDataList="
 				+ testDataList + "]";
 	}
-		
-
-
+	
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.*;
+import com.devtwt.app.dao.SetupDaoInterface;
+import com.devtwt.app.dao.TableSetupDaoImpl;
 
 /**
  * Handles requests for the application home page.
@@ -29,8 +31,9 @@ public class HomeController {
 	@Autowired
 	RootBean bean;
 	
-	MockCommandInterface dm;
+	MockCommandInterface mc;
 	LoginCommandInterface lc;
+	SetupDaoInterface sdi;
 	
 	@ModelAttribute("rootData")
 	public RootBean setUpRootBean() {
@@ -103,29 +106,58 @@ public class HomeController {
 		return "dbAccessMock";
 	}
 	
+	@RequestMapping(value = "/dbAccessMock/setup", method = RequestMethod.POST)
+	public String setupTable(RootBean bean, Model model) throws Exception {
+
+		//initilize.exec();
+		sdi = new TableSetupDaoImpl();
+
+		sdi.setupTable();
+//		model.addAttribute("rootData", dm.postProc());
+		
+		return "dbAccessMock";
+	}
+	
 	@RequestMapping(value = "/dbAccessMock/show", method = RequestMethod.POST)
 	public String dbAccessMockShow(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
 		this.bean = bean;
-		dm = new DbacMockCommandImpl();
+		mc = new DbacMockCommandImpl();
 		
-		dm.preProc(bean);
-		dm.exec();
-		model.addAttribute("rootData", dm.postProc());
+		mc.preProc(bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
 		
 		return "dbAccessMock";
 	}
 	
+	/********************************/
+	/******** [グループ]作成画面 *******/
+	/********************************/
 	@RequestMapping(value = "/group/create/init", method = RequestMethod.POST)
 	public String groupCreateInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
 		this.bean = bean;
-		dm = new GroupCreateCommandImpl();	
-		dm.preProc(bean);
-		//dm.exec();
-		model.addAttribute("rootData", dm.postProc());
+		mc = new GrpCrtInitCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupCreate";
+	}
+	
+	@RequestMapping(value = "/group/create/tmp", method = RequestMethod.POST)
+	public String groupCreateTmp(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpCrtTmpCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
 		finalize.exec();
 		
 		return "groupCreate";
@@ -136,13 +168,165 @@ public class HomeController {
 
 		initilize.exec();
 		this.bean = bean;
-		dm = new GroupCreateCommandImpl();
-		dm.preProc(bean);
-		dm.exec();
-		model.addAttribute("rootData", dm.postProc());
+		mc = new GrpCrtExecCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
 		finalize.exec();
 		
 		return "groupCreate";
+	}
+	
+	/********************************/
+	/****** [グループ]情報参照画面 ******/
+	/********************************/
+	@RequestMapping(value = "/group/showInfo/init", method = RequestMethod.POST)
+	public String groupShowInfoInit(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpShwInfInitCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupShowInfo";
+	}
+	
+	@RequestMapping(value = "/group/showInfo/tmp", method = RequestMethod.POST)
+	public String groupShowInfoTmp(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpShwInfTmpCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupShowInfo";
+	}
+	
+	/********************************/
+	/****** [グループ]参加申請画面 ******/
+	/********************************/
+	@RequestMapping(value = "/group/reqJoin/init", method = RequestMethod.POST)
+	public String groupRequestJoinInit(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpRqstJoinInitCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupRequestJoin";
+	}
+	
+	@RequestMapping(value = "/group/reqJoin/tmp", method = RequestMethod.POST)
+	public String groupRequestJoinTmp(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpRqstJoinTmpCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupRequestJoin";
+	}
+	
+	@RequestMapping(value = "/group/reqJoin/exec", method = RequestMethod.POST)
+	public String groupRequestJoinExec(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpRqstJoinExecCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupRequestJoin";
+	}
+	
+	/********************************/
+	/**** [グループ]参加申請拒否画面 *****/
+	/********************************/
+	@RequestMapping(value = "/group/rejectJoin/init", method = RequestMethod.POST)
+	public String rejectJoinInit(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpRjctJoinInitCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupRejectJoin";
+	}
+	
+	@RequestMapping(value = "/group/rejectJoin/exec", method = RequestMethod.POST)
+	public String rejectJoinExec(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpRjctJoinExecCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupRejectJoin";
+	}
+	
+	/********************************/
+	/***** [グループ]ロール変更画面 *****/
+	/********************************/
+	@RequestMapping(value = "/group/changeRole/init", method = RequestMethod.POST)
+	public String groupChangeRoleInit(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpChngRoleInitCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupChangeRole";
+	}
+	
+	@RequestMapping(value = "/group/changeRole/tmp", method = RequestMethod.POST)
+	public String groupChangeRoleTmp(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpChngRoleTmpCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupChangeRole";
+	}
+	
+	@RequestMapping(value = "/group/changeRole/exec", method = RequestMethod.POST)
+	public String groupChangeRoleExec(RootBean bean, Model model) throws Exception {
+
+		initilize.exec();
+		this.bean = bean;
+		mc = new GrpChngRoleExecCommandImpl();
+		mc.preProc(this.bean);
+		mc.exec();
+		model.addAttribute("rootData", mc.postProc());
+		finalize.exec();
+		
+		return "groupChangeRole";
 	}
 	
 }

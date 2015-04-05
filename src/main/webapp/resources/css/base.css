@@ -131,3 +131,7 @@ div#authMain {
 #authMain label.itn_auth {
 	width: 200px;
 }
+
+#main [class^="hiddenObj"] {
+	display: none;
+}

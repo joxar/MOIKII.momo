@@ -30,8 +30,24 @@
 		<br>
 		<label class="itn_auth">Password: </label><form:input path="user.userPassword" type="text" id="userPassword" size="20"></form:input>
 		<br>
-		<input type="button" value="LOGIN!!!!!" id="loginBtn" onclick="login()">
+		<input type="button" value="groupCreate" id="loginBtn" onclick="login('mainForm')">
 	</div>
+</form:form>
+
+<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/showInfo/init" id="mainForm2">
+	<input type="button" value="groupShowInfo" id="loginBtn" onclick="login('mainForm2')">
+</form:form>
+
+<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/reqJoin/init" id="mainForm3">
+	<input type="button" value="requestJoin" id="loginBtn" onclick="login('mainForm3')">
+</form:form>
+
+<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/rejectJoin/init" id="mainForm4">
+	<input type="button" value="rejectJoin" id="loginBtn" onclick="login('mainForm4')">
+</form:form>
+
+<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/changeRole/init" id="mainForm5">
+	<input type="button" value="changeRole" id="loginBtn" onclick="login('mainForm5')">
 </form:form>
 
 </body>

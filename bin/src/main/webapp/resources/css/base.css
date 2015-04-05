@@ -1,0 +1,133 @@
+body {
+	background-color: rgb(137, 189, 222);
+}
+
+input {
+	padding: 4px 5px 2px 5px;
+}
+
+#sideArea_left {
+	float: left;
+	width: 80px;
+	height: 100%;
+}
+
+#sideArea_right {
+	float: right;
+	width: 80px;
+	height: 100%;
+}
+
+#headerArea {
+	width: 100%;
+	height: 60px;
+}
+
+#footerArea {
+	width: 100%;
+	height: 60px;
+	position: absolute;
+	bottom: 0px;
+}
+
+#contentsArea {
+	width: 100%;
+}
+
+#jumpList {
+	float: left;
+	width: 300px;
+	height: 160px;
+}
+
+#layer1 {
+	float: center;
+}
+
+#layer1 input {
+	width: 100%;
+}
+
+#layer2 {
+	float: center;
+	width: 380px;
+	height: 40px;
+}
+
+#layer2 input {
+	float: left;
+}
+
+#layer3 {
+	float: left;
+}
+
+#layer3 input {
+	float: right;
+	margin: 10px 0px 0px 150px;
+}
+
+#moveBtn {
+	width: 150px;
+}
+
+.itemTitle {
+	font-size	: 12px;
+}
+
+
+/* tooltip
+*/
+/* trigger button */
+#download_now {
+  background:transparent url(/media/img/downloadnow.png) no-repeat scroll 0 0;
+  display:block;
+  height:44px;
+  margin: 0 auto;
+  margin-bottom:30px;
+  overflow:hidden;
+  text-indent:-999em;
+  width:159px;
+  cursor:pointer;
+}
+ 
+/* mouseover state */
+#download_now:hover {
+  background-position:0 -44px;
+}
+ 
+/* clicked state */
+#download_now:focus {
+  background-position:0 -88px;
+}
+ 
+/* tooltip styling */
+.tooltip {
+  display:none;
+  background:url(/media/img/tooltip/black_arrow_big.png);
+  height:163px;
+  padding:40px 30px 10px 30px;
+  width:310px;
+  font-size:11px;
+  color:#fff;
+}
+ 
+/* a .label element inside tooltip */
+.tooltip .label {
+  color:yellow;
+  width:35px;
+}
+ 
+.tooltip a {
+  color:#ad4;
+  font-size:11px;
+  font-weight:bold;
+}
+
+div#authMain {
+	width: 100%;
+}
+
+#authMain label.itn_auth {
+	width: 200px;
+}

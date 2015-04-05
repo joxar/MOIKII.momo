@@ -3,10 +3,6 @@ package com.devtwt.app.bean;
 import java.io.Serializable;
 
 public class SubDbacMockBean implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String col1 = "";
@@ -19,7 +15,6 @@ public class SubDbacMockBean implements Serializable {
 	private String col8 = "";
 	private String col9 = "";
 	private String col10 = "";
-	
 	public String getCol1() {
 		return col1;
 	}
@@ -80,6 +75,7 @@ public class SubDbacMockBean implements Serializable {
 	public void setCol10(String col10) {
 		this.col10 = col10;
 	}
+	
 	@Override
 	public String toString() {
 		return "SubDbacMockBean [col1=" + col1 + ", col2=" + col2 + ", col3="
@@ -87,5 +83,5 @@ public class SubDbacMockBean implements Serializable {
 				+ ", col7=" + col7 + ", col8=" + col8 + ", col9=" + col9
 				+ ", col10=" + col10 + "]";
 	}
-	
+
 }

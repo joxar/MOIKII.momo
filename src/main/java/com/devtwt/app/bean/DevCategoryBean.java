@@ -12,15 +12,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DevCategoryBean implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String devCategoryId = "";
 	private String devCategoryName = "";
-	private List<String> phaseName = new ArrayList<String>();
+	private List<String> phNameList = new ArrayList<String>();
 	
 	public String getDevCategoryId() {
 		return devCategoryId;
@@ -34,20 +30,18 @@ public class DevCategoryBean implements Serializable {
 	public void setDevCategoryName(String devCategoryName) {
 		this.devCategoryName = devCategoryName;
 	}
-	public List<String> getPhaseName() {
-		return phaseName;
+	public List<String> getPhNameList() {
+		return phNameList;
 	}
-	public void setPhaseName(List<String> phaseName) {
-		this.phaseName = phaseName;
+	public void setPhNameList(List<String> phNameList) {
+		this.phNameList = phNameList;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	
 	@Override
 	public String toString() {
 		return "DevCategoryBean [devCategoryId=" + devCategoryId
-				+ ", devCategoryName=" + devCategoryName + ", phaseName="
-				+ phaseName + "]";
+				+ ", devCategoryName=" + devCategoryName + ", phNameList="
+				+ phNameList + "]";
 	}
 	
 }

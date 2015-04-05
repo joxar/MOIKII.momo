@@ -28,6 +28,7 @@ public class MoikiiLogger {
 		mName = point.getSignature().getName();
 		msg = "START";
 		outputMsg(cName+"#"+mName+"()", msg);
+		dispBean();
 	}	
 	
 	@After("execution(* com.devtwt.app.command..*.*(..))")
