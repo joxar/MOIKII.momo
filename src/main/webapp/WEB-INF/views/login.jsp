@@ -50,5 +50,9 @@
 	<input type="button" value="changeRole" id="loginBtn" onclick="login('mainForm5')">
 </form:form>
 
+<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/user/new" id="mainForm6">
+	<input type="button" value="userNew" id="loginBtn" onclick="login('mainForm6')">
+</form:form>
+
 </body>
 </html>

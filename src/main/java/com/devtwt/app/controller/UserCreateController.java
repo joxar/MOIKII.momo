@@ -27,7 +27,7 @@ public class UserCreateController {
 	@Autowired
 	RootBean bean;
 		
-	@RequestMapping(value = "/user/new", method = GET)
+	@RequestMapping(value = "/user/new")
 	public String userNew(RootBean bean, Model model) throws Exception {
 		
 		initilize.exec();
@@ -53,7 +53,7 @@ public class UserCreateController {
 		return "userConfirm";
 	}
 	
-	@RequestMapping(value = "/user/confirm", params = "_event_revise", method = POST)
+	@RequestMapping(value = "/user/confirm", params = "_event_revise")
 	public String userNewConfirmRedirect(SessionStatus sessionStatus) throws Exception {
 
 		initilize.exec();
