@@ -12,6 +12,8 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.InitializeCommand;
+import com.devtwt.app.command.UserCreateCommand;
+import com.devtwt.app.dao.UserMasterDaoImpl;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -26,6 +28,10 @@ public class UserCreateController {
 	
 	@Autowired
 	RootBean bean;
+	
+	@Autowired
+	public UserCreateCommand userCreateCommand;
+
 		
 	@RequestMapping(value = "/user/new")
 	public String userNew(RootBean bean, Model model) throws Exception {
@@ -66,6 +72,10 @@ public class UserCreateController {
 	public String userNewReviese(@ModelAttribute("createUser") RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
+		
+		//ユーザを新規作成
+		userCreateCommand.preProc(bean);
+		userCreateCommand.exec();
 
 		return "redirect:created";
 	}
