@@ -54,5 +54,9 @@
 	<input type="button" value="userNew" id="loginBtn" onclick="login('mainForm6')">
 </form:form>
 
+<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/twt" id="mainForm7">
+	<input type="button" value="twt" id="loginBtn" onclick="login('mainForm7')">
+</form:form>
+
 </body>
 </html>
