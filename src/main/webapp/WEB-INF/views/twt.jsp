@@ -50,12 +50,14 @@ body {
 			<thead>
 				<tr>
 					<td colspan="2">
-					    <div class="form-group">
-						    <textarea class="form-control" rows="5" id="msg"></textarea>
-							    <div align="right">
-								    <button id="post" class="btn btn-primary">send message!</button>
-							    </div>
-						</div>
+ 						<form:form id="postForm" modelAttribute="root" action="${pageContext.request.contextPath}/twt/json" >
+						    <div class="form-group">
+							    <form:textarea class="form-control" rows="5" id="postContents" path="momo.momo_contents"></form:textarea>
+								    <div align="right">
+									    <button id="post" class="btn btn-primary">send message!</button>
+								    </div>
+							</div>
+						</form:form>
 					</td>
 				</tr>
 			</thead>

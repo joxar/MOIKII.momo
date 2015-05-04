@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.UserCreateCommand;
-import com.devtwt.app.dao.UserMasterDaoImpl;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -32,7 +30,9 @@ public class UserCreateController {
 	@Autowired
 	public UserCreateCommand userCreateCommand;
 
-		
+	/********************************/
+	/******** [アカウント]作成画面 ******/
+	/********************************/	
 	@RequestMapping(value = "/user/new")
 	public String userNew(RootBean bean, Model model) throws Exception {
 		
@@ -51,6 +51,9 @@ public class UserCreateController {
 		return "redirect:confirm";
 	}
 	
+	/********************************/
+	/******** [アカウント]作成確認画面 ***/
+	/********************************/
 	@RequestMapping(value = "/user/confirm", method = GET)
 	public String userNewConfirm(@ModelAttribute("createUser") RootBean bean, Model model) throws Exception {
 
@@ -68,6 +71,9 @@ public class UserCreateController {
 		return "redirect:new";
 	}
 	
+	/********************************/
+	/******** [アカウント]作成完了画面 ***/
+	/********************************/
 	@RequestMapping(value = "/user/confirm", params = "_event_confirmed", method = POST)
 	public String userNewReviese(@ModelAttribute("createUser") RootBean bean, Model model) throws Exception {
 

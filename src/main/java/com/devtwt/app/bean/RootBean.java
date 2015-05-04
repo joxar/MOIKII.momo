@@ -22,6 +22,7 @@ public class RootBean implements Serializable {
 	@Autowired
 	List<GroupBean> groupList = new ArrayList<GroupBean>();
 	ConstantsBean constants = new ConstantsBean();
+	MomoBean momo = new MomoBean();
 
 	public DbacMockBean getDbacMock() {
 		return dbacMock;
@@ -59,12 +60,18 @@ public class RootBean implements Serializable {
 	public void setConstants(ConstantsBean constants) {
 		this.constants = constants;
 	}
-
+	public MomoBean getMomo() {
+		return momo;
+	}
+	public void setMomo(MomoBean momo) {
+		this.momo = momo;
+	}
+	
 	@Override
 	public String toString() {
 		return "RootBean [dbacMock=" + dbacMock + ", user=" + user + ", group="
 				+ group + ", common=" + common + ", groupList=" + groupList
-				+ ", constants=" + constants + "]";
+				+ ", constants=" + constants + ", momo=" + momo + "]";
 	}
 	
 }
