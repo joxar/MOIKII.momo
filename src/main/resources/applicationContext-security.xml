@@ -2,26 +2,45 @@
 <beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
-
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    
 	<http auto-config="true">
-		<intercept-url pattern="/**" access="ROLE_USER" />
+	    <!-- <intercept-url pattern="/dbAccessMock/*" access="IS_AUTHENTICATED_FULLY" />
+	    <intercept-url pattern="/group/*" access="IS_AUTHENTICATED_FULLY" />
+	    <intercept-url pattern="/twt/*" access="IS_AUTHENTICATED_FULLY" />
+	    <intercept-url pattern="/user/*" access="IS_AUTHENTICATED_FULLY" /> -->
+		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<!-- ログイン画面をlogin.jsp ログイン後遷移画面をtwt.jspに設定 -->
-		<form-login login-page="/login"
+		<form-login login-page="/"
 			 default-target-url="/twt"
 			  login-processing-url="/authentication"
 			  authentication-failure-url="/login?error=true" />
 	</http>
 
 	<authentication-manager>
-		<authentication-provider>
-			<user-service>
-				<!-- MOIKIIアカウント -->
-				<user name="user" password="useruser" authorities="ROLE_USER" />
-				<user name="admin" password="adminadmin" authorities="ROLE_USER,ROLE_ADMIN"/>
-			</user-service>
+		<authentication-provider user-service-ref="userDetailsService">
 		</authentication-provider>
 	</authentication-manager>
-
+	
+	<beans:bean id="userDetailsService" 
+			class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="usersByUsernameQuery"
+				 value="SELECT member_name AS username, password, true AS enabled FROM user_master WHERE member_name = ?"></beans:property>
+	</beans:bean>
+	
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	
+	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <beans:property name="driverClassName" value="${jdbc.driverClassName}" />
+        <beans:property name="url" value="${jdbc.url}" />
+        <beans:property name="username" value="${jdbc.username}" />
+        <beans:property name="password" value="${jdbc.password}" />
+    </beans:bean>
+	
+	
 </beans:beans>

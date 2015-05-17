@@ -1,10 +1,13 @@
 package com.devtwt.app.controller;
 
+import java.security.Principal;
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,15 +48,22 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(RootBean bean, Model model) {
+	public String home(RootBean bean, Model model, Principal principal) {
 		
 		initilize.exec();
+		//get Authentication
+	    Authentication authentication = (Authentication) principal; // (1)
+	    // get UserDetails
+	    //UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // (2)
+	    
+	    System.out.println("authentication:" + authentication);
+	    //System.out.println("userDetails:" + userDetails);
 		
 		return "login";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(RootBean bean, Model model) {
+	public String login(RootBean bean, Model model, Principal principal) {
 		
 		initilize.exec();
 		this.bean = bean;
@@ -61,6 +71,14 @@ public class HomeController {
 		lc.loginProc(this.bean);
 		
 		model.addAttribute("rootData", lc.loginProc(this.bean));
+		
+		//get Authentication
+	    Authentication authentication = (Authentication) principal; // (1)
+	    // get UserDetails
+	   // UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // (2)
+	    
+	    System.out.println("authentication:" + authentication);
+	    //System.out.println("userDetails:" + userDetails);
 
 		return "login";
 	}
