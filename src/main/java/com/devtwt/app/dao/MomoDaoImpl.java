@@ -30,13 +30,9 @@ public class MomoDaoImpl implements MomoDao {
     		momoNum  = jdbcTemplate.queryForObject("SELECT MAX(MOMO_NUM) FROM MOMO", String.class);
     	}
     	
-    	System.out.println("NUM!1" + momoNum);
-    	
     	//MOMO_NUMをインクリメント
-    	System.out.println("NUM!a" + bean.getMomo().getMomoNum());
     	tmp = Integer.parseInt(momoNum);
     	bean.getMomo().setMomoNum(String.valueOf(++tmp));
-    	System.out.println("NUM!b" + bean.getMomo().getMomoNum());
     	
     	//AllowNullがfalseのカラムに値を設定
     	bean.getMomo().setStream_stream_num("1");

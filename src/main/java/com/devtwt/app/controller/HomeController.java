@@ -52,7 +52,7 @@ public class HomeController {
 		return "login";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(RootBean bean, Model model) {
 		
 		initilize.exec();
@@ -101,7 +101,7 @@ public class HomeController {
 		return "test1_1";
 	}
 	
-	@RequestMapping(value = "/dbAccessMock/init", method = RequestMethod.POST)
+	@RequestMapping(value = "/dbAccessMock/init", method = RequestMethod.GET)
 	public String dbAccessMockInit(RootBean bean, Model model) throws Exception {
 		return "dbAccessMock";
 	}
@@ -135,7 +135,7 @@ public class HomeController {
 	/********************************/
 	/******** [グループ]作成画面 *******/
 	/********************************/
-	@RequestMapping(value = "/group/create/init", method = RequestMethod.POST)
+	@RequestMapping(value = "/group/create/init", method = RequestMethod.GET)
 	public String groupCreateInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
@@ -180,7 +180,7 @@ public class HomeController {
 	/********************************/
 	/****** [グループ]情報参照画面 ******/
 	/********************************/
-	@RequestMapping(value = "/group/showInfo/init", method = RequestMethod.POST)
+	@RequestMapping(value = "/group/showInfo/init", method = RequestMethod.GET)
 	public String groupShowInfoInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
@@ -211,7 +211,7 @@ public class HomeController {
 	/********************************/
 	/****** [グループ]参加申請画面 ******/
 	/********************************/
-	@RequestMapping(value = "/group/reqJoin/init", method = RequestMethod.POST)
+	@RequestMapping(value = "/group/reqJoin/init", method = RequestMethod.GET)
 	public String groupRequestJoinInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
@@ -256,7 +256,7 @@ public class HomeController {
 	/********************************/
 	/**** [グループ]参加申請拒否画面 *****/
 	/********************************/
-	@RequestMapping(value = "/group/rejectJoin/init", method = RequestMethod.POST)
+	@RequestMapping(value = "/group/rejectJoin/init", method = RequestMethod.GET)
 	public String rejectJoinInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
@@ -287,7 +287,7 @@ public class HomeController {
 	/********************************/
 	/***** [グループ]ロール変更画面 *****/
 	/********************************/
-	@RequestMapping(value = "/group/changeRole/init", method = RequestMethod.POST)
+	@RequestMapping(value = "/group/changeRole/init", method = RequestMethod.GET)
 	public String groupChangeRoleInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();

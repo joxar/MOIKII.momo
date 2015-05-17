@@ -34,13 +34,13 @@ public class UserCreateController {
 	public String userNew(RootBean bean, Model model) throws Exception {
 		
 		initilize.exec();
-		model.addAttribute("root", bean);
+		model.addAttribute("rootData", bean);
 		
 		return "userNew";
 	}
 	
 	@RequestMapping(value = "/user/new", params = "_event_proceed", method = POST)
-	public String userCreated(@ModelAttribute("root") RootBean bean, Model model) throws Exception {
+	public String userCreated(@ModelAttribute("rootData") RootBean bean, Model model) throws Exception {
 		
 		initilize.exec();
 		

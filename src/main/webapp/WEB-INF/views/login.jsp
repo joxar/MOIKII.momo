@@ -13,50 +13,86 @@
 <!-- lib css -->
 <spring:url var="baseCss" value="/resources/css/base.css" />
 <link rel="stylesheet" type="text/css" href='${baseCss}' />
+<style type="text/css">
+<!--
+body { margin-top:30px; }
+#login-nav input { margin-bottom: 15px; }
+//-->
+</style>
+<!-- Bootstrap -->
+<spring:url var="bootstrapCss"
+	value="/resources/bootstrap-3.3.2-dist/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href='${bootstrapCss}' />
 
 <!-- ******** js ******** -->
-<spring:url var="baseJs" value="/resources/js/base.js" />
-<script type="text/javascript" src="${baseJs}"></script>
+<!-- jQuery -->
+<spring:url var="jqueryJs" value="/resources/js/jquery-2.1.1.min.js" />
+<script type="text/javascript" src="${jqueryJs}"></script>
+<!-- Bootstrap -->
+<spring:url var="bootstrapJs"
+	value="/resources/bootstrap-3.3.2-dist/js/bootstrap.min.js" />
+<script type="text/javascript" src="${bootstrapJs}"></script>
 
 <title>MOIKII.momo</title>
 
 </head>
 
 <body>
-<h1>MOIKII.momo</h1>
-<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/init" id="mainForm">
-	<div id="authMain">
-		<label class="itn_auth">Name:     </label><form:input path="user.userName" type="text" id="userName" size="20"></form:input>
-		<br>
-		<label class="itn_auth">Password: </label><form:input path="user.userPassword" type="text" id="userPassword" size="20"></form:input>
-		<br>
-		<input type="button" value="groupCreate" id="loginBtn" onclick="login('mainForm')">
+   <div class="row">
+      <div class="col-md-12">
+         <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" href="${pageContext.request.contextPath}/">MOIKII.momo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a href="${pageContext.request.contextPath}/user/new">Sign Up</a></li>
+                  <li><a href="${pageContext.request.contextPath}/login">Sign In</a></li>
+               </ul>
+            </div>
+         </nav>
+       </div> 
+   </div>
+   
+	<div class="container" style="margin-left:110px">
+		<c:if test="${param.error}">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="alert alert-danger" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span class="sr-only">Error:</span>
+		        Incorrect username or password.
+				</div>
+			</div>
+		</c:if>
 	</div>
-</form:form>
-
-<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/showInfo/init" id="mainForm2">
-	<input type="button" value="groupShowInfo" id="loginBtn" onclick="login('mainForm2')">
-</form:form>
-
-<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/reqJoin/init" id="mainForm3">
-	<input type="button" value="requestJoin" id="loginBtn" onclick="login('mainForm3')">
-</form:form>
-
-<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/rejectJoin/init" id="mainForm4">
-	<input type="button" value="rejectJoin" id="loginBtn" onclick="login('mainForm4')">
-</form:form>
-
-<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/changeRole/init" id="mainForm5">
-	<input type="button" value="changeRole" id="loginBtn" onclick="login('mainForm5')">
-</form:form>
-
-<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/user/new" id="mainForm6">
-	<input type="button" value="userNew" id="loginBtn" onclick="login('mainForm6')">
-</form:form>
-
-<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/twt" id="mainForm7">
-	<input type="button" value="twt" id="loginBtn" onclick="login('mainForm7')">
-</form:form>
+	
+	<div class="container" style="margin-top:40px">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3 class="panel-title"><strong>Sign In </strong></h3></div>
+				<div class="panel-body">
+					<form:form modelAttribute="rootData" role="form" name="login_form" action="${pageContext.request.contextPath}/authentication" method="post">
+					<div class="form-group">
+						<label for="exampleInputEmail1">Username or Email</label>
+						<input type="text" name="j_username" class="form-control" id="exampleInputEmail1" >
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Password <a href="/sessions/forgot_password">(forgot password)</a></label>
+						<input type="password" name="j_password" class="form-control" id="exampleInputPassword1" >
+					</div>
+						<button type="submit" class="btn btn-default">Sign in</button>
+				</form:form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

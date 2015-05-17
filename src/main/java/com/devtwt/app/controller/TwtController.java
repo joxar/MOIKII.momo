@@ -34,7 +34,7 @@ public class TwtController {
 	public String twtHome(RootBean bean, Model model) throws Exception {
 		
 		initilize.exec();
-		model.addAttribute("root", bean);
+		model.addAttribute("rootData", bean);
 
 		return "twt";
 	}
@@ -46,7 +46,7 @@ public class TwtController {
 		
 		initilize.exec();
 
-		model.addAttribute("root", bean);
+		model.addAttribute("rootData", bean);
 		
 		twtPostCommand.preProc(bean);
 		twtPostCommand.exec();
