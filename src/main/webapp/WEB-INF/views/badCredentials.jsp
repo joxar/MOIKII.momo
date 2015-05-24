@@ -1,14 +1,13 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-<%@ page session="false"%>
+<%@ page session="false" %>
 
 <html>
 <head>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!-- ******** css ******** -->
 <!-- lib css -->
@@ -35,6 +34,7 @@ body { margin-top:30px; }
 <script type="text/javascript" src="${bootstrapJs}"></script>
 
 <title>MOIKII.momo</title>
+
 </head>
 
 <body>
@@ -48,21 +48,9 @@ body { margin-top:30px; }
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand" href="${pageContext.request.contextPath}/twt">MOIKII.momo</a>
+               <a class="navbar-brand" href="${pageContext.request.contextPath}/">MOIKII.momo</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-               <ul class="nav navbar-nav">
-                  <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/showInfo/init">groupShowInfo</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/reqJoin/init">requestJoin</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/rejectJoin/init">rejectJoin</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
-                     </ul>
-                  </li>
-               </ul>
                <ul class="nav navbar-nav navbar-right">
                   <li><a href="${pageContext.request.contextPath}/user/new">Sign Up</a></li>
                   <li><a href="${pageContext.request.contextPath}/login">Sign In</a></li>
@@ -71,30 +59,21 @@ body { margin-top:30px; }
          </nav>
        </div> 
    </div>
-
-	<div class="container main-content">
-		<table class="table table-bordered table-hover" id="board">
-			<thead>
-				<tr>
-					<td colspan="2">
- 						<form:form id="postForm" modelAttribute="rootData" action="${pageContext.request.contextPath}/twt/json" >
-						    <div class="form-group">
-							    <form:textarea class="form-control" rows="5" id="postContents" path="momo.momo_contents"></form:textarea>
-								    <div align="right">
-									    <button id="post" class="btn btn-primary">send message!</button>
-								    </div>
-							</div>
-						</form:form>
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr id="dummy"></tr>
-			</tbody>
-		</table>
+   
+	<div class="container" style="margin-left:110px">
+		<c:if test="${param.error}">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="alert alert-danger" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span class="sr-only">Error:</span>
+		        Incorrect username or password.
+				</div>
+			</div>
+		</c:if>
 	</div>
-	<!-- ******** js ******** -->
-	<spring:url var="twtJs" value="/resources/js/twt.js" />
-	<script type="text/javascript" src="${twtJs}"></script>
+	
+	<h1>badCredentials</h1>
+
 </body>
 </html>

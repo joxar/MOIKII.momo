@@ -51,13 +51,6 @@ public class HomeController {
 	public String home(RootBean bean, Model model, Principal principal) {
 		
 		initilize.exec();
-		//get Authentication
-	    Authentication authentication = (Authentication) principal; // (1)
-	    // get UserDetails
-	    //UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // (2)
-	    
-	    System.out.println("authentication:" + authentication);
-	    //System.out.println("userDetails:" + userDetails);
 		
 		return "login";
 	}
@@ -71,15 +64,7 @@ public class HomeController {
 		lc.loginProc(this.bean);
 		
 		model.addAttribute("rootData", lc.loginProc(this.bean));
-		
-		//get Authentication
-	    Authentication authentication = (Authentication) principal; // (1)
-	    // get UserDetails
-	   // UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // (2)
-	    
-	    System.out.println("authentication:" + authentication);
-	    //System.out.println("userDetails:" + userDetails);
-
+	
 		return "login";
 	}
 	

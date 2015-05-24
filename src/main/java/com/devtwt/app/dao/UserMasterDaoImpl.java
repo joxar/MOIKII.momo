@@ -43,8 +43,9 @@ public class UserMasterDaoImpl implements UserMasterDao {
     	}
     	
     	//ユーザを新規作成
+    	//Spring Securityとの関連で一時的に有効なアカウントのDELETE_FLAGを1に設定(無効なアカウントのDELETE_FLAGは、0)。
     	jdbcTemplate.update(
                 "INSERT INTO USER_MASTER (MEMBER_ID, MEMBER_NAME, PASSWORD, ROLE_MASTER_ROLE_ID, DELETE_FLAG) VALUES (?, ?, ?, ?, ?)"
-                , bean.getUser().getUserId(), bean.getUser().getUserName(),bean.getUser().getUserPassword(),bean.getUser().getRoleId(), "0");
+                , bean.getUser().getUserId(), bean.getUser().getUserName(),bean.getUser().getUserPassword(),bean.getUser().getRoleId(), "1");
     }
 }

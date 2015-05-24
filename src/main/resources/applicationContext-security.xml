@@ -7,40 +7,55 @@
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     
-    
 	<http auto-config="true">
-	    <!-- <intercept-url pattern="/dbAccessMock/*" access="IS_AUTHENTICATED_FULLY" />
+	    <intercept-url pattern="/dbAccessMock/*" access="IS_AUTHENTICATED_FULLY" />
 	    <intercept-url pattern="/group/*" access="IS_AUTHENTICATED_FULLY" />
 	    <intercept-url pattern="/twt/*" access="IS_AUTHENTICATED_FULLY" />
-	    <intercept-url pattern="/user/*" access="IS_AUTHENTICATED_FULLY" /> -->
+	    <intercept-url pattern="/user/*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<!-- ログイン画面をlogin.jsp ログイン後遷移画面をtwt.jspに設定 -->
 		<form-login login-page="/"
 			 default-target-url="/twt"
 			  login-processing-url="/authentication"
 			  authentication-failure-url="/login?error=true" />
+			  <!-- authentication-failure-handler-ref="authenticationFailureHandler" /> -->
 	</http>
 
 	<authentication-manager>
+		<!-- <authentication-provider> -->
 		<authentication-provider user-service-ref="userDetailsService">
+		<!-- <user-service>
+                <user name="bob" password="bob" authorities="ROLE_SUPERVISOR, ROLE_USER" />
+                <user name="sam" password="sam" authorities="ROLE_USER" />
+            </user-service> -->
 		</authentication-provider>
 	</authentication-manager>
 	
 	<beans:bean id="userDetailsService" 
 			class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
 		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="enableGroups" value="false" />
+		<!--
+		Spring Securityのテーブル定義とMOIKIIのテーブル定義が異なるため、カラム名を変更している。
+		なお、一時的に有効なアカウントのDELETE_FLAGを1に設定(無効なアカウントのDELETE_FLAGは、0)。
+		-->
 		<beans:property name="usersByUsernameQuery"
-				 value="SELECT member_name AS username, password, true AS enabled FROM user_master WHERE member_name = ?"></beans:property>
+				 value="SELECT MEMBER_NAME AS username, PASSWORD AS password, DELETE_FLAG AS enabled FROM USER_MASTER WHERE MEMBER_NAME = ?"></beans:property>
+	    <beans:property name="authoritiesByUsernameQuery"
+				 value="SELECT MEMBER_NAME AS username,MEMBER_NAME AS authorities FROM USER_MASTER WHERE MEMBER_NAME = ?"></beans:property>
 	</beans:bean>
 	
 	<context:property-placeholder location="classpath:jdbc.properties"/>
 	
+	<beans:bean class="org.springframework.jdbc.core.JdbcTemplate">
+        <beans:constructor-arg ref="dataSource" />
+    </beans:bean>
+	
 	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <beans:property name="driverClassName" value="${jdbc.driverClassName}" />
         <beans:property name="url" value="${jdbc.url}" />
-        <beans:property name="username" value="${jdbc.username}" />
-        <beans:property name="password" value="${jdbc.password}" />
     </beans:bean>
-	
-	
+       
+   <beans:bean id="authenticationFailureHandler" class="com.devtwt.app.handler.MyAuthenticationFailureHandler" />
+   	
 </beans:beans>
