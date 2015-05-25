@@ -3,6 +3,7 @@
 	xmlns="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:sec="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
@@ -19,15 +20,11 @@
 			  login-processing-url="/authentication"
 			  authentication-failure-url="/login?error=true" />
 			  <!-- authentication-failure-handler-ref="authenticationFailureHandler" /> -->
+			  <sec:logout logout-url="/logout" logout-success-url="/" />
 	</http>
 
 	<authentication-manager>
-		<!-- <authentication-provider> -->
 		<authentication-provider user-service-ref="userDetailsService">
-		<!-- <user-service>
-                <user name="bob" password="bob" authorities="ROLE_SUPERVISOR, ROLE_USER" />
-                <user name="sam" password="sam" authorities="ROLE_USER" />
-            </user-service> -->
 		</authentication-provider>
 	</authentication-manager>
 	
@@ -57,5 +54,26 @@
     </beans:bean>
        
    <beans:bean id="authenticationFailureHandler" class="com.devtwt.app.handler.MyAuthenticationFailureHandler" />
+   
+	<!-- <sec:http auto-config="true" create-session="ifRequired" >
+	  <sec:session-management
+	    invalid-session-url="/"
+	    session-authentication-error-url="/"
+	    session-fixation-protection="migrateSession"
+	    session-authentication-strategy-ref="sessionStrategy" />
+	</sec:http>
+	
+	<beans:bean id="sessionStrategy"
+    		class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
+	    <beans:constructor-arg index="0">
+	        <beans:list>
+	            <beans:bean
+	                class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
+	            <beans:bean class="org.springframework.security.web.csrf.CsrfAuthenticationStrategy"> 
+	                <beans:constructor-arg index="0" ref="csrfTokenRepository" />
+	            </beans:bean>
+	        </beans:list>
+	    </beans:constructor-arg>
+	</beans:bean> -->
    	
 </beans:beans>
