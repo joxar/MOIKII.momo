@@ -99,7 +99,13 @@ body { margin-top:30px; }
 				</tr>
 			</thead>
 			<tbody>
-				<tr id="dummy"></tr>
+				<tr id="dummy">
+					<c:if test="${not empty rootData.momoList}">
+						<c:forEach items="${rootData.momoList}" var="list" begin="${start}" end="${end}">
+							<tr style="height:80"><td><c:out value="${list.momo_contents}"/></td></tr>
+						</c:forEach>
+					</c:if>
+				</tr>
 			</tbody>
 		</table>
 	</div>

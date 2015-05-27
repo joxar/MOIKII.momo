@@ -23,7 +23,14 @@ public class RootBean implements Serializable {
 	List<GroupBean> groupList = new ArrayList<GroupBean>();
 	ConstantsBean constants = new ConstantsBean();
 	MomoBean momo = new MomoBean();
+	List<MomoBean> momoList = new ArrayList<MomoBean>();
 
+	public List<MomoBean> getMomoList() {
+		return momoList;
+	}
+	public void setMomoList(List<MomoBean> momoList) {
+		this.momoList = momoList;
+	}
 	public DbacMockBean getDbacMock() {
 		return dbacMock;
 	}
@@ -71,7 +78,8 @@ public class RootBean implements Serializable {
 	public String toString() {
 		return "RootBean [dbacMock=" + dbacMock + ", user=" + user + ", group="
 				+ group + ", common=" + common + ", groupList=" + groupList
-				+ ", constants=" + constants + ", momo=" + momo + "]";
+				+ ", constants=" + constants + ", momo=" + momo + ", momoList="
+				+ momoList + "]";
 	}
 	
 }

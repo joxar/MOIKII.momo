@@ -1,18 +1,52 @@
 package com.devtwt.app.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+
+import com.devtwt.app.bean.MomoBean;
 import com.devtwt.app.bean.RootBean;
 
 @Component
 public class MomoDaoImpl implements MomoDao {
 	
-	ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring-jdbc.xml");
+    ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring-jdbc.xml");
     
     // JdbcTemplateのオブジェクトを取得
     JdbcTemplate jdbcTemplate = ctx.getBean(JdbcTemplate.class);
+	
+	@Override
+	public List<MomoBean> getAllData() {
+		// TODO Auto-generated method stub
+		
+		List<MomoBean> momoList = jdbcTemplate.query(
+					"SELECT * FROM MOMO ORDER BY MOMO_NUM DESC"
+					, new RowMapper<MomoBean>() {
+						public MomoBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+							MomoBean momo = new MomoBean();
+							momo.setMomoNum(rs.getString("MOMO_NUM"));
+							momo.setStream_stream_num(rs.getString("STREAM_STEREAM_NUM"));
+							momo.setPhase(rs.getString("PHASE"));
+							momo.setMomo_contents(rs.getString("MOMO_CONTENTS"));
+							momo.setCreate_id(rs.getString("CREATE_ID"));
+							momo.setCreate_date(rs.getString("CREATE_DATE"));
+							momo.setUpdate_id(rs.getString("UPDATE_ID"));
+							momo.setUpdate_date(rs.getString("UPDATE_DATE"));
+							momo.setUser_master_member_id(rs.getString("USER_MASTER_MEMBER_ID"));
+							return momo;
+						}
+					});
+
+		return momoList;
+	}
+
+	
 
 	@Override
 	public void exec(RootBean bean) {

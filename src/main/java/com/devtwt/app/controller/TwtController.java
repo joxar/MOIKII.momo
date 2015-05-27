@@ -1,5 +1,7 @@
 package com.devtwt.app.controller;
 
+import java.util.List;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.devtwt.app.bean.MomoBean;
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.command.AllTwtGetCommand;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.TwtPostCommand;
 
@@ -27,6 +32,9 @@ public class TwtController {
 	@Autowired
 	public TwtPostCommand twtPostCommand;
 	
+	@Autowired
+	public AllTwtGetCommand allTwtGetCommand;
+	
 	/********************************/
 	/******** コメント投稿画面 *********/
 	/********************************/
@@ -34,8 +42,16 @@ public class TwtController {
 	public String twtHome(RootBean bean, Model model) throws Exception {
 		
 		initilize.exec();
+		
+		List<MomoBean> momoList = allTwtGetCommand.exec();
+		bean.setMomoList(momoList);
+		
+		int size = momoList.size();
+		
 		model.addAttribute("rootData", bean);
-
+		model.addAttribute("start", 0);
+		model.addAttribute("end", --size);
+		
 		return "twt";
 	}
 	
