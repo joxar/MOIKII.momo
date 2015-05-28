@@ -49,7 +49,7 @@ public class MomoDaoImpl implements MomoDao {
 	
 
 	@Override
-	public void exec(RootBean bean) {
+	public void exec(RootBean bean, String userName) {
 		// TODO Auto-generated method stub
 		
 		String momoNum;
@@ -70,7 +70,11 @@ public class MomoDaoImpl implements MomoDao {
     	
     	//AllowNullがfalseのカラムに値を設定
     	bean.getMomo().setStream_stream_num("1");
-    	bean.getMomo().setUpdate_id("1");
+    	
+    	String memberId = jdbcTemplate.queryForObject("SELECT MEMBER_ID FROM USER_MASTER WHERE MEMBER_NAME = ?", String.class, userName);
+		bean.getMomo().setUser_master_member_id(memberId);
+		bean.getMomo().setCreate_id(memberId);
+		bean.getMomo().setUpdate_id(memberId);
 		
     	//MOMOをテーブルにINSERT
 		jdbcTemplate.update(

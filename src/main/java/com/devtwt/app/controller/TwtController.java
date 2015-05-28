@@ -1,11 +1,14 @@
 package com.devtwt.app.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,14 +61,18 @@ public class TwtController {
     /*setMomoは、ajaxから渡されたMomo_contentsをDBにInsertし、ajaxにJSONを返すメソッドです。*/
 	@RequestMapping(value = "/twt/json", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String  setMomo(@RequestBody RootBean bean, Model model) throws Exception {
+	public String  setMomo(@RequestBody RootBean bean, Model model, Principal principal) throws Exception {
 		
 		initilize.exec();
-
+		
+		Authentication authentication = (Authentication) principal;
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String userName = userDetails.getUsername();
+		
 		model.addAttribute("rootData", bean);
 		
 		twtPostCommand.preProc(bean);
-		twtPostCommand.exec();
+		twtPostCommand.exec(userName);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(bean);

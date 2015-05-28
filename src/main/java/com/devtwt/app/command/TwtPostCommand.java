@@ -5,7 +5,7 @@ import com.devtwt.app.bean.RootBean;
 public interface TwtPostCommand {
 	
 	void preProc(RootBean bean);
-	void exec();
+	void exec(String userName);
 	RootBean postProc();
 
 }

@@ -21,9 +21,9 @@ public class TwtPostCommandImpl implements TwtPostCommand {
 	}
 
 	@Override
-	public void exec() {
+	public void exec(String userName) {
 		// TODO Auto-generated method stub
-		momo.exec(bean);
+		momo.exec(bean, userName);
 	}
 
 	@Override
