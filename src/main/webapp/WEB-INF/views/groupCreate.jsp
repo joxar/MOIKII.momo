@@ -89,10 +89,6 @@ body { margin-top:30px; }
 			<br>
 			<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/invite" id="mainForm">
 			<div id="main">
-				<%-- <div>
-					<form:input type="hidden" path="common.mainMessage"></form:input>
-					<form:label path="common.mainMessage"></form:label>
-				</div> --%>
 				<div class="col-md-5">
 				<div class="form-group">
 					<label for="exampleInputEmail1">GroupName</label>
@@ -112,36 +108,13 @@ body { margin-top:30px; }
 					</form:select>
 				</div>
 				
-				<div id="phList">
-					<form:input type="hidden" path="group.devCategory.phNameList"></form:input>
-					<c:forEach var="list" items="${rootData.group.devCategory.phNameList}" varStatus="sts">
-						<c:set var="idx" value="${sts.index}" />
-						<input type="button" value="${list}">
-						<c:if test="${!sts.last}"> -> 
-							<a href="#" onclick="showOrHideTriggerOn('hiddenObj_${idx}', 'show')">+</a>
-							<form:select class="hiddenObj_${idx}" path="group.slctDevCateId" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/create/tmp')">
-								<c:if test="${not empty rootData.group.devCategoryList}">
-									<c:forEach var="list" items="${rootData.group.devCategory.phNameList}">
-										<option value="${list}">
-										<c:out value="${list}" />
-										</option>
-									</c:forEach>
-								</c:if>
-							</form:select>
-							<label class="hiddenObj_${idx}">-> </label>
-							<a class="hiddenObj_${idx}" href="#" onclick="showOrHideTriggerOn('hiddenObj_${idx}', 'hide')">-</a>
-							<a class="hiddenObj_${idx}" href="#">+</a>
-						</c:if>
-					</c:forEach>
-					
-				</div>
 				<div id="memberList">
 					<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
 						<c:out value="${list.userName}"></c:out>
 					</c:forEach>
 				</div>
 				<br>
-				<input type="submit" value="Create Group" id="groupCreateBtn" onclick="jumpProc()" class="btn btn-success">
+				<input type="submit" value="Create Group" id="groupCreateBtn" class="btn btn-success">
 			</div>
 			</div>
 		</form:form>

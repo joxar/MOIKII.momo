@@ -30,6 +30,7 @@ public class GroupCreateInitCommandImpl implements GroupCreateInitCommand{
 	public void exec() {
 		// TODO Auto-generated method stub
 		
+		//Invite Member画面に表示する、ログインアカウント以外の全ユーザを取得する
 		List<DevCategoryBean> devCategoryList = groupCreateDao.getAllData();
 		bean.getGroup().setDevCategoryList(devCategoryList);
 	}

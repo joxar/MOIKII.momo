@@ -17,6 +17,7 @@ public class UserBean implements Serializable {
 	private String createDate = "";
 	private String updateId = "";
 	private String updateDate = "";
+	//Spring Securityの設定により、0:無効,1:有効
 	private String deleteFlag = "";
 	
 	public String getCreateId() {

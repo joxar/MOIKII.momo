@@ -2,7 +2,7 @@ package com.devtwt.app.command;
 
 import com.devtwt.app.bean.RootBean;
 
-public interface GroupCreateInviteCommand {
+public interface GroupCreateFinishCommand {
 	
 	void preProc(RootBean bean);
 	void exec(String userName);

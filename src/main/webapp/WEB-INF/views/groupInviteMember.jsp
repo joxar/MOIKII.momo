@@ -92,44 +92,11 @@ body { margin-top:30px; }
 				<div class="col-md-5">
 				<div class="form-group">
 					<c:if test="${not empty rootData.group.memberList}">
-						<%-- <c:forEach var="list" items="${rootData.group.memberList}">
-							<label class="checkbox">
-								<input type="checkbox" value="${list.userId}"><c:out value="${list.userId}. ${list.userName}"/>
-							</label>
-						</c:forEach> --%>
-						<form:checkboxes items="${rootData.group.memberList}" path="selectUserId" itemLabel="userName"
-								delimiter="<br>" itemValue="userId"/>
+						<form:checkboxes items="${rootData.group.memberList}" path="selectUserName" itemLabel="userName"
+								delimiter="<br>" itemValue="userName"/>
 					</c:if>
 				</div>
 				
-				<%-- <div id="phList">
-					<form:input type="hidden" path="group.devCategory.phNameList"></form:input>
-					<c:forEach var="list" items="${rootData.group.devCategory.phNameList}" varStatus="sts">
-						<c:set var="idx" value="${sts.index}" />
-						<input type="button" value="${list}">
-						<c:if test="${!sts.last}"> -> 
-							<a href="#" onclick="showOrHideTriggerOn('hiddenObj_${idx}', 'show')">+</a>
-							<form:select class="hiddenObj_${idx}" path="group.slctDevCateId" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/create/tmp')">
-								<c:if test="${not empty rootData.group.devCategoryList}">
-									<c:forEach var="list" items="${rootData.group.devCategory.phNameList}">
-										<option value="${list}">
-										<c:out value="${list}" />
-										</option>
-									</c:forEach>
-								</c:if>
-							</form:select>
-							<label class="hiddenObj_${idx}">-> </label>
-							<a class="hiddenObj_${idx}" href="#" onclick="showOrHideTriggerOn('hiddenObj_${idx}', 'hide')">-</a>
-							<a class="hiddenObj_${idx}" href="#">+</a>
-						</c:if>
-					</c:forEach>
-					
-				</div> --%>
-				<%-- <div id="memberList">
-					<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
-						<c:out value="${list.userName}"></c:out>
-					</c:forEach>
-				</div> --%>
 				<br>
 				<input type="submit" class="btn btn-success">
 			</div>

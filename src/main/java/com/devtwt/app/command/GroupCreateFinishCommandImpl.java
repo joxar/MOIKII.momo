@@ -7,12 +7,13 @@ import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.dao.GroupCreateDao;
 
 @Component
-public class GroupCreateInviteCommandImpl implements GroupCreateInviteCommand {
+public class GroupCreateFinishCommandImpl implements GroupCreateFinishCommand {
+	
+	@Autowired
+	GroupCreateDao groupCreateDao;
 	
 	@Autowired
 	private RootBean bean;
-	@Autowired
-	private GroupCreateDao dao;
 
 	@Override
 	public void preProc(RootBean bean) {
@@ -23,7 +24,10 @@ public class GroupCreateInviteCommandImpl implements GroupCreateInviteCommand {
 	@Override
 	public void exec(String userName) {
 		// TODO Auto-generated method stub
-		dao.insertData(bean, userName);
+		
+		//新規作成したグループを、構成メンバ毎にINSERT
+		groupCreateDao.insertData(bean, userName);
+
 	}
 
 	@Override

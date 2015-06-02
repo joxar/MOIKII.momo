@@ -24,10 +24,11 @@ public class AllTwtGetCommandImpl implements AllTwtGetCommand {
 	@Override
 	public List<MomoBean> exec() {
 		// TODO Auto-generated method stub
+		
+		//タイムラインの全履歴を取得
 		List<MomoBean> momoList = momoDao.getAllData();
 		
 		return momoList;
-		
 	}
 
 	@Override

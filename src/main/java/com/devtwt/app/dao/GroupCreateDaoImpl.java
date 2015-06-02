@@ -29,6 +29,7 @@ public class GroupCreateDaoImpl implements GroupCreateDao {
 	public List<UserBean> getAllMember(String userName) {
 		// TODO Auto-generated method stub
     	
+    	//Invite Member画面に表示するユーザを取得(ログインアカウントは除く)
     	List<UserBean> memberList = jdbcTemplate.query(
 				"SELECT * FROM USER_MASTER WHERE MEMBER_NAME <> ?"
 				, new RowMapper<UserBean>() {
@@ -46,7 +47,6 @@ public class GroupCreateDaoImpl implements GroupCreateDao {
 						return user;
 					}}
 				, userName);
-    	System.out.println("EEEEEE");
 		return memberList;
 	}
 
@@ -54,6 +54,7 @@ public class GroupCreateDaoImpl implements GroupCreateDao {
 	public List<DevCategoryBean> getAllData() {
 		// TODO Auto-generated method stub
 		
+		//Group Create画面に表示するDevCategoryを取得
 		List<DevCategoryBean> devCategoryList = jdbcTemplate.query(
 				"SELECT * FROM DEV_CATEGORY"
 				, new RowMapper<DevCategoryBean>() {
@@ -94,7 +95,7 @@ public class GroupCreateDaoImpl implements GroupCreateDao {
     	
     	cnt = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM COMMUNITY");
     	
-    	//テーブルUSER_MASTERのデータが0件の場合
+    	//テーブルCOMMUNITYのデータが0件の場合
     	if(cnt == 0) {
     		communityId = "0";
     	} else {
@@ -105,23 +106,13 @@ public class GroupCreateDaoImpl implements GroupCreateDao {
     	tmp = Integer.parseInt(communityId);
     	bean.getGroup().setGroupId(String.valueOf(++tmp));
     	
-    	/*//AllowNullがfalseのカラムに値を設定
-    	bean.getUser().setRoleId("1");*/
-    	
-    	/*cnt = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM ROLE_MASTER WHERE ROLE_ID = 1");
-    	
-    	//テーブルROLE_MASTERにROLE_ID:1のデータがない場合
-    	if(cnt == 0){
-    		jdbcTemplate.update("INSERT INTO ROLE_MASTER (ROLE_ID) VALUES(1)");
-    	}*/
-    	
+    	//Group作成者または、招待メンバの情報を設定
     	String memberId = jdbcTemplate.queryForObject("SELECT MEMBER_ID FROM USER_MASTER WHERE MEMBER_NAME = ?", String.class, userName);
     	bean.getGroup().setCreateId(memberId);
     	bean.getGroup().setUpdateId(memberId);
     	bean.getGroup().setMemberId(memberId);
     	
-    	//ユーザを新規作成
-    	//Spring Securityとの関連で一時的に有効なアカウントのDELETE_FLAGを1に設定(無効なアカウントのDELETE_FLAGは、0)。
+    	//Groupを新規作成
     	jdbcTemplate.update(
                 "INSERT INTO COMMUNITY (COMMUNITY_ID, COMMUNITY_NAME, DEV_CATEGORY_COMMUNITY_ID, MEMBER_ID"
                 			+ ", CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"

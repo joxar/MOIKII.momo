@@ -1,7 +1,6 @@
 package com.devtwt.app.controller;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,16 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.devtwt.app.bean.DevCategoryBean;
-import com.devtwt.app.bean.GroupBean;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.FinalizeCommand;
+import com.devtwt.app.command.GroupCreateFinishCommand;
 import com.devtwt.app.command.GroupCreateInitCommand;
-import com.devtwt.app.command.GroupCreateInviteCommand;
 import com.devtwt.app.command.GroupMemberInviteCommand;
-import com.devtwt.app.command.GrpCrtExecCommandImpl;
-import com.devtwt.app.command.GrpCrtInitCommandImpl;
-import com.devtwt.app.command.GrpCrtTmpCommandImpl;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.MockCommandInterface;
 
@@ -43,9 +37,9 @@ public class GroupController {
 	@Autowired
 	GroupCreateInitCommand groupCreateInitCommand;
 	@Autowired
-	GroupCreateInviteCommand groupCreateInviteCommand;
-	@Autowired
 	GroupMemberInviteCommand groupMemberInviteCommand;
+	@Autowired
+	GroupCreateFinishCommand groupCreateFinishCommand;
 	
 	MockCommandInterface mc;
 	
@@ -61,7 +55,7 @@ public class GroupController {
         groupCreateInitCommand.preProc(bean);
 		groupCreateInitCommand.exec();
 		
-		//Development Categoryセット
+		//Development Categoryを画面にセット
 		model.addAttribute("rootData", groupCreateInitCommand.postProc());
 		
 		finalize.exec();
@@ -69,44 +63,19 @@ public class GroupController {
 		return "groupCreate";
 	}
 	
-	/*@RequestMapping(value = "/group/create/tmp", method = RequestMethod.POST)
-	public String groupCreateTmp(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpCrtTmpCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupCreate";
-	}*/
-	
-	/*@RequestMapping(value = "/group/create/exec", method = RequestMethod.POST)
-	public String groupCreateExec(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpCrtExecCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupCreate";
-	}*/
-	
 	@RequestMapping(value = "/group/create/invite", method = RequestMethod.POST)
 	public String groupCreateInvite(@ModelAttribute("rootData") RootBean bean, Model model, Principal principal) throws Exception {
 
 		initilize.exec();
-		logger.info("DataLog:" + bean);
 		
-		//UserNameを取得
+		//ログインアカウントのUserNameを取得
 		Authentication authentication = (Authentication) principal;
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		String userName = userDetails.getUsername();
+		
+		//グループを新規作成(MEMBERには、ログインアカウントをセット)
+		groupCreateFinishCommand.preProc(bean);
+		groupCreateFinishCommand.exec(userName);
 		
 		//ログインアカウント以外のユーザをDBから取得
 		groupMemberInviteCommand.preProc(bean);
@@ -114,9 +83,6 @@ public class GroupController {
 		
 		//ログインアカウント以外のユーザを画面にセット
 		model.addAttribute("rootData", groupMemberInviteCommand.postProc());
-		
-		logger.info("LOGU:" + groupMemberInviteCommand.postProc());
-		logger.info("LOGU2:" + bean);
 		
 		finalize.exec();
 		
@@ -128,10 +94,14 @@ public class GroupController {
 
 		initilize.exec();
 		
-		for(String s : bean.getSelectUserId()) {
-			logger.info("LOG2:" + s);
+		groupCreateFinishCommand.preProc(bean);
+		
+		 /* 招待したメンバをCOMMUNITYテーブルにINSERT。
+		　この時点では、グループ招待を拒否する機能はつけていない。*/
+		for(String userName : bean.getSelectUserName()) {
+			groupCreateFinishCommand.exec(userName);
 		}
-		logger.info("FInal:" + bean);
+
 		finalize.exec();
 		
 		return "twt";
