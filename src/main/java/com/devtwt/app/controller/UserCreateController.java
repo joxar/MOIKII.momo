@@ -48,6 +48,5 @@ public class UserCreateController {
 		userCreateCommand.exec();
 		
 		return "redirect:/twt";
-		//return "twt";
 	}
 }

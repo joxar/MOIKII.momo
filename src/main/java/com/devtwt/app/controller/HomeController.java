@@ -138,7 +138,7 @@ public class HomeController {
 	/********************************/
 	/******** [グループ]作成画面 *******/
 	/********************************/
-	@RequestMapping(value = "/group/create/init", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/group/create/init", method = RequestMethod.GET)
 	public String groupCreateInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
@@ -178,7 +178,7 @@ public class HomeController {
 		finalize.exec();
 		
 		return "groupCreate";
-	}
+	}*/
 	
 	/********************************/
 	/****** [グループ]情報参照画面 ******/
