@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,8 +11,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.devtwt.app.bean.DevCategoryBean;
-import com.devtwt.app.bean.GroupBean;
-import com.devtwt.app.bean.MomoBean;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.bean.UserBean;
 

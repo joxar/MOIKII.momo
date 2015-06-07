@@ -1,22 +1,18 @@
 package com.devtwt.app.command;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.devtwt.app.bean.DevCategoryBean;
 import com.devtwt.app.bean.RootBean;
-import com.devtwt.app.dao.GroupCreateDao;
+import com.devtwt.app.dao.GroupShowInfoDao;
 
 @Component
-public class GroupCreateInitCommandImpl implements GroupCreateInitCommand{
-	
-	@Autowired
-	GroupCreateDao groupCreateDao;
+public class GroupNameAllGetCommandImpl implements GroupNameAllGetCommand {
 	
 	@Autowired
 	private RootBean bean;
+	@Autowired
+	private GroupShowInfoDao dao;
 
 	@Override
 	public void preProc(RootBean bean) {
@@ -27,10 +23,7 @@ public class GroupCreateInitCommandImpl implements GroupCreateInitCommand{
 	@Override
 	public void exec() {
 		// TODO Auto-generated method stub
-		
-		//Invite Member画面に表示する、ログインアカウント以外の全ユーザを取得する
-		List<DevCategoryBean> devCategoryList = groupCreateDao.getAllData();
-		bean.getGroup().setDevCategoryList(devCategoryList);
+		bean.setGroupNameList(dao.getAllGroupName());
 	}
 
 	@Override
@@ -39,5 +32,4 @@ public class GroupCreateInitCommandImpl implements GroupCreateInitCommand{
 		return bean;
 	}
 	
-
 }

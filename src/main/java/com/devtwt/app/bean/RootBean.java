@@ -26,7 +26,21 @@ public class RootBean implements Serializable {
 	List<MomoBean> momoList = new ArrayList<MomoBean>();
 	//Invite Member画面で選択したUserの名称がセットされる
 	List<String> selectUserName = new ArrayList<String>();
+	List<String> groupNameList = new ArrayList<String>();
+	DevCategoryBean devCategory = new DevCategoryBean();
 
+	public DevCategoryBean getDevCategory() {
+		return devCategory;
+	}
+	public void setDevCategory(DevCategoryBean devCategory) {
+		this.devCategory = devCategory;
+	}
+	public List<String> getGroupNameList() {
+		return groupNameList;
+	}
+	public void setGroupNameList(List<String> groupNameList) {
+		this.groupNameList = groupNameList;
+	}
 	public List<String> getSelectUserName() {
 		return selectUserName;
 	}
@@ -87,7 +101,9 @@ public class RootBean implements Serializable {
 		return "RootBean [dbacMock=" + dbacMock + ", user=" + user + ", group="
 				+ group + ", common=" + common + ", groupList=" + groupList
 				+ ", constants=" + constants + ", momo=" + momo + ", momoList="
-				+ momoList + ", selectUserName=" + selectUserName + "]";
+				+ momoList + ", selectUserName=" + selectUserName
+				+ ", groupNameList=" + groupNameList + ", devCategory="
+				+ devCategory + "]";
 	}
 	
 }

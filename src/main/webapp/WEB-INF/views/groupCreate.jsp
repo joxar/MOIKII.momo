@@ -33,6 +33,9 @@ body { margin-top:30px; }
 <spring:url var="bootstrapJs"
 	value="/resources/bootstrap-3.3.2-dist/js/bootstrap.min.js" />
 <script type="text/javascript" src="${bootstrapJs}"></script>
+<!-- baseJs -->
+<%-- <spring:url var="baseJs" value="/resources/js/base.js" />
+<script type="text/javascript" src="${baseJs}"></script> --%>
 
 <title>MOIKII.momo</title>
 

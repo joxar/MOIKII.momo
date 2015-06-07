@@ -18,6 +18,7 @@ public class GroupBean implements Serializable {
 	private String groupName = "";
 	private String slctGroupId = "";
 	private String slctDevCateId = "";
+	private String devCategoryId = "";
 	private String memberId = "";
 	private String createId = "";
 	private String createDate = "";
@@ -27,7 +28,20 @@ public class GroupBean implements Serializable {
 	private List<UserBean> memberList = new ArrayList<UserBean>();
 	private List<UserBean> requesterList = new ArrayList<UserBean>();
 	private List<DevCategoryBean> devCategoryList = new ArrayList<DevCategoryBean>();
+	private String slctGroupName = "";
 	
+	public String getDevCategoryId() {
+		return devCategoryId;
+	}
+	public void setDevCategoryId(String devCategoryId) {
+		this.devCategoryId = devCategoryId;
+	}
+	public String getSlctGroupName() {
+		return slctGroupName;
+	}
+	public void setSlctGroupName(String slctGroupName) {
+		this.slctGroupName = slctGroupName;
+	}
 	public String getMemberId() {
 		return memberId;
 	}
@@ -112,12 +126,13 @@ public class GroupBean implements Serializable {
 	public String toString() {
 		return "GroupBean [groupId=" + groupId + ", groupName=" + groupName
 				+ ", slctGroupId=" + slctGroupId + ", slctDevCateId="
-				+ slctDevCateId + ", memberId=" + memberId + ", createId="
-				+ createId + ", createDate=" + createDate + ", updateId="
-				+ updateId + ", updateDate=" + updateDate + ", devCategory="
-				+ devCategory + ", memberList=" + memberList
-				+ ", requesterList=" + requesterList + ", devCategoryList="
-				+ devCategoryList + "]";
+				+ slctDevCateId + ", devCategoryId=" + devCategoryId
+				+ ", memberId=" + memberId + ", createId=" + createId
+				+ ", createDate=" + createDate + ", updateId=" + updateId
+				+ ", updateDate=" + updateDate + ", devCategory=" + devCategory
+				+ ", memberList=" + memberList + ", requesterList="
+				+ requesterList + ", devCategoryList=" + devCategoryList
+				+ ", slctGroupName=" + slctGroupName + "]";
 	}
 
 }

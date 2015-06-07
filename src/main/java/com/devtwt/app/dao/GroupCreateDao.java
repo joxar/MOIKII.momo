@@ -1,10 +1,8 @@
 package com.devtwt.app.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.devtwt.app.bean.DevCategoryBean;
-import com.devtwt.app.bean.GroupBean;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.bean.UserBean;
 

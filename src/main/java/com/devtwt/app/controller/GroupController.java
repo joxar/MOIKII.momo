@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.FinalizeCommand;
 import com.devtwt.app.command.GroupCreateFinishCommand;
 import com.devtwt.app.command.GroupCreateInitCommand;
 import com.devtwt.app.command.GroupMemberInviteCommand;
+import com.devtwt.app.command.GroupNameAllGetCommand;
+import com.devtwt.app.command.GroupShowInfoCommand;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.MockCommandInterface;
 
@@ -40,6 +43,10 @@ public class GroupController {
 	GroupMemberInviteCommand groupMemberInviteCommand;
 	@Autowired
 	GroupCreateFinishCommand groupCreateFinishCommand;
+	@Autowired
+	GroupNameAllGetCommand groupNameAllGetCommand;
+	@Autowired
+	GroupShowInfoCommand groupShowInfoCommand;
 	
 	MockCommandInterface mc;
 	
@@ -90,7 +97,8 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "/group/create/select", method = RequestMethod.GET)
-	public String groupCreateSelect(@ModelAttribute("rootData") RootBean bean, Model model, Principal principal) throws Exception {
+	public String groupCreateSelect(@ModelAttribute("rootData") RootBean bean, Model model
+			, Principal principal, SessionStatus sessionStatus) throws Exception {
 
 		initilize.exec();
 		
@@ -101,11 +109,12 @@ public class GroupController {
 		for(String userName : bean.getSelectUserName()) {
 			groupCreateFinishCommand.exec(userName);
 		}
+		
+		sessionStatus.setComplete();
 
 		finalize.exec();
 		
 		return "twt";
 	}
-	
 
 }

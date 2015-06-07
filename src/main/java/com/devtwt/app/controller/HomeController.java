@@ -6,8 +6,6 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -133,82 +131,6 @@ public class HomeController {
 		model.addAttribute("rootData", mc.postProc());
 		
 		return "dbAccessMock";
-	}
-	
-	/********************************/
-	/******** [グループ]作成画面 *******/
-	/********************************/
-	/*@RequestMapping(value = "/group/create/init", method = RequestMethod.GET)
-	public String groupCreateInit(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpCrtInitCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupCreate";
-	}
-	
-	@RequestMapping(value = "/group/create/tmp", method = RequestMethod.POST)
-	public String groupCreateTmp(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpCrtTmpCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupCreate";
-	}
-	
-	@RequestMapping(value = "/group/create/exec", method = RequestMethod.POST)
-	public String groupCreateExec(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpCrtExecCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupCreate";
-	}*/
-	
-	/********************************/
-	/****** [グループ]情報参照画面 ******/
-	/********************************/
-	@RequestMapping(value = "/group/showInfo/init", method = RequestMethod.GET)
-	public String groupShowInfoInit(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpShwInfInitCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupShowInfo";
-	}
-	
-	@RequestMapping(value = "/group/showInfo/tmp", method = RequestMethod.POST)
-	public String groupShowInfoTmp(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpShwInfTmpCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupShowInfo";
 	}
 	
 	/********************************/

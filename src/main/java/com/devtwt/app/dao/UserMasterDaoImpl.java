@@ -1,10 +1,16 @@
 package com.devtwt.app.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.bean.UserBean;
 
 @Component
 public class UserMasterDaoImpl implements UserMasterDao {
@@ -14,7 +20,32 @@ public class UserMasterDaoImpl implements UserMasterDao {
     // JdbcTemplateのオブジェクトを取得
     JdbcTemplate jdbcTemplate = ctx.getBean(JdbcTemplate.class);
 		
-    public void exec(RootBean bean) {
+    @Override
+	public UserBean getMember(String userId) {
+		// TODO Auto-generated method stub
+    	
+    	UserBean member = jdbcTemplate.queryForObject(
+				"SELECT * FROM USER_MASTER WHERE MEMBER_ID = ?"
+				, new RowMapper<UserBean>() {
+					public UserBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+						UserBean m = new UserBean();
+						m.setUserId(rs.getString("MEMBER_ID"));
+						m.setUserName(rs.getString("MEMBER_NAME"));
+						m.setUserPassword(rs.getString("PASSWORD"));
+						m.setRoleId(rs.getString("ROLE_MASTER_ROLE_ID"));
+						m.setCreateId(rs.getString("CREATE_ID"));
+						m.setCreateDate(rs.getString("CREATE_DATE"));
+						m.setUpdateId(rs.getString("UPDATE_ID"));
+						m.setUpdateDate(rs.getString("UPDATE_DATE"));
+						m.setDeleteFlag(rs.getString("DELETE_FLAG"));
+						return m;
+					}}
+				, userId);
+    	
+		return member;
+	}
+
+	public void exec(RootBean bean) {
     	
     	String memberId;
     	int tmp,cnt;
