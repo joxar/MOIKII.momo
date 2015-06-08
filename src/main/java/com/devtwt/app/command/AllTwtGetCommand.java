@@ -8,7 +8,7 @@ import com.devtwt.app.bean.RootBean;
 public interface AllTwtGetCommand {
 	
 	void preProc(RootBean bean);
-	List<MomoBean>  exec();
+	void  exec();
 	RootBean postProc();
 
 }

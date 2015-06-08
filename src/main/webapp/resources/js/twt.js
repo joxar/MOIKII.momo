@@ -29,7 +29,7 @@ $(function() {
 			data : JSON.stringify(momo),
 			success : function(callback) {
 				var contents = JSON.parse(JSON.stringify(callback.momo.momo_contents));		
-				$('#board tbody > tr:eq(0)').before('<tr style="height:80"><td>' + contents + '</td></tr>');
+				$('#board tbody > tr:eq(0)').before('<tr style="height:80"><td><img src="classpath:profile.png" class="img-rounded"/>' + contents + '</td></tr>');
 				
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown){

@@ -7,5 +7,6 @@ public interface UserMasterDao {
 	
 	public void exec(RootBean bean);
 	public UserBean getMember(String userId);
+	public String getUserName(String userId);
 	
 }

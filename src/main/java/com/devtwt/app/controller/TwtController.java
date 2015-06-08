@@ -46,11 +46,13 @@ public class TwtController {
 		
 		initilize.exec();
 		
-		List<MomoBean> momoList = allTwtGetCommand.exec();
-		bean.setMomoList(momoList);
+		//過去に投稿したtwtを取得
+		allTwtGetCommand.preProc(bean);
+		allTwtGetCommand.exec();
+		bean = allTwtGetCommand.postProc();
+		int size = bean.getMomoList().size();
 		
-		int size = momoList.size();
-		
+		//過去に投稿したtwtをtwt画面にセット
 		model.addAttribute("rootData", bean);
 		model.addAttribute("start", 0);
 		model.addAttribute("end", --size);
@@ -65,12 +67,14 @@ public class TwtController {
 		
 		initilize.exec();
 		
+		//twtしたアカウントの情報を取得
 		Authentication authentication = (Authentication) principal;
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		String userName = userDetails.getUsername();
 		
 		model.addAttribute("rootData", bean);
 		
+		//twt投稿コマンドを実行
 		twtPostCommand.preProc(bean);
 		twtPostCommand.exec(userName);
 		

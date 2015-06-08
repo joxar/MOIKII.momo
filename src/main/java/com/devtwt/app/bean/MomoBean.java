@@ -1,6 +1,8 @@
 package com.devtwt.app.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,24 @@ public class MomoBean implements Serializable {
 	private String momo_contents = "";
 	private String create_id = "";
 	private String create_date = "";
+	private String update_date = "";
+    private String user_master_member_id = "";
+	//twt投稿者の情報をセット
+	private List<UserBean> userList = new ArrayList<UserBean>();
+	private String createName = "";
 	
+	public String getCreateName() {
+		return createName;
+	}
+	public void setCreateName(String createName) {
+		this.createName = createName;
+	}
+	public List<UserBean> getUserList() {
+		return userList;
+	}
+	public void setUserList(List<UserBean> userList) {
+		this.userList = userList;
+	}
 	public String getCreate_date() {
 		return create_date;
 	}
@@ -41,8 +60,7 @@ public class MomoBean implements Serializable {
 		this.update_date = update_date;
 	}
 
-	private String update_date = "";
-    private String user_master_member_id = "";
+	
     
 	public String getMomoNum() {
 		return momoNum;
@@ -85,7 +103,8 @@ public class MomoBean implements Serializable {
 	public String toString() {
 		return "MomoBean [momoNum=" + momoNum + ", stream_stream_num="
 				+ stream_stream_num + ", phase=" + phase + ", momo_contents="
-				+ momo_contents + ", create_id=" + create_id + ", update_id="
+				+ momo_contents + ", create_id=" + create_id + ", create_date="
+				+ create_date + ", userList=" + userList + ", update_id="
 				+ update_id + ", update_date=" + update_date
 				+ ", user_master_member_id=" + user_master_member_id + "]";
 	}

@@ -102,7 +102,25 @@ body { margin-top:30px; }
 				<tr id="dummy">
 					<c:if test="${not empty rootData.momoList}">
 						<c:forEach items="${rootData.momoList}" var="list" begin="${start}" end="${end}">
-							<tr style="height:80"><td><c:out value="${list.momo_contents}"/></td></tr>
+							<tr style="height:80">
+								<td>
+									<div class="media">
+										<a class="pull-left" href="#">
+										<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+												class="img-rounded" width="80" height="80"/>
+										</a>
+										<div class="media-body">
+											 <c:out value="${list.createName}"/>
+											 <p class="text-left">
+											 	<c:out value="${list.momo_contents}"/>
+											 </p>
+											 <p class="text-right">
+											 	<small><c:out value="${list.create_date}"/></small>
+											 </p>
+									     </div>
+									 </div>
+								</td>
+							</tr>
 						</c:forEach>
 					</c:if>
 				</tr>

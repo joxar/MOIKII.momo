@@ -15,10 +15,18 @@ import com.devtwt.app.bean.UserBean;
 @Component
 public class UserMasterDaoImpl implements UserMasterDao {
 	
-    ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring-jdbc.xml");
+	ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring-jdbc.xml");
     
     // JdbcTemplateのオブジェクトを取得
     JdbcTemplate jdbcTemplate = ctx.getBean(JdbcTemplate.class);
+	
+    @Override
+	public String getUserName(String userId) {
+		// TODO Auto-generated method stub
+    	String memberName = jdbcTemplate.queryForObject("SELECT MEMBER_NAME FROM USER_MASTER WHERE MEMBER_ID = ?"
+    				, String.class, userId);
+		return memberName;
+	}
 		
     @Override
 	public UserBean getMember(String userId) {

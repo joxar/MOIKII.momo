@@ -2,6 +2,8 @@ package com.devtwt.app.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -46,14 +48,13 @@ public class MomoDaoImpl implements MomoDao {
 		return momoList;
 	}
 
-	
-
 	@Override
 	public void exec(RootBean bean, String userName) {
 		// TODO Auto-generated method stub
 		
 		String momoNum;
     	int tmp,cnt;
+    	String DATE_PATTERN ="yyyy-MM-dd HH:mm:ss";
 		
         cnt = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM MOMO");
     	
@@ -75,6 +76,13 @@ public class MomoDaoImpl implements MomoDao {
 		bean.getMomo().setUser_master_member_id(memberId);
 		bean.getMomo().setCreate_id(memberId);
 		bean.getMomo().setUpdate_id(memberId);
+		
+		Date date = new Date();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
+		
+		bean.getMomo().setCreate_date(sdf.format(date));
+		bean.getMomo().setUpdate_date(sdf.format(date));
 		
     	//MOMOをテーブルにINSERT
 		jdbcTemplate.update(
