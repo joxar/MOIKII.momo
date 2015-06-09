@@ -27,6 +27,7 @@ public class MomoDaoImpl implements MomoDao {
 	public List<MomoBean> getAllData() {
 		// TODO Auto-generated method stub
 		
+		//過去の投稿を全て取得
 		List<MomoBean> momoList = jdbcTemplate.query(
 					"SELECT * FROM MOMO ORDER BY MOMO_NUM DESC"
 					, new RowMapper<MomoBean>() {
@@ -91,6 +92,7 @@ public class MomoDaoImpl implements MomoDao {
                 , bean.getMomo().getMomoNum(), bean.getMomo().getStream_stream_num(), bean.getMomo().getPhase(),
                 bean.getMomo().getMomo_contents(), bean.getMomo().getCreate_id(), bean.getMomo().getCreate_date(),
                 bean.getMomo().getUpdate_id(), bean.getMomo().getUpdate_date(), bean.getMomo().getUser_master_member_id());
+		
 	}
 
 }

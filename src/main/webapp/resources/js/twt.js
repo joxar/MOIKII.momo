@@ -28,8 +28,11 @@ $(function() {
 			dataType : 'json',
 			data : JSON.stringify(momo),
 			success : function(callback) {
-				var contents = JSON.parse(JSON.stringify(callback.momo.momo_contents));		
-				$('#board tbody > tr:eq(0)').before('<tr style="height:80"><td><img src="classpath:profile.png" class="img-rounded"/>' + contents + '</td></tr>');
+				var contents = JSON.parse(JSON.stringify(callback.momo.momo_contents));
+				var message = {"contents" : "<" + contents + ">"};
+				var template = $("#tmplString").text();
+				var compiled = _.template(template);
+				$('#board tbody > tr:eq(0)').before(compiled());
 				
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown){

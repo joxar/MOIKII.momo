@@ -72,11 +72,13 @@ public class TwtController {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		String userName = userDetails.getUsername();
 		
-		model.addAttribute("rootData", bean);
+		
 		
 		//twt投稿コマンドを実行
 		twtPostCommand.preProc(bean);
 		twtPostCommand.exec(userName);
+		
+		model.addAttribute("rootData", twtPostCommand.postProc());
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(bean);

@@ -59,9 +59,6 @@ public class MomoBean implements Serializable {
 	public void setUpdate_date(String update_date) {
 		this.update_date = update_date;
 	}
-
-	
-    
 	public String getMomoNum() {
 		return momoNum;
 	}
@@ -104,9 +101,10 @@ public class MomoBean implements Serializable {
 		return "MomoBean [momoNum=" + momoNum + ", stream_stream_num="
 				+ stream_stream_num + ", phase=" + phase + ", momo_contents="
 				+ momo_contents + ", create_id=" + create_id + ", create_date="
-				+ create_date + ", userList=" + userList + ", update_id="
-				+ update_id + ", update_date=" + update_date
-				+ ", user_master_member_id=" + user_master_member_id + "]";
+				+ create_date + ", update_date=" + update_date
+				+ ", user_master_member_id=" + user_master_member_id
+				+ ", userList=" + userList + ", createName=" + createName
+				+ ", update_id=" + update_id + "]";
 	}
 
 }

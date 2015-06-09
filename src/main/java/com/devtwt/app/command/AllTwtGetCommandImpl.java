@@ -43,7 +43,6 @@ public class AllTwtGetCommandImpl implements AllTwtGetCommand {
 			id = null;
 			id = momo.getCreate_id();
 			if(id != null && id.length() != 0) {
-				System.out.println("ID:" + id);
 				momo.setCreateName(userDao.getUserName(momo.getCreate_id()));
 			}	
 		}

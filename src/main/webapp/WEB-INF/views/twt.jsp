@@ -33,6 +33,9 @@ body { margin-top:30px; }
 <spring:url var="bootstrapJs"
 	value="/resources/bootstrap-3.3.2-dist/js/bootstrap.min.js" />
 <script type="text/javascript" src="${bootstrapJs}"></script>
+<!-- underscore -->
+<spring:url var="underscoreJs" value="/resources/js/underscore-min.js" />
+<script type="text/javascript" src="${underscoreJs}"></script>
 
 <title>MOIKII.momo</title>
 </head>
@@ -127,6 +130,27 @@ body { margin-top:30px; }
 			</tbody>
 		</table>
 	</div>
+	<script type="text/template" id="tmplString">
+		<tr style="height:80">
+			<td>
+				<div class="media">
+						<a class="pull-left" href="#">
+							<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+									class="img-rounded" width="80" height="80"/>
+						</a>
+					<div class="media-body">
+						<c:out value="${list.createName}"/>
+						<p class="text-left">
+		
+						</p>
+						<p class="text-right">
+							<small><c:out value="${list.create_date}"/></small>
+						</p>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</script>
 	<!-- ******** js ******** -->
 	<spring:url var="twtJs" value="/resources/js/twt.js" />
 	<script type="text/javascript" src="${twtJs}"></script>
