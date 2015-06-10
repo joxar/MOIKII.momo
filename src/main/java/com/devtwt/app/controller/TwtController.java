@@ -1,7 +1,6 @@
 package com.devtwt.app.controller;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.devtwt.app.bean.MomoBean;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.AllTwtGetCommand;
 import com.devtwt.app.command.InitializeCommand;
@@ -72,15 +70,16 @@ public class TwtController {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		String userName = userDetails.getUsername();
 		
-		
-		
 		//twt投稿コマンドを実行
 		twtPostCommand.preProc(bean);
 		twtPostCommand.exec(userName);
-		
-		model.addAttribute("rootData", twtPostCommand.postProc());
+		bean = twtPostCommand.postProc();
+
+		model.addAttribute("rootData", bean);
 		
 		ObjectMapper mapper = new ObjectMapper();
+		
+		//DBから取得した情報(時間、投稿者名など)をajaxに変換
 		String json = mapper.writeValueAsString(bean);
 		
 		return json;
