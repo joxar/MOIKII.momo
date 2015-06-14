@@ -24,6 +24,7 @@ import com.devtwt.app.command.GroupNameAllGetCommand;
 import com.devtwt.app.command.GroupShowInfoCommand;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.MockCommandInterface;
+import com.devtwt.app.constants.CommonConstants;
 
 @Controller
 @SessionAttributes("rootData")
@@ -104,17 +105,20 @@ public class GroupController {
 		
 		groupCreateFinishCommand.preProc(bean);
 		
-		 /* 招待したメンバをCOMMUNITYテーブルにINSERT。
-		　この時点では、グループ招待を拒否する機能はつけていない。*/
+		 //招待したメンバをCOMMUNITYテーブルにINSERT。
 		for(String userName : bean.getSelectUserName()) {
 			groupCreateFinishCommand.exec(userName);
 		}
+		
+		/*** メインメッセージ ***/
+		bean.getCommon().setMainMessage(CommonConstants.G_CREATE_OK);
+		model.addAttribute("rootData", bean);
 		
 		sessionStatus.setComplete();
 
 		finalize.exec();
 		
-		return "twt";
+		return "groupInviteMember";
 	}
 
 }

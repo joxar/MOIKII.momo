@@ -47,6 +47,6 @@ public class UserCreateController {
 		userCreateCommand.preProc(bean);
 		userCreateCommand.exec();
 		
-		return "redirect:/twt";
+		return "userNew";
 	}
 }

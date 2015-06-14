@@ -1,6 +1,8 @@
 package com.devtwt.app.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -19,7 +21,29 @@ public class UserBean implements Serializable {
 	private String updateDate = "";
 	//Spring Securityの設定により、0:無効,1:有効
 	private String deleteFlag = "";
+	List<RoleBean> roleList = new ArrayList<RoleBean>();
+	//セレクトボックスで選択された値が設定される
+	private String slctRoleName = "";
+	private String slctRoleId = "";
 	
+	public String getSlctRoleId() {
+		return slctRoleId;
+	}
+	public void setSlctRoleId(String slctRoleId) {
+		this.slctRoleId = slctRoleId;
+	}
+	public List<RoleBean> getRoleList() {
+		return roleList;
+	}
+	public void setRoleList(List<RoleBean> roleList) {
+		this.roleList = roleList;
+	}
+	public String getSlctRoleName() {
+		return slctRoleName;
+	}
+	public void setSlctRoleName(String slctRoleName) {
+		this.slctRoleName = slctRoleName;
+	}
 	public String getCreateId() {
 		return createId;
 	}
@@ -88,7 +112,8 @@ public class UserBean implements Serializable {
 				+ ", roleName=" + roleName + ", createId=" + createId
 				+ ", createDate=" + createDate + ", updateId=" + updateId
 				+ ", updateDate=" + updateDate + ", deleteFlag=" + deleteFlag
-				+ "]";
+				+ ", roleList=" + roleList + ", slctRoleName=" + slctRoleName
+				+ ", slctRoleId=" + slctRoleId + "]";
 	}
 
 }

@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import com.devtwt.app.bean.DevCategoryBean;
 import com.devtwt.app.bean.GroupBean;
 
 @Component
@@ -35,7 +34,7 @@ public class GroupShowInfoDaoImpl implements GroupShowInfoDao {
 	@Override
 	public List<GroupBean> getGroupInfo(String slctGroupName) {
 		// TODO Auto-generated method stub
-		System.out.println("123:" + slctGroupName);
+		
 		//Group Create画面に表示するDevCategoryを取得
 				List<GroupBean> groupList = jdbcTemplate.query(
 						"SELECT * FROM COMMUNITY WHERE COMMUNITY_NAME = ?"
@@ -53,7 +52,7 @@ public class GroupShowInfoDaoImpl implements GroupShowInfoDao {
 								return groupBean;
 							}}
 						, slctGroupName);
-				System.out.println("456:" + groupList);
+
 		return groupList;
 	}	
 

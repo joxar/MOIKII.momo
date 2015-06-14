@@ -22,6 +22,7 @@ public class RootBean implements Serializable {
 	@Autowired
 	List<GroupBean> groupList = new ArrayList<GroupBean>();
 	ConstantsBean constants = new ConstantsBean();
+	List<RoleBean> roleList = new ArrayList<RoleBean>();
 	MomoBean momo = new MomoBean();
 	List<MomoBean> momoList = new ArrayList<MomoBean>();
 	//Invite Member画面で選択したUserの名称がセットされる
@@ -95,15 +96,21 @@ public class RootBean implements Serializable {
 	public void setMomo(MomoBean momo) {
 		this.momo = momo;
 	}
+	public List<RoleBean> getRoleList() {
+		return roleList;
+	}
+	public void setRoleList(List<RoleBean> roleList) {
+		this.roleList = roleList;
+	}
 	
 	@Override
 	public String toString() {
 		return "RootBean [dbacMock=" + dbacMock + ", user=" + user + ", group="
 				+ group + ", common=" + common + ", groupList=" + groupList
-				+ ", constants=" + constants + ", momo=" + momo + ", momoList="
-				+ momoList + ", selectUserName=" + selectUserName
-				+ ", groupNameList=" + groupNameList + ", devCategory="
-				+ devCategory + "]";
+				+ ", constants=" + constants + ", roleList=" + roleList
+				+ ", momo=" + momo + ", momoList=" + momoList
+				+ ", selectUserName=" + selectUserName + ", groupNameList="
+				+ groupNameList + ", devCategory=" + devCategory + "]";
 	}
 	
 }

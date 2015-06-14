@@ -74,9 +74,19 @@ body { margin-top:30px; }
    </div>
    
    <div class="container">
+   		<form:form modelAttribute="rootData">
+			<c:if test="${not empty rootData.common.mainMessage}">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="alert alert-info" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<span class="sr-only">Error:</span>
+		        		<form:input type="hidden" path="common.mainMessage"></form:input>
+						<c:out value="${rootData.common.mainMessage}"></c:out>
+					</div>
+				</div>
+			</c:if>
 		<h1>Create your account</h1>
 		<br>
-		<form:form modelAttribute="rootData">
 		    <div class="control-group">
 				<label class="control-label" for="UserName">Username</label>
 				<div class="controls">

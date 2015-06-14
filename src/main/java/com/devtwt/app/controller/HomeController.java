@@ -212,7 +212,7 @@ public class HomeController {
 	/********************************/
 	/***** [グループ]ロール変更画面 *****/
 	/********************************/
-	@RequestMapping(value = "/group/changeRole/init", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/group/changeRole/init", method = RequestMethod.GET)
 	public String groupChangeRoleInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
@@ -252,6 +252,6 @@ public class HomeController {
 		finalize.exec();
 		
 		return "groupChangeRole";
-	}
+	}*/
 	
 }

@@ -87,4 +87,14 @@ public class UserMasterDaoImpl implements UserMasterDao {
                 "INSERT INTO USER_MASTER (MEMBER_ID, MEMBER_NAME, PASSWORD, ROLE_MASTER_ROLE_ID, DELETE_FLAG) VALUES (?, ?, ?, ?, ?)"
                 , bean.getUser().getUserId(), bean.getUser().getUserName(),bean.getUser().getUserPassword(),bean.getUser().getRoleId(), "1");
     }
+
+	@Override
+	public void updateRoleId(UserBean bean) {
+		// TODO Auto-generated method stub
+		jdbcTemplate.update(
+                "UPDATE USER_MASTER SET ROLE_MASTER_ROLE_ID=? WHERE MEMBER_ID = ?"
+                , bean.getSlctRoleId(), bean.getUserId());
+	}
+	
+	
 }

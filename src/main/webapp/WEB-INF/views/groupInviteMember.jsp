@@ -84,25 +84,35 @@ body { margin-top:30px; }
        </div> 
    </div>
    
-	<div class="container">
-			<h1>Invite team members</h1>
-			<br>
-			<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/select" id="mainForm" method="get" >
+   <form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/select" id="mainForm" method="get" >
+  	 <div class="container">
+		<c:if test="${not empty rootData.common.mainMessage}">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="alert alert-info" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span class="sr-only">Error:</span>
+	        		<form:input type="hidden" path="common.mainMessage"></form:input>
+					<c:out value="${rootData.common.mainMessage}"></c:out>
+				</div>
+			</div>
+		</c:if>
+		
+		<h1>Invite team members</h1>
+		<br>
 			<div id="main">
 				<div class="col-md-5">
-				<div class="form-group">
-					<c:if test="${not empty rootData.group.memberList}">
-						<form:checkboxes items="${rootData.group.memberList}" path="selectUserName" itemLabel="userName"
-								delimiter="<br>" itemValue="userName"/>
-					</c:if>
+					<div class="form-group">
+						<c:if test="${not empty rootData.group.memberList}">
+							<form:checkboxes items="${rootData.group.memberList}" path="selectUserName" itemLabel="userName"
+									delimiter="<br>" itemValue="userName"/>
+						</c:if>
+					</div>
+					<br>
+					<input type="submit" class="btn btn-success">
 				</div>
-				
-				<br>
-				<input type="submit" class="btn btn-success">
 			</div>
-			</div>
-		</form:form>
-	</div>
+		</div>
+	</form:form>
 
 </body>
 </html>
