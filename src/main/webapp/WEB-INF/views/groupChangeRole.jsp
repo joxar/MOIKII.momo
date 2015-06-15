@@ -117,7 +117,7 @@ body { margin-top:30px; }
 							<c:if test="${not empty rootData.groupNameList}">
 								<c:forEach var="list" items="${rootData.groupNameList}">
 									<option value="${list}" <c:if test="${rootData.group.slctGroupName == list}">selected</c:if>>
-									<c:out value="${list}"/>
+										<c:out value="${list}"/>
 									</option>
 								</c:forEach>
 							</c:if>

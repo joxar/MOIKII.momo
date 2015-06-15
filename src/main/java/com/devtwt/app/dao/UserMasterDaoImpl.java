@@ -71,9 +71,6 @@ public class UserMasterDaoImpl implements UserMasterDao {
     	tmp = Integer.parseInt(memberId);
     	bean.getUser().setUserId(String.valueOf(++tmp));
     	
-    	//AllowNullがfalseのカラムに値を設定
-    	bean.getUser().setRoleId("1");
-    	
     	cnt = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM ROLE_MASTER WHERE ROLE_ID = 1");
     	
     	//テーブルROLE_MASTERにROLE_ID:1のデータがない場合
@@ -85,7 +82,7 @@ public class UserMasterDaoImpl implements UserMasterDao {
     	//Spring Securityとの関連で一時的に有効なアカウントのDELETE_FLAGを1に設定(無効なアカウントのDELETE_FLAGは、0)。
     	jdbcTemplate.update(
                 "INSERT INTO USER_MASTER (MEMBER_ID, MEMBER_NAME, PASSWORD, ROLE_MASTER_ROLE_ID, DELETE_FLAG) VALUES (?, ?, ?, ?, ?)"
-                , bean.getUser().getUserId(), bean.getUser().getUserName(),bean.getUser().getUserPassword(),bean.getUser().getRoleId(), "1");
+                , bean.getUser().getUserId(), bean.getUser().getUserName(),bean.getUser().getUserPassword(),bean.getUser().getSlctRoleId(), "1");
     }
 
 	@Override
