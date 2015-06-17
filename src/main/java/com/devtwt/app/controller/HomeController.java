@@ -134,51 +134,6 @@ public class HomeController {
 	}
 	
 	/********************************/
-	/****** [グループ]参加申請画面 ******/
-	/********************************/
-	@RequestMapping(value = "/group/reqJoin/init", method = RequestMethod.GET)
-	public String groupRequestJoinInit(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpRqstJoinInitCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupRequestJoin";
-	}
-	
-	@RequestMapping(value = "/group/reqJoin/tmp", method = RequestMethod.POST)
-	public String groupRequestJoinTmp(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpRqstJoinTmpCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupRequestJoin";
-	}
-	
-	@RequestMapping(value = "/group/reqJoin/exec", method = RequestMethod.POST)
-	public String groupRequestJoinExec(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpRqstJoinExecCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupRequestJoin";
-	}
-	
-	/********************************/
 	/**** [グループ]参加申請拒否画面 *****/
 	/********************************/
 	@RequestMapping(value = "/group/rejectJoin/init", method = RequestMethod.GET)

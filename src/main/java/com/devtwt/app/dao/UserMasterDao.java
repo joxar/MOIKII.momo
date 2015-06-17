@@ -9,5 +9,6 @@ public interface UserMasterDao {
 	public UserBean getMember(String userId);
 	public String getUserName(String userId);
 	public void updateRoleId(UserBean bean);
+	public String getUserId(String userName);
 	
 }

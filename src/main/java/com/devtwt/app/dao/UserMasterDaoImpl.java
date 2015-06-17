@@ -92,6 +92,15 @@ public class UserMasterDaoImpl implements UserMasterDao {
                 "UPDATE USER_MASTER SET ROLE_MASTER_ROLE_ID=? WHERE MEMBER_ID = ?"
                 , bean.getSlctRoleId(), bean.getUserId());
 	}
+
+	@Override
+	public String getUserId(String userName) {
+		// TODO Auto-generated method stub
+		String userId = jdbcTemplate.queryForObject("SELECT MEMBER_ID FROM USER_MASTER WHERE MEMBER_NAME = ?"
+				, String.class, userName);
+	return userId;
+	}
+	
 	
 	
 }
