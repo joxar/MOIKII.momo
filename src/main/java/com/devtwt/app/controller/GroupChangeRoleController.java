@@ -16,9 +16,6 @@ import com.devtwt.app.command.FinalizeCommand;
 import com.devtwt.app.command.GetRoleCommand;
 import com.devtwt.app.command.GroupNameAllGetCommand;
 import com.devtwt.app.command.GroupShowInfoCommand;
-import com.devtwt.app.command.GrpChngRoleExecCommandImpl;
-import com.devtwt.app.command.GrpChngRoleInitCommandImpl;
-import com.devtwt.app.command.GrpChngRoleTmpCommandImpl;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.MockCommandInterface;
 

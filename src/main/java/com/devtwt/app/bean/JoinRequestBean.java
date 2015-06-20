@@ -13,7 +13,28 @@ public class JoinRequestBean implements Serializable {
 	private String createDate = "";
 	private String updateId = "";
 	private String updateDate = "";
+	private UserBean requester = new UserBean();
+	private GroupBean requestGroup = new GroupBean();
+	private Boolean checkRequest;
 	
+	public Boolean getCheckRequest() {
+		return checkRequest;
+	}
+	public void setCheckRequest(Boolean checkRequest) {
+		this.checkRequest = checkRequest;
+	}
+	public UserBean getRequester() {
+		return requester;
+	}
+	public void setRequester(UserBean requester) {
+		this.requester = requester;
+	}
+	public GroupBean getRequestGroup() {
+		return requestGroup;
+	}
+	public void setRequestGroup(GroupBean requestGroup) {
+		this.requestGroup = requestGroup;
+	}
 	public String getRequestId() {
 		return requestId;
 	}
@@ -68,7 +89,9 @@ public class JoinRequestBean implements Serializable {
 		return "JoinRequestBean [requestId=" + requestId + ", status=" + status
 				+ ", communityId=" + communityId + ", memberId=" + memberId
 				+ ", createId=" + createId + ", createDate=" + createDate
-				+ ", updateId=" + updateId + ", updateDate=" + updateDate + "]";
+				+ ", updateId=" + updateId + ", updateDate=" + updateDate
+				+ ", requester=" + requester + ", requestGroup=" + requestGroup
+				+ ", checkRequest=" + checkRequest + "]";
 	}
 	
 	

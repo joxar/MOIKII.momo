@@ -30,7 +30,14 @@ public class RootBean implements Serializable {
 	List<String> groupNameList = new ArrayList<String>();
 	DevCategoryBean devCategory = new DevCategoryBean();
 	JoinRequestBean joinRequest = new JoinRequestBean();
+	List<JoinRequestBean> joinRequestList = new ArrayList<JoinRequestBean>();
 
+	public List<JoinRequestBean> getJoinRequestList() {
+		return joinRequestList;
+	}
+	public void setJoinRequestList(List<JoinRequestBean> joinRequestList) {
+		this.joinRequestList = joinRequestList;
+	}
 	public JoinRequestBean getJoinRequest() {
 		return joinRequest;
 	}
@@ -118,7 +125,8 @@ public class RootBean implements Serializable {
 				+ ", momo=" + momo + ", momoList=" + momoList
 				+ ", selectUserName=" + selectUserName + ", groupNameList="
 				+ groupNameList + ", devCategory=" + devCategory
-				+ ", joinRequest=" + joinRequest + "]";
+				+ ", joinRequest=" + joinRequest + ", joinRequestList="
+				+ joinRequestList + "]";
 	}
 	
 }
