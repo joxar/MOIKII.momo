@@ -1,6 +1,8 @@
 package com.devtwt.app.controller;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
@@ -80,6 +82,46 @@ public class TwtController {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		//DBから取得した情報(時間、投稿者名など)をajaxに変換
+		String json = mapper.writeValueAsString(bean);
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/twt/reply")
+	public String twtReply(RootBean bean, Model model) throws Exception {
+		
+		initilize.exec();
+		
+		model.addAttribute("rootData", bean);
+		
+		return "twt";
+	}
+	
+	/**/
+	@RequestMapping(value = "/twt/reply", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String  replyMomo(@RequestBody RootBean bean, Model model, Principal principal) throws Exception {
+		
+		initilize.exec();
+		
+		String DATE_PATTERN ="yyyy-MM-dd HH:mm:ss";
+		
+		//twtしたアカウントの情報を取得
+		Authentication authentication = (Authentication) principal;
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String userName = userDetails.getUsername();
+		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
+		
+		bean.getMomo().setCreateName(userName);
+		bean.getMomo().setCreate_date(sdf.format(date));
+		
+		model.addAttribute("rootData", bean);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		//DBから取得した情報(時間、投稿者名など)をjsonの文字列に変換
 		String json = mapper.writeValueAsString(bean);
 		
 		return json;

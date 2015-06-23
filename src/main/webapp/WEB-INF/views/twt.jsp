@@ -41,6 +41,7 @@ body { margin-top:30px; }
 </head>
 
 <body>
+   <!-- ナビゲーションバー -->
    <div class="row">
       <div class="col-md-12">
          <nav class="navbar navbar-default" role="navigation">
@@ -84,9 +85,10 @@ body { margin-top:30px; }
          </nav>
        </div> 
    </div>
-
+   
+	<!-- コメント投稿フォーム -->
 	<div class="container main-content">
-		<table class="table table-bordered table-hover" id="board">
+		<table class="table table-hover" id="board">
 			<thead>
 				<tr>
 					<td colspan="2">
@@ -102,6 +104,7 @@ body { margin-top:30px; }
 				</tr>
 			</thead>
 			<tbody>
+				<!-- ここに投稿コメントを表示 -->
 				<tr id="dummy">
 					<c:if test="${not empty rootData.momoList}">
 						<c:forEach items="${rootData.momoList}" var="list" begin="${start}" end="${end}">
@@ -120,6 +123,9 @@ body { margin-top:30px; }
 											 <p class="text-right">
 											 	<small><c:out value="${list.create_date}"/></small>
 											 </p>
+											 <p class="text-right">
+											 	<small><a class="reply-link" >コメントする</a></small>
+											 </p>
 									     </div>
 									 </div>
 								</td>
@@ -128,8 +134,38 @@ body { margin-top:30px; }
 					</c:if>
 				</tr>
 			</tbody>
-		</table>
+		</table>		
 	</div>
+	<!-- 返信コメントの描画に使うテンプレート -->
+	<script type="text/html" id="tmplReplyComment">
+		<div class="media">
+			<a class="pull-left" href="#">
+				<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+						class="img-rounded" width="80" height="80"/>
+			</a>
+			<div class="media-body">
+				<p class="text-left">
+					{{name}}
+				</p>
+				<p class="text-left">
+					{{contents}}
+				</p>
+				 <p class="text-right">
+					<small>{{time}}</small>
+				</p>
+			</div>
+		</div>
+	</script>
+	<!-- 返信フォームの描画に使うテンプレート -->
+	<script type="text/html" id="tmplCommentBox">
+		<div class="replyForm">		
+			<textarea class="form-control" id="replyContent"rows="5"></textarea>
+			<div align="right">
+				<button class="replyButton" class="btn btn-primary">send message!</button>
+			</div>
+		</div>
+	</script>
+	<!-- 投稿コメントの描画に使うテンプレート -->
 	<script type="text/html" id="tmplString">
 		<tr style="height:80">
 								<td>
@@ -145,6 +181,9 @@ body { margin-top:30px; }
 											 </p>
 											 <p class="text-right">
 											 	<small>{{time}}</small>
+											 </p>
+											 <p class="text-right">
+											 	<small><a class="reply-link" >コメントする</a></small>
 											 </p>
 									     </div>
 									 </div>
