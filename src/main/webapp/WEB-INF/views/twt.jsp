@@ -159,7 +159,7 @@ body { margin-top:30px; }
         </div>
 	</script>
 	<!-- 返信フォームの描画に使うテンプレート -->
-	<script type="text/html" id="tmplCommentBox">
+	<script type="text/html" id="tmplReplyForm">
 		<div name="replyForm" class="replyForm">		
 			<textarea name="replyContent" class="form-control" rows="5"></textarea>
 			<div align="right">
@@ -168,7 +168,7 @@ body { margin-top:30px; }
 		</div>
 	</script>
 	<!-- 投稿コメントの描画に使うテンプレート -->
-	<script type="text/html" id="tmplString">
+	<script type="text/html" id="tmplComment">
 		<tr style="height:80">
 								<td>
 									<div class="media">

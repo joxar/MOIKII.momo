@@ -23,6 +23,7 @@ $(function() {
 		  interpolate : /\{\{(.+?)\}\}/g
 		};
 		
+		//返信用linkにidを割り当てる
 		$('.reply-link').attr("id",function(i){
 			return 'reply-link-' + i;
 		});
@@ -53,11 +54,12 @@ $(function() {
 								"name" : name,
 								"time" : time};
 				
-				var template = $("#tmplString").text();
+				var template = $("#tmplComment").text();
 				var compiled = _.template(template);
 				
 				$('#board tbody > tr:eq(0)').before(compiled(message));
 				
+				//返信用linkにidを再割り当て
 				$('.reply-link').attr("id",function(i){
 					return 'reply-link-' + i;
 				});
@@ -76,10 +78,9 @@ $(function() {
 		
 		//クリックした返信用リンクのidを取得
 		var clickLinkId = $(this).attr('id');
-	    console.log('linkId:' + clickLinkId );
 		
 		//返信フォームを表示
-		var template = $('#tmplCommentBox').html();
+		var template = $('#tmplReplyForm').html();
 		var compiled = _.template(template);
 		$(this).after(compiled());
 		
@@ -102,17 +103,15 @@ $(function() {
 
 		var replyButtonId = $(this).next().children().next().children().attr('id');
 	
-		var clickButtonId = $('*[name=replyButton]').attr('id');
-	
 		console.log('replyButtonId:' + replyButtonId);
 		
 		//Linkをhide
 		$(this).hide();
-	    var clickButton = '#' +  clickButtonId;
+	    var clickButton = '#' +  replyButtonId;
 	    
 		//返信フォームのボタン押下で呼び出し
 		$(document).on('click',clickButton,function() {	 
-			alert('a');
+
 			var replyFormId = $(this).parent().parent().attr('id');
 			console.log('replyFormId:' + replyFormId);
 			var clickFormSelector = '#' + replyFormId;
