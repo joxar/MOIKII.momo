@@ -74,11 +74,10 @@ $(function() {
 	});
 	
 	//返信用リンクをクリックすると呼び出し
-	$('.reply-link').one('click', function(){
+	$(document).on('click','.reply-link', function(){
 		
 		//クリックした返信用リンクのidを取得
 		var clickLinkId = $(this).attr('id');
-		
 		//返信フォームを表示
 		var template = $('#tmplReplyForm').html();
 		var compiled = _.template(template);
