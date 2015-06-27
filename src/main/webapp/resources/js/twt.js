@@ -22,6 +22,10 @@ $(function() {
 		_.templateSettings = {
 		  interpolate : /\{\{(.+?)\}\}/g
 		};
+		
+		$('.reply-link').attr("id",function(i){
+			return 'reply-link-' + i;
+		});
 	
 	//twt画面の投稿ボタンを押下した時に呼び出し
 	$('#postForm').submit(function(event) {
@@ -54,6 +58,10 @@ $(function() {
 				
 				$('#board tbody > tr:eq(0)').before(compiled(message));
 				
+				$('.reply-link').attr("id",function(i){
+					return 'reply-link-' + i;
+				});
+				
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown){
 				console.log("XMLHttpRequest : " + XMLHttpRequest.status);
@@ -66,39 +74,56 @@ $(function() {
 	//返信用リンクをクリックすると呼び出し
 	$('.reply-link').one('click', function(){
 		
-		$('.reply-link').attr("id",function(i){
-			return 'reply-link-' + i;
-		});
-		
-		//クリックしたリンクのidを取得
-		var linkId = $(this).attr('id');
+		//クリックした返信用リンクのidを取得
+		var clickLinkId = $(this).attr('id');
+	    console.log('linkId:' + clickLinkId );
 		
 		//返信フォームを表示
 		var template = $('#tmplCommentBox').html();
-	
 		var compiled = _.template(template);
 		$(this).after(compiled());
 		
-		$('.replyForm').attr("id",function(i){
+		//返信フォームにidを割り振る
+		$('*[name=replyForm]').attr("id",function(i){
 			return 'replyForm-' + i;
 		});
 		
-		$('.replyButton').attr("id",function(i){
+		//返信コメント投下ボタンにidを割り振る
+		$('*[name=replyButton]').attr("id",function(i){
 			return 'replyButton-' + i;
 		});
 		
-		//精製した返信メッセージのidを取得
-		var replyFormId = $(this).closest('.replyForm').attr('id');
-		var replyButtonId = $(this).closest('.replyButton').attr('id');
-		$(this).hide();
+		//返信フォームにidを割り振る
+		$('*[name=replyContent]').attr("id",function(i){
+			return 'replyContent-' + i;
+		});
 		
+		//精製した返信メッセージのidを取得
+
+		var replyButtonId = $(this).next().children().next().children().attr('id');
+	
+		var clickButtonId = $('*[name=replyButton]').attr('id');
+	
+		console.log('replyButtonId:' + replyButtonId);
+		
+		//Linkをhide
+		$(this).hide();
+	    var clickButton = '#' +  clickButtonId;
+	    
 		//返信フォームのボタン押下で呼び出し
-		//↓
-		$(document).on('click','#' + replyButtonId,function() {
-			 
-			 momo.momo.momo_contents = $('#replyContent').val();
-			$('#replyContent').val('');
+		$(document).on('click',clickButton,function() {	 
+			alert('a');
+			var replyFormId = $(this).parent().parent().attr('id');
+			console.log('replyFormId:' + replyFormId);
+			var clickFormSelector = '#' + replyFormId;
 			
+			var replyContentId = $(this).parent().prev().attr('id');
+			console.log('replyContentId:' + replyContentId);
+			var replyContentSelector = '#' + replyContentId;
+			
+			 momo.momo.momo_contents = $(replyContentSelector).val();
+			$(replyContentSelector).val('');
+
 			$.ajax({
 				contentType: 'application/json; charset=UTF-8',
 				type : 'POST',
@@ -114,14 +139,11 @@ $(function() {
 	
 					var message = {"contents" : contents,
 									"name" : name,
-									"time" : time};
+									"time" : time};						   
 					
 					var template = $("#tmplReplyComment").html();
-					
 					var compiled = _.template(template);
-					
-					//$(this).parents('.replyForm').before(compiled(message));
-					$('.replyForm').before(compiled(message));
+					$(clickFormSelector).before(compiled(message));
 				},
 				error : function(XMLHttpRequest, textStatus, errorThrown){
 					console.log("XMLHttpRequest : " + XMLHttpRequest.status);

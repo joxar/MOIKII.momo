@@ -138,6 +138,7 @@ body { margin-top:30px; }
 	</div>
 	<!-- 返信コメントの描画に使うテンプレート -->
 	<script type="text/html" id="tmplReplyComment">
+        <div class="replyComment">
 		<div class="media">
 			<a class="pull-left" href="#">
 				<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
@@ -155,13 +156,14 @@ body { margin-top:30px; }
 				</p>
 			</div>
 		</div>
+        </div>
 	</script>
 	<!-- 返信フォームの描画に使うテンプレート -->
 	<script type="text/html" id="tmplCommentBox">
-		<div class="replyForm">		
-			<textarea class="form-control" id="replyContent"rows="5"></textarea>
+		<div name="replyForm" class="replyForm">		
+			<textarea name="replyContent" class="form-control" rows="5"></textarea>
 			<div align="right">
-				<button class="replyButton" class="btn btn-primary">send message!</button>
+				<button name="replyButton" class="btn btn-primary">send message!</button>
 			</div>
 		</div>
 	</script>
