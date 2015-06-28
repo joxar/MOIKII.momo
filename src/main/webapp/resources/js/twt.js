@@ -1,5 +1,7 @@
 $(function() {
 	
+	var index;
+	
 	//momoオブジェクトのJSON
 	 var momo ={ "momo": {
 	        "phase": "",
@@ -23,9 +25,14 @@ $(function() {
 		  interpolate : /\{\{(.+?)\}\}/g
 		};
 		
+		
 		//返信用linkにidを割り当てる
 		$('.reply-link').attr("id",function(i){
-			return 'reply-link-' + i;
+			index = $('.reply-link').size() - 1;
+			index -= i;
+			/*console.log('indexa:' + index);
+			console.log('ia:' + i);*/
+			return 'reply-link-' + index;
 		});
 	
 	//twt画面の投稿ボタンを押下した時に呼び出し
@@ -60,8 +67,11 @@ $(function() {
 				$('#board tbody > tr:eq(0)').before(compiled(message));
 				
 				//返信用linkにidを再割り当て
+				index = $('.reply-link').size() - 1;
 				$('.reply-link').attr("id",function(i){
-					return 'reply-link-' + i;
+					index -= i;
+					//console.log('indexb:' + index);
+					return 'reply-link-' + index;
 				});
 				
 			},
@@ -75,34 +85,67 @@ $(function() {
 	
 	//返信用リンクをクリックすると呼び出し
 	$(document).on('click','.reply-link', function(){
-		
-		//クリックした返信用リンクのidを取得
-		var clickLinkId = $(this).attr('id');
+		var linkId = $(this).attr('id');
+		//console.log('linkId:' + linkId);
 		//返信フォームを表示
 		var template = $('#tmplReplyForm').html();
 		var compiled = _.template(template);
 		$(this).after(compiled());
 		
-		//返信フォームにidを割り振る
+		var tmpId,count;
+		$('*[name=replyForm]').each(function(index, element) {
+			tmpId = $(element).attr('id');
+			if(typeof tmpId === 'undefined') {
+				count = $(element).size();
+				count--;
+				$(element).attr('id',count);
+			}
+		});
+		
+		$('*[name=replyButton]').each(function(index, element) {
+			tmpId = $(element).attr('id');
+			if(typeof tmpId === 'undefined') {
+				count = $(element).size();
+				count--;
+				$(element).attr('id',count);
+			}
+		});
+		
+		$('*[name=replyContent]').each(function(index, element) {
+			tmpId = $(element).attr('id');
+			if(typeof tmpId === 'undefined') {
+				count = $(element).size();
+				count--;
+				$(element).attr('id',count);
+			}
+		});
+		
+		/*//返信フォームにidを割り振る
 		$('*[name=replyForm]').attr("id",function(i){
-			return 'replyForm-' + i;
+			index = $('*[name=replyForm]').size() - 1;
+			index -= i;
+			return 'replyForm-' + index;
 		});
 		
 		//返信コメント投下ボタンにidを割り振る
 		$('*[name=replyButton]').attr("id",function(i){
-			return 'replyButton-' + i;
+			index = $('*[name=replyButton]').size() - 1;
+			index -= i;
+			return 'replyButton-' + index;
 		});
 		
 		//返信フォームにidを割り振る
 		$('*[name=replyContent]').attr("id",function(i){
-			return 'replyContent-' + i;
-		});
+			index = $('*[name=replyContent]').size() - 1;
+			index -= i;
+			return 'replyContent-' + index;
+		});*/
 		
 		//精製した返信メッセージのidを取得
 
 		var replyButtonId = $(this).next().children().next().children().attr('id');
 	
-		console.log('replyButtonId:' + replyButtonId);
+		//console.log('a-replyButtonId:' + replyButtonId);
 		
 		//Linkをhide
 		$(this).hide();
@@ -110,17 +153,19 @@ $(function() {
 	    
 		//返信フォームのボタン押下で呼び出し
 		$(document).on('click',clickButton,function() {	 
-
+			var buttonId = $(this).attr('id');
+			console.log('buttonId:' + buttonId);
 			var replyFormId = $(this).parent().parent().attr('id');
-			console.log('replyFormId:' + replyFormId);
+			//console.log('replyFormId:' + replyFormId);
 			var clickFormSelector = '#' + replyFormId;
 			
 			var replyContentId = $(this).parent().prev().attr('id');
-			console.log('replyContentId:' + replyContentId);
+			//console.log('replyContentId:' + replyContentId);
 			var replyContentSelector = '#' + replyContentId;
 			
 			 momo.momo.momo_contents = $(replyContentSelector).val();
 			$(replyContentSelector).val('');
+			//console.log('replyContentSelector:' + replyContentSelector);
 
 			$.ajax({
 				contentType: 'application/json; charset=UTF-8',
@@ -142,6 +187,7 @@ $(function() {
 					var template = $("#tmplReplyComment").html();
 					var compiled = _.template(template);
 					$(clickFormSelector).before(compiled(message));
+					console.log('clickFormSelector:' + clickFormSelector);
 				},
 				error : function(XMLHttpRequest, textStatus, errorThrown){
 					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
