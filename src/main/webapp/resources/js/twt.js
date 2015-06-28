@@ -1,6 +1,6 @@
 $(function() {
 	
-	var index;
+	var index,tmpId,count;
 	
 	//momoオブジェクトのJSON
 	 var momo ={ "momo": {
@@ -26,12 +26,10 @@ $(function() {
 		};
 		
 		
-		//返信用linkにidを割り当てる
+		//返信用linkに対して降順にidを割り振る
 		$('.reply-link').attr("id",function(i){
 			index = $('.reply-link').size() - 1;
 			index -= i;
-			/*console.log('indexa:' + index);
-			console.log('ia:' + i);*/
 			return 'reply-link-' + index;
 		});
 	
@@ -66,11 +64,10 @@ $(function() {
 				
 				$('#board tbody > tr:eq(0)').before(compiled(message));
 				
-				//返信用linkにidを再割り当て
-				index = $('.reply-link').size() - 1;
+				//返信用linkに対して降順にidを割り振る
 				$('.reply-link').attr("id",function(i){
+					index = $('.reply-link').size() - 1;
 					index -= i;
-					//console.log('indexb:' + index);
 					return 'reply-link-' + index;
 				});
 				
@@ -86,86 +83,69 @@ $(function() {
 	//返信用リンクをクリックすると呼び出し
 	$(document).on('click','.reply-link', function(){
 		var linkId = $(this).attr('id');
-		//console.log('linkId:' + linkId);
+
 		//返信フォームを表示
 		var template = $('#tmplReplyForm').html();
 		var compiled = _.template(template);
 		$(this).after(compiled());
 		
-		var tmpId,count;
+		//返信フォームにidを割り振る（先に追加されたフォームから)
+		count = $('*[name=replyForm]').size();
 		$('*[name=replyForm]').each(function(index, element) {
 			tmpId = $(element).attr('id');
 			if(typeof tmpId === 'undefined') {
-				count = $(element).size();
 				count--;
-				$(element).attr('id',count);
+				$(element).attr('id','replyForm-' + count);
+				tmpId = $(element).attr('id');
 			}
-		});
-		
-		$('*[name=replyButton]').each(function(index, element) {
-			tmpId = $(element).attr('id');
-			if(typeof tmpId === 'undefined') {
-				count = $(element).size();
-				count--;
-				$(element).attr('id',count);
-			}
-		});
-		
-		$('*[name=replyContent]').each(function(index, element) {
-			tmpId = $(element).attr('id');
-			if(typeof tmpId === 'undefined') {
-				count = $(element).size();
-				count--;
-				$(element).attr('id',count);
-			}
-		});
-		
-		/*//返信フォームにidを割り振る
-		$('*[name=replyForm]').attr("id",function(i){
-			index = $('*[name=replyForm]').size() - 1;
-			index -= i;
-			return 'replyForm-' + index;
 		});
 		
 		//返信コメント投下ボタンにidを割り振る
-		$('*[name=replyButton]').attr("id",function(i){
-			index = $('*[name=replyButton]').size() - 1;
-			index -= i;
-			return 'replyButton-' + index;
+		count = $('*[name=replyButton]').size();
+		$('*[name=replyButton]').each(function(index, element) {
+			tmpId = $(element).attr('id');
+			if(typeof tmpId === 'undefined') {
+				count--;
+				$(element).attr('id','replyButton-' + count);
+			}
 		});
 		
 		//返信フォームにidを割り振る
-		$('*[name=replyContent]').attr("id",function(i){
-			index = $('*[name=replyContent]').size() - 1;
-			index -= i;
-			return 'replyContent-' + index;
-		});*/
+		count = $('*[name=replyContent]').size();
+		$('*[name=replyContent]').each(function(index, element) {
+			tmpId = $(element).attr('id');
+			if(typeof tmpId === 'undefined') {
+				count--;
+				$(element).attr('id','replyContent-' + count);
+			}
+		});
 		
 		//精製した返信メッセージのidを取得
-
 		var replyButtonId = $(this).next().children().next().children().attr('id');
-	
-		//console.log('a-replyButtonId:' + replyButtonId);
 		
-		//Linkをhide
+		//replyLinkをhide
 		$(this).hide();
-	    var clickButton = '#' +  replyButtonId;
+	    
+		var clickButton = '#' +  replyButtonId;
 	    
 		//返信フォームのボタン押下で呼び出し
 		$(document).on('click',clickButton,function() {	 
 			var buttonId = $(this).attr('id');
-			console.log('buttonId:' + buttonId);
+			
+			//ボタンを押下した返信フォームのIDを取得
 			var replyFormId = $(this).parent().parent().attr('id');
-			//console.log('replyFormId:' + replyFormId);
+			
 			var clickFormSelector = '#' + replyFormId;
 			
+			//ボタンを押下した返信テキストエリアのIDを取得
 			var replyContentId = $(this).parent().prev().attr('id');
-			//console.log('replyContentId:' + replyContentId);
+
 			var replyContentSelector = '#' + replyContentId;
 			
+			//返信テキストエリア内の入力テキストを取得
 			 momo.momo.momo_contents = $(replyContentSelector).val();
 			$(replyContentSelector).val('');
-			//console.log('replyContentSelector:' + replyContentSelector);
+			
 
 			$.ajax({
 				contentType: 'application/json; charset=UTF-8',
@@ -187,7 +167,7 @@ $(function() {
 					var template = $("#tmplReplyComment").html();
 					var compiled = _.template(template);
 					$(clickFormSelector).before(compiled(message));
-					console.log('clickFormSelector:' + clickFormSelector);
+				
 				},
 				error : function(XMLHttpRequest, textStatus, errorThrown){
 					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
