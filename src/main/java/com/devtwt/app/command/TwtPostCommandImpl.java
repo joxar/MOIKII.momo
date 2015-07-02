@@ -27,6 +27,7 @@ public class TwtPostCommandImpl implements TwtPostCommand {
 	public void exec(String userName) {
 		// TODO Auto-generated method stub
 		momo.exec(bean, userName);
+		//↓いらない気がする
 		bean.getMomo().setCreateName(userDao.getUserName(bean.getMomo().getCreate_id()));
 	}
 

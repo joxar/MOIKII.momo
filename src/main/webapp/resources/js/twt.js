@@ -17,6 +17,21 @@ $(function() {
 	        "createName": ""
 	    }};
 	 
+	 //ReturnCommentのJSON
+	 var returnComment ={ "returnComment": {
+	        "id": "",
+	        "momo_momo_num": "",
+	        "child_num": "",
+	        "phase": "",
+	        "return_contents": "",
+	        "create_id": "",
+	        "create_date": "",
+	        "update_id": "",
+	        "update_date": "",
+	        "user_master_member_id": "",
+	        "createName": ""
+	    }};
+	 
 	    /**
 		 * _.templateSettingsにてテンプレートの区切り文字を変更してます。
 		 * デフォルトは<%%>なので、{{}}に変えてます。 
@@ -24,7 +39,6 @@ $(function() {
 		_.templateSettings = {
 		  interpolate : /\{\{(.+?)\}\}/g
 		};
-		
 		
 		//返信用linkに対して降順にidを割り振る
 		$('.reply-link').attr("id",function(i){
@@ -143,7 +157,7 @@ $(function() {
 			var replyContentSelector = '#' + replyContentId;
 			
 			//返信テキストエリア内の入力テキストを取得
-			 momo.momo.momo_contents = $(replyContentSelector).val();
+			returnComment.returnComment.return_contents = $(replyContentSelector).val();
 			$(replyContentSelector).val('');
 			
 
@@ -152,17 +166,17 @@ $(function() {
 				type : 'POST',
 				url : 'http://localhost:8080/app/twt/reply',
 				dataType : 'json',
-				data : JSON.stringify(momo),
+				data : JSON.stringify(returnComment),
 				success : function(callback) {
 					
 					//controllerから、コメントと投稿者と投稿時間を取得
-					var contents = JSON.parse(JSON.stringify(callback.momo.momo_contents));
-					var name = JSON.parse(JSON.stringify(callback.momo.createName));
-					var time = JSON.parse(JSON.stringify(callback.momo.create_date));
+					var contents = JSON.parse(JSON.stringify(callback.returnComment.return_contents));
+					var name = JSON.parse(JSON.stringify(callback.returnComment.createName));
+					var time = JSON.parse(JSON.stringify(callback.returnComment.create_date));
 	
 					var message = {"contents" : contents,
 									"name" : name,
-									"time" : time};						   
+									"time" : time};		
 					
 					var template = $("#tmplReplyComment").html();
 					var compiled = _.template(template);

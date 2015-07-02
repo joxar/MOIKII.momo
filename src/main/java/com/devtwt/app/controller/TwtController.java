@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.AllTwtGetCommand;
 import com.devtwt.app.command.InitializeCommand;
+import com.devtwt.app.command.PostReturnCommentCommand;
 import com.devtwt.app.command.TwtPostCommand;
 
 @Controller
@@ -33,10 +34,13 @@ public class TwtController {
 	RootBean bean;
 	
 	@Autowired
-	public TwtPostCommand twtPostCommand;
+	TwtPostCommand twtPostCommand;
 	
 	@Autowired
-	public AllTwtGetCommand allTwtGetCommand;
+	AllTwtGetCommand allTwtGetCommand;
+	
+	@Autowired
+	PostReturnCommentCommand returnCommentCommand;
 	
 	/********************************/
 	/******** コメント投稿画面 *********/
@@ -87,16 +91,6 @@ public class TwtController {
 		return json;
 	}
 	
-	@RequestMapping(value = "/twt/reply")
-	public String twtReply(RootBean bean, Model model) throws Exception {
-		
-		initilize.exec();
-		
-		model.addAttribute("rootData", bean);
-		
-		return "twt";
-	}
-	
 	/**/
 	@RequestMapping(value = "/twt/reply", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 	@ResponseBody
@@ -111,11 +105,9 @@ public class TwtController {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		String userName = userDetails.getUsername();
 		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
-		
-		bean.getMomo().setCreateName(userName);
-		bean.getMomo().setCreate_date(sdf.format(date));
+		returnCommentCommand.preProc(bean);
+		returnCommentCommand.exec(userName);
+		bean = returnCommentCommand.postProc();
 		
 		model.addAttribute("rootData", bean);
 		
