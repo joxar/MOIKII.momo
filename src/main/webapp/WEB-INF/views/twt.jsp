@@ -109,13 +109,14 @@ body { margin-top:30px; }
 					<c:if test="${not empty rootData.momoList}">
 						<c:forEach items="${rootData.momoList}" var="list" begin="${start}" end="${end}">
 							<tr style="height:80">
-								<td>
+								<td class="momoComment">
 									<div class="media">
 										<a class="pull-left" href="#">
 										<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
 												class="img-rounded" width="80" height="80"/>
 										</a>
 										<div class="media-body">
+											 <input type="hidden" class="hiddenId" value="${list.momoNum}"/>
 											 <c:out value="${list.createName}"/>
 											 <p class="text-left">
 											 	<c:out value="${list.momo_contents}"/>

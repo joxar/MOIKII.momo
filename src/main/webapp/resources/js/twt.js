@@ -46,6 +46,13 @@ $(function() {
 			index -= i;
 			return 'reply-link-' + index;
 		});
+		
+		//momoに対して降順にidを割り振る
+		$('.momoComment').attr("id",function(i){
+			index = $('.momoComment').size() - 1;
+			index -= i;
+			return 'momoComment-' + index;
+		});
 	
 	//twt画面の投稿ボタンを押下した時に呼び出し
 	$('#postForm').submit(function(event) {
@@ -83,6 +90,13 @@ $(function() {
 					index = $('.reply-link').size() - 1;
 					index -= i;
 					return 'reply-link-' + index;
+				});
+				
+				//momoに対して降順にidを割り振る
+				$('.momoComment').attr("id",function(i){
+					index = $('.momoComment').size() - 1;
+					index -= i;
+					return 'momoComment-' + index;
 				});
 				
 			},
@@ -136,7 +150,7 @@ $(function() {
 		
 		//精製した返信メッセージのidを取得
 		var replyButtonId = $(this).next().children().next().children().attr('id');
-		
+
 		//replyLinkをhide
 		$(this).hide();
 	    
@@ -160,6 +174,26 @@ $(function() {
 			returnComment.returnComment.return_contents = $(replyContentSelector).val();
 			$(replyContentSelector).val('');
 			
+			//返信対象のmomoBeanのIdを取得
+			var momoId = $(this).parent().prev().parent().parent().parent().prev().prev().prev().val();
+			console.log('momoID:' + momoId);
+			
+			//返信対象のmomoを格納している<td>のID
+			var MomoTdId = '#' + $(this).closest('.momoComment').attr('id');
+
+			console.log('MomoTdId:' + MomoTdId);
+			
+			//返信したmomoの配下のコメント数を取得
+		    MomoTdId = MomoTdId + ' .replyComment'
+		    var childNum = $(MomoTdId).size();
+			
+			console.log('childNum:' + childNum);
+			
+			//返信対象のmomoの何番目の子要素かをセット(0始まり)
+			returnComment.returnComment.child_num = childNum;
+		
+			//返信対象のmomoIDをreturnCommentBeanにセット
+			returnComment.returnComment.momo_momo_num = momoId;
 
 			$.ajax({
 				contentType: 'application/json; charset=UTF-8',

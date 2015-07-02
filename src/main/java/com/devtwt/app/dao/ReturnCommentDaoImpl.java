@@ -5,7 +5,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.devtwt.app.bean.GroupBean;
 import com.devtwt.app.bean.ReturnCommentBean;
 
 @Component
@@ -19,7 +18,7 @@ public class ReturnCommentDaoImpl implements ReturnCommentDao {
 	@Override
 	public void insertData(ReturnCommentBean returnComment) {
 		// TODO Auto-generated method stub
-		System.out.println("go4:" + returnComment);
+
 		//Groupを新規作成
     	jdbcTemplate.update(
                 "INSERT INTO RETURN_COMMENT (MOMO_MOMO_NUM, CHILD_NUM, PHASE, RETURN_CONTENTS, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE, USER_MASTER_MEMBER_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"

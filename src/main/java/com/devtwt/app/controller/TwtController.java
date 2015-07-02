@@ -1,8 +1,6 @@
 package com.devtwt.app.controller;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
@@ -97,8 +95,6 @@ public class TwtController {
 	public String  replyMomo(@RequestBody RootBean bean, Model model, Principal principal) throws Exception {
 		
 		initilize.exec();
-		
-		String DATE_PATTERN ="yyyy-MM-dd HH:mm:ss";
 		
 		//twtしたアカウントの情報を取得
 		Authentication authentication = (Authentication) principal;

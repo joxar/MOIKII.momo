@@ -31,6 +31,9 @@ public class PostReturnCommentCommandImpl implements PostReturnCommentCommand {
 
 	@Override
 	public void exec(String userName) {
+		
+		bean.getReturnComment().setCreateName(userName);
+		
 		// ログインアカウント名称からユーザIDを取得し、ReturnCommentにセット
 
 		userId = userDao.getUserId(userName);
