@@ -52,6 +52,37 @@ $(function() {
 			index -= i;
 			return 'momoComment-' + index;
 		});
+		
+		//返信フォームにidを割り振る（先に追加されたフォームから)
+		count = $('*[name=replyForm]').size();
+		$('*[name=replyForm]').each(function(index, element) {
+			tmpId = $(element).attr('id');
+			if(typeof tmpId === 'undefined') {
+				count--;
+				$(element).attr('id','replyForm-' + count);
+				tmpId = $(element).attr('id');
+			}
+		});
+		
+		//返信コメント投下ボタンにidを割り振る
+		count = $('*[name=replyButton]').size();
+		$('*[name=replyButton]').each(function(index, element) {
+			tmpId = $(element).attr('id');
+			if(typeof tmpId === 'undefined') {
+				count--;
+				$(element).attr('id','replyButton-' + count);
+			}
+		});
+		
+		//返信フォームにidを割り振る
+		count = $('*[name=replyContent]').size();
+		$('*[name=replyContent]').each(function(index, element) {
+			tmpId = $(element).attr('id');
+			if(typeof tmpId === 'undefined') {
+				count--;
+				$(element).attr('id','replyContent-' + count);
+			}
+		});
 	
 	//twt画面の投稿ボタンを押下した時に呼び出し
 	$('#postForm').submit(function(event) {
@@ -148,82 +179,84 @@ $(function() {
 				$(element).attr('id','replyContent-' + count);
 			}
 		});
-		
-		//精製した返信メッセージのidを取得
-		var replyButtonId = $(this).next().children().next().children().attr('id');
 
 		//replyLinkをhide
 		$(this).hide();
 	    
-		var clickButton = '#' +  replyButtonId;
-	    
-		//返信フォームのボタン押下で呼び出し
-		$(document).on('click',clickButton,function() {	 
-			var buttonId = $(this).attr('id');
-			
-			//ボタンを押下した返信フォームのIDを取得
-			var replyFormId = $(this).parent().parent().attr('id');
-			
-			var clickFormSelector = '#' + replyFormId;
-			
-			//ボタンを押下した返信テキストエリアのIDを取得
-			var replyContentId = $(this).parent().prev().attr('id');
-
-			var replyContentSelector = '#' + replyContentId;
-			
-			//返信テキストエリア内の入力テキストを取得
-			returnComment.returnComment.return_contents = $(replyContentSelector).val();
-			$(replyContentSelector).val('');
-			
-			//返信対象のmomoBeanのIdを取得
-			var momoId = $(this).parent().prev().parent().parent().parent().prev().prev().prev().val();
-			console.log('momoID:' + momoId);
-			
-			//返信対象のmomoを格納している<td>のID
-			var MomoTdId = '#' + $(this).closest('.momoComment').attr('id');
-
-			console.log('MomoTdId:' + MomoTdId);
-			
-			//返信したmomoの配下のコメント数を取得
-		    MomoTdId = MomoTdId + ' .replyComment'
-		    var childNum = $(MomoTdId).size();
-			
-			console.log('childNum:' + childNum);
-			
-			//返信対象のmomoの何番目の子要素かをセット(0始まり)
-			returnComment.returnComment.child_num = childNum;
-		
-			//返信対象のmomoIDをreturnCommentBeanにセット
-			returnComment.returnComment.momo_momo_num = momoId;
-
-			$.ajax({
-				contentType: 'application/json; charset=UTF-8',
-				type : 'POST',
-				url : 'http://localhost:8080/app/twt/reply',
-				dataType : 'json',
-				data : JSON.stringify(returnComment),
-				success : function(callback) {
-					
-					//controllerから、コメントと投稿者と投稿時間を取得
-					var contents = JSON.parse(JSON.stringify(callback.returnComment.return_contents));
-					var name = JSON.parse(JSON.stringify(callback.returnComment.createName));
-					var time = JSON.parse(JSON.stringify(callback.returnComment.create_date));
+	});
 	
-					var message = {"contents" : contents,
-									"name" : name,
-									"time" : time};		
-					
-					var template = $("#tmplReplyComment").html();
-					var compiled = _.template(template);
-					$(clickFormSelector).before(compiled(message));
+	//返信フォームのボタン押下で呼び出し
+	$(document).on('click','*[name=replyButton]',function() {	 
+		var buttonId = $(this).attr('id');
+		
+		//ボタンを押下した返信フォームのIDを取得
+		var replyFormId = $(this).parent().parent().attr('id');
+		
+		var clickFormSelector = '#' + replyFormId;
+		
+		//ボタンを押下した返信テキストエリアのIDを取得
+		var replyContentId = $(this).parent().prev().attr('id');
+
+		var replyContentSelector = '#' + replyContentId;
+		
+		//返信テキストエリア内の入力テキストを取得
+		returnComment.returnComment.return_contents = $(replyContentSelector).val();
+		$(replyContentSelector).val('');
+		
+		//返信対象のmomoBeanのIdを取得
+		var momoId = $(this).parent().prev().parent().parent().parent().prev().prev().prev().val();
+		
+		if(typeof momoId === 'undefined' ) {
+			//返信コメントがあると、momoBeanのIdの位置が変わるため、再取得
+			momoId = $(this).parent().prev().parent().prev().val();
+		}
+		
+		//返信対象のmomoを格納している<td>のID
+		var MomoTdId = '#' + $(this).closest('.momoComment').attr('id');
+
+		console.log('MomoTdId:' + MomoTdId);
+		
+		//返信したmomoの配下のコメント数を取得
+	    MomoTdId = MomoTdId + ' .replyComment'
+	    var childNum = $(MomoTdId).size();
+		
+		console.log('childNum:' + childNum);
+		
+		//返信対象のmomoの何番目の子要素かをセット(0始まり)
+		returnComment.returnComment.child_num = childNum;
+	
+		//返信対象のmomoIDをreturnCommentBeanにセット
+		returnComment.returnComment.momo_momo_num = momoId;
+
+		$.ajax({
+			contentType: 'application/json; charset=UTF-8',
+			type : 'POST',
+			url : 'http://localhost:8080/app/twt/reply',
+			dataType : 'json',
+			data : JSON.stringify(returnComment),
+			success : function(callback) {
 				
-				},
-				error : function(XMLHttpRequest, textStatus, errorThrown){
-					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
-		            console.log("textStatus : " + textStatus);
-		            console.log("errorThrown : " + errorThrown);
-	            }
-			});
+				//controllerから、コメントと投稿者と投稿時間を取得
+				var contents = JSON.parse(JSON.stringify(callback.returnComment.return_contents));
+				var name = JSON.parse(JSON.stringify(callback.returnComment.createName));
+				var time = JSON.parse(JSON.stringify(callback.returnComment.create_date));
+				var momoNum = JSON.parse(JSON.stringify(callback.returnComment.momo_momo_num));
+
+				var message = {"contents" : contents,
+								"name" : name,
+								"time" : time,
+								"momoNum" : momoNum};		
+				
+				var template = $("#tmplReplyComment").html();
+				var compiled = _.template(template);
+				$(clickFormSelector).before(compiled(message));
+			
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown){
+				console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+	            console.log("textStatus : " + textStatus);
+	            console.log("errorThrown : " + errorThrown);
+            }
 		});
 	});
 	

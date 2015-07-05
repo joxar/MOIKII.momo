@@ -151,6 +151,7 @@ body { margin-top:30px; }
 																	</div>
 																</div>
 														        </div>
+														        <input type="hidden" class="hiddenId" value="${list_child.momo_momo_num}"/>
 											 			</c:forEach>
 											 				<div name="replyForm" class="replyForm">		
 																<textarea name="replyContent" class="form-control" rows="5"></textarea>
@@ -192,6 +193,7 @@ body { margin-top:30px; }
 			</div>
 		</div>
         </div>
+		<input type="hidden" class="hiddenId" value="{{momoNum}}"/>
 	</script>
 	<!-- 返信フォームの描画に使うテンプレート -->
 	<script type="text/html" id="tmplReplyForm">

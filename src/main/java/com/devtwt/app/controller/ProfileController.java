@@ -29,24 +29,9 @@ private static final Logger logger = LoggerFactory.getLogger(LoginController.cla
 	FinalizeCommand finalize;
 	@Autowired
 	RootBean bean;
-	
-	MockCommandInterface mc;
-	LoginCommandInterface lc;
-	SetupDaoInterface sdi;
-	
-	@ModelAttribute("rootData")
-	public RootBean setUpRootBean() {
-		RootBean bean = new RootBean();
-		return bean;
-	}
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public String home(RootBean bean, Model model, Principal principal) {
-		
-		
+	public String profileInit(RootBean bean, Model model) {
 		return "profile";
 	}
 

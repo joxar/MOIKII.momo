@@ -88,39 +88,7 @@ body { margin-top:30px; }
    </div>
    
 	<div class="container">
-			<h1>Profile Page</h1>
-			<br>
-			<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/invite" id="mainForm">
-			<div id="main">
-				<div class="col-md-5">
-				<div class="form-group">
-					<label for="exampleInputEmail1">GroupName</label>
-					<form:input path="group.groupName" type="text" class="form-control" id="exampleInputEmail1"></form:input>
-				</div>
-				<div class="form-group">
-					<label >Development Category</label>
-					<form:select class="form-control" path="group.slctDevCateId" >
-					<option value="">
-					<c:if test="${not empty rootData.group.devCategoryList}">
-						<c:forEach var="list" items="${rootData.group.devCategoryList}">
-							<option value="${list.devCategoryId}" <c:if test="${rootData.group.slctDevCateId == list.devCategoryId}">selected</c:if>>
-								<c:out value="${list.devCategoryId}. ${list.devCategoryName}"/>
-							</option>
-						</c:forEach>
-					</c:if>
-					</form:select>
-				</div>
-				
-				<div id="memberList">
-					<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
-						<c:out value="${list.userName}"></c:out>
-					</c:forEach>
-				</div>
-				<br>
-				<input type="submit" value="Create Group" id="groupCreateBtn" class="btn btn-success">
-			</div>
-			</div>
-		</form:form>
+		<h1>Profile Page</h1>
 	</div>
 
 </body>
