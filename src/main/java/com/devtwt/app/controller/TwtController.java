@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.command.AllReplyGetCommand;
 import com.devtwt.app.command.AllTwtGetCommand;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.PostReturnCommentCommand;
@@ -27,18 +28,16 @@ public class TwtController {
 	
 	@Autowired
 	InitializeCommand initilize;
-	
 	@Autowired
 	RootBean bean;
-	
 	@Autowired
 	TwtPostCommand twtPostCommand;
-	
 	@Autowired
 	AllTwtGetCommand allTwtGetCommand;
-	
 	@Autowired
 	PostReturnCommentCommand returnCommentCommand;
+	@Autowired
+	AllReplyGetCommand allReplyGetCommand;
 	
 	/********************************/
 	/******** コメント投稿画面 *********/
@@ -53,6 +52,10 @@ public class TwtController {
 		allTwtGetCommand.exec();
 		bean = allTwtGetCommand.postProc();
 		int size = bean.getMomoList().size();
+		
+		allReplyGetCommand.preProc(bean);
+		allReplyGetCommand.exec();
+		bean = allReplyGetCommand.postProc();
 		
 		//過去に投稿したtwtをtwt画面にセット
 		model.addAttribute("rootData", bean);

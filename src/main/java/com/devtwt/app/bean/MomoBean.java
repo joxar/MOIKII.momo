@@ -21,7 +21,21 @@ public class MomoBean implements Serializable {
 	//twt投稿者の情報をセット
 	private List<UserBean> userList = new ArrayList<UserBean>();
 	private String createName = "";
+	private List<ReturnCommentBean> childList = new ArrayList<ReturnCommentBean>();
+	private int childCount = 0;
 	
+	public int getChildCount() {
+		return childCount;
+	}
+	public void setChildCount(int childCount) {
+		this.childCount = childCount;
+	}
+	public List<ReturnCommentBean> getChildList() {
+		return childList;
+	}
+	public void setChildList(List<ReturnCommentBean> childList) {
+		this.childList = childList;
+	}
 	public String getCreateName() {
 		return createName;
 	}
@@ -104,6 +118,7 @@ public class MomoBean implements Serializable {
 				+ create_date + ", update_date=" + update_date
 				+ ", user_master_member_id=" + user_master_member_id
 				+ ", userList=" + userList + ", createName=" + createName
+				+ ", childList=" + childList + ", childCount=" + childCount
 				+ ", update_id=" + update_id + "]";
 	}
 

@@ -125,7 +125,41 @@ body { margin-top:30px; }
 											 	<small><c:out value="${list.create_date}"/></small>
 											 </p>
 											 <p class="text-right">
-											 	<small><a class="reply-link" >コメントする</a></small>
+											 	<small>
+											 	    <c:if test="${list.childCount == -1}" var="flg" />
+											 	    <c:if test="${flg}">
+											 			<a class="reply-link" >コメントする</a>
+											 		</c:if>
+											 		<c:if test="${!flg}">
+											 			<c:forEach items="${list.childList}" var="list_child" begin="0" end="${list.childCount}">
+											 				 <div class="replyComment">
+																<div class="media">
+																	<a class="pull-left" href="#">
+																		<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+																				class="img-rounded" width="80" height="80"/>
+																	</a>
+																	<div class="media-body">
+																		<p class="text-left">
+																			 <c:out value="${list_child.createName}"/>
+																		</p>
+																		<p class="text-left">
+																			<c:out value="${list_child.return_contents}"/>
+																		</p>
+																		 <p class="text-right">
+																			<small><c:out value="${list_child.create_date}"/></small>
+																		</p>
+																	</div>
+																</div>
+														        </div>
+											 			</c:forEach>
+											 				<div name="replyForm" class="replyForm">		
+																<textarea name="replyContent" class="form-control" rows="5"></textarea>
+																<div align="right">
+																	<button name="replyButton" class="btn btn-primary">send message!</button>
+																</div>
+															</div>
+											 		</c:if>
+											 	</small>
 											 </p>
 									     </div>
 									 </div>
@@ -171,13 +205,14 @@ body { margin-top:30px; }
 	<!-- 投稿コメントの描画に使うテンプレート -->
 	<script type="text/html" id="tmplComment">
 		<tr style="height:80">
-								<td>
+								<td class="momoComment">
 									<div class="media">
 										<a class="pull-left" href="#">
 										<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
 												class="img-rounded" width="80" height="80"/>
 										</a>
 										<div class="media-body">
+											 <input type="hidden" class="hiddenId" value="{{momoNum}}"/>
 											 {{name}}
 											 <p class="text-left">
 											 	{{contents}}

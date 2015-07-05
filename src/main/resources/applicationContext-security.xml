@@ -12,6 +12,7 @@
 	    <intercept-url pattern="/dbAccessMock/*" access="IS_AUTHENTICATED_FULLY" />
 	    <intercept-url pattern="/group/*" access="IS_AUTHENTICATED_FULLY" />
 	    <intercept-url pattern="/twt/*" access="IS_AUTHENTICATED_FULLY" />
+	    <intercept-url pattern="/profile/*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 	    <intercept-url pattern="/user/*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<!-- ログイン画面をlogin.jsp ログイン後遷移画面をtwt.jspに設定 -->

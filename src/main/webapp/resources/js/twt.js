@@ -4,15 +4,14 @@ $(function() {
 	
 	//momoオブジェクトのJSON
 	 var momo ={ "momo": {
-	        "phase": "",
-	        "create_id": "",
-	        "update_id": "",
-	        "create_date": "",
-	        "update_date": "",
-	        "momoNum": "",
+		    "momoNum": "",
 	        "stream_stream_num": "",
+	        "phase": "",
 	        "momo_contents": "",
-	        "updateId": "",
+	        "create_id": "",
+	        "create_date": "",
+	        "update_id": "",
+	        "update_date": "",
 	        "user_master_member_id": "",
 	        "createName": ""
 	    }};
@@ -75,10 +74,12 @@ $(function() {
 				var contents = JSON.parse(JSON.stringify(callback.momo.momo_contents));
 				var name = JSON.parse(JSON.stringify(callback.momo.createName));
 				var time = JSON.parse(JSON.stringify(callback.momo.create_date));
+				var momoNum = JSON.parse(JSON.stringify(callback.momo.momoNum));
 
 				var message = {"contents" : contents,
 								"name" : name,
-								"time" : time};
+								"time" : time,
+								"momoNum" : momoNum};
 				
 				var template = $("#tmplComment").text();
 				var compiled = _.template(template);
