@@ -22,7 +22,38 @@ public class RootBean implements Serializable {
 	@Autowired
 	List<GroupBean> groupList = new ArrayList<GroupBean>();
 	ConstantsBean constants = new ConstantsBean();
+	List<RoleBean> roleList = new ArrayList<RoleBean>();
+	MomoBean momo = new MomoBean();
+	List<MomoBean> momoList = new ArrayList<MomoBean>();
+	//Invite Member画面で選択したUserの名称がセットされる
+	List<String> selectUserName = new ArrayList<String>();
+	List<String> groupNameList = new ArrayList<String>();
+	DevCategoryBean devCategory = new DevCategoryBean();
 
+	public DevCategoryBean getDevCategory() {
+		return devCategory;
+	}
+	public void setDevCategory(DevCategoryBean devCategory) {
+		this.devCategory = devCategory;
+	}
+	public List<String> getGroupNameList() {
+		return groupNameList;
+	}
+	public void setGroupNameList(List<String> groupNameList) {
+		this.groupNameList = groupNameList;
+	}
+	public List<String> getSelectUserName() {
+		return selectUserName;
+	}
+	public void setSelectUserName(List<String> selectUserName) {
+		this.selectUserName = selectUserName;
+	}
+	public List<MomoBean> getMomoList() {
+		return momoList;
+	}
+	public void setMomoList(List<MomoBean> momoList) {
+		this.momoList = momoList;
+	}
 	public DbacMockBean getDbacMock() {
 		return dbacMock;
 	}
@@ -59,12 +90,27 @@ public class RootBean implements Serializable {
 	public void setConstants(ConstantsBean constants) {
 		this.constants = constants;
 	}
-
+	public MomoBean getMomo() {
+		return momo;
+	}
+	public void setMomo(MomoBean momo) {
+		this.momo = momo;
+	}
+	public List<RoleBean> getRoleList() {
+		return roleList;
+	}
+	public void setRoleList(List<RoleBean> roleList) {
+		this.roleList = roleList;
+	}
+	
 	@Override
 	public String toString() {
 		return "RootBean [dbacMock=" + dbacMock + ", user=" + user + ", group="
 				+ group + ", common=" + common + ", groupList=" + groupList
-				+ ", constants=" + constants + "]";
+				+ ", constants=" + constants + ", roleList=" + roleList
+				+ ", momo=" + momo + ", momoList=" + momoList
+				+ ", selectUserName=" + selectUserName + ", groupNameList="
+				+ groupNameList + ", devCategory=" + devCategory + "]";
 	}
 	
 }

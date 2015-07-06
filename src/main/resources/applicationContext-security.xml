@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
+	<http auto-config="true">
+	    <intercept-url pattern="/dbAccessMock/*" access="IS_AUTHENTICATED_FULLY" />
+	    <intercept-url pattern="/group/*" access="IS_AUTHENTICATED_FULLY" />
+	    <intercept-url pattern="/twt/*" access="IS_AUTHENTICATED_FULLY" />
+	    <intercept-url pattern="/user/*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<!-- ログイン画面をlogin.jsp ログイン後遷移画面をtwt.jspに設定 -->
+		<form-login login-page="/"
+			 default-target-url="/twt"
+			  login-processing-url="/authentication"
+			  authentication-failure-url="/login?error=true" />
+			  <!-- authentication-failure-handler-ref="authenticationFailureHandler" /> -->
+			  <sec:logout logout-url="/logout" logout-success-url="/" />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="userDetailsService">
+		</authentication-provider>
+	</authentication-manager>
+	
+	<beans:bean id="userDetailsService" 
+			class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="enableGroups" value="false" />
+		<!--
+		Spring Securityのテーブル定義とMOIKIIのテーブル定義が異なるため、カラム名を変更している。
+		なお、一時的に有効なアカウントのDELETE_FLAGを1に設定(無効なアカウントのDELETE_FLAGは、0)。
+		-->
+		<beans:property name="usersByUsernameQuery"
+				 value="SELECT MEMBER_NAME AS username, PASSWORD AS password, DELETE_FLAG AS enabled FROM USER_MASTER WHERE MEMBER_NAME = ?"></beans:property>
+	    <beans:property name="authoritiesByUsernameQuery"
+				 value="SELECT MEMBER_NAME AS username,MEMBER_NAME AS authorities FROM USER_MASTER WHERE MEMBER_NAME = ?"></beans:property>
+	</beans:bean>
+	
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	
+	<beans:bean class="org.springframework.jdbc.core.JdbcTemplate">
+        <beans:constructor-arg ref="dataSource" />
+    </beans:bean>
+	
+	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <beans:property name="driverClassName" value="${jdbc.driverClassName}" />
+        <beans:property name="url" value="${jdbc.url}" />
+    </beans:bean>
+       
+   <beans:bean id="authenticationFailureHandler" class="com.devtwt.app.handler.MyAuthenticationFailureHandler" />
+   
+	<!-- <sec:http auto-config="true" create-session="ifRequired" >
+	  <sec:session-management
+	    invalid-session-url="/"
+	    session-authentication-error-url="/"
+	    session-fixation-protection="migrateSession"
+	    session-authentication-strategy-ref="sessionStrategy" />
+	</sec:http>
+	
+	<beans:bean id="sessionStrategy"
+    		class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
+	    <beans:constructor-arg index="0">
+	        <beans:list>
+	            <beans:bean
+	                class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
+	            <beans:bean class="org.springframework.security.web.csrf.CsrfAuthenticationStrategy"> 
+	                <beans:constructor-arg index="0" ref="csrfTokenRepository" />
+	            </beans:bean>
+	        </beans:list>
+	    </beans:constructor-arg>
+	</beans:bean> -->
+   	
+</beans:beans>

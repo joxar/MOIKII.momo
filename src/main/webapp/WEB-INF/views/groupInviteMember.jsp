@@ -33,9 +33,6 @@ body { margin-top:30px; }
 <spring:url var="bootstrapJs"
 	value="/resources/bootstrap-3.3.2-dist/js/bootstrap.min.js" />
 <script type="text/javascript" src="${bootstrapJs}"></script>
-<!-- baseJs -->
-<%-- <spring:url var="baseJs" value="/resources/js/base.js" />
-<script type="text/javascript" src="${baseJs}"></script> --%>
 
 <title>MOIKII.momo</title>
 
@@ -87,41 +84,35 @@ body { margin-top:30px; }
        </div> 
    </div>
    
-	<div class="container">
-			<h1>Group Create Page</h1>
-			<br>
-			<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/invite" id="mainForm">
+   <form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/select" id="mainForm" method="get" >
+  	 <div class="container">
+		<c:if test="${not empty rootData.common.mainMessage}">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="alert alert-info" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span class="sr-only">Error:</span>
+	        		<form:input type="hidden" path="common.mainMessage"></form:input>
+					<c:out value="${rootData.common.mainMessage}"></c:out>
+				</div>
+			</div>
+		</c:if>
+		
+		<h1>Invite team members</h1>
+		<br>
 			<div id="main">
 				<div class="col-md-5">
-				<div class="form-group">
-					<label for="exampleInputEmail1">GroupName</label>
-					<form:input path="group.groupName" type="text" class="form-control" id="exampleInputEmail1"></form:input>
+					<div class="form-group">
+						<c:if test="${not empty rootData.group.memberList}">
+							<form:checkboxes items="${rootData.group.memberList}" path="selectUserName" itemLabel="userName"
+									delimiter="<br>" itemValue="userName"/>
+						</c:if>
+					</div>
+					<br>
+					<input type="submit" class="btn btn-success">
 				</div>
-				<div class="form-group">
-					<label >Development Category</label>
-					<form:select class="form-control" path="group.slctDevCateId" >
-					<option value="">
-					<c:if test="${not empty rootData.group.devCategoryList}">
-						<c:forEach var="list" items="${rootData.group.devCategoryList}">
-							<option value="${list.devCategoryId}" <c:if test="${rootData.group.slctDevCateId == list.devCategoryId}">selected</c:if>>
-								<c:out value="${list.devCategoryId}. ${list.devCategoryName}"/>
-							</option>
-						</c:forEach>
-					</c:if>
-					</form:select>
-				</div>
-				
-				<div id="memberList">
-					<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
-						<c:out value="${list.userName}"></c:out>
-					</c:forEach>
-				</div>
-				<br>
-				<input type="submit" value="Create Group" id="groupCreateBtn" class="btn btn-success">
 			</div>
-			</div>
-		</form:form>
-	</div>
+		</div>
+	</form:form>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.devtwt.app.controller;
 
+import java.security.Principal;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -45,15 +46,15 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(RootBean bean, Model model) {
+	public String home(RootBean bean, Model model, Principal principal) {
 		
 		initilize.exec();
 		
 		return "login";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(RootBean bean, Model model) {
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(RootBean bean, Model model, Principal principal) {
 		
 		initilize.exec();
 		this.bean = bean;
@@ -61,7 +62,7 @@ public class HomeController {
 		lc.loginProc(this.bean);
 		
 		model.addAttribute("rootData", lc.loginProc(this.bean));
-
+	
 		return "login";
 	}
 	
@@ -101,7 +102,7 @@ public class HomeController {
 		return "test1_1";
 	}
 	
-	@RequestMapping(value = "/dbAccessMock/init", method = RequestMethod.POST)
+	@RequestMapping(value = "/dbAccessMock/init", method = RequestMethod.GET)
 	public String dbAccessMockInit(RootBean bean, Model model) throws Exception {
 		return "dbAccessMock";
 	}
@@ -133,85 +134,9 @@ public class HomeController {
 	}
 	
 	/********************************/
-	/******** [グループ]作成画面 *******/
-	/********************************/
-	@RequestMapping(value = "/group/create/init", method = RequestMethod.POST)
-	public String groupCreateInit(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpCrtInitCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupCreate";
-	}
-	
-	@RequestMapping(value = "/group/create/tmp", method = RequestMethod.POST)
-	public String groupCreateTmp(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpCrtTmpCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupCreate";
-	}
-	
-	@RequestMapping(value = "/group/create/exec", method = RequestMethod.POST)
-	public String groupCreateExec(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpCrtExecCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupCreate";
-	}
-	
-	/********************************/
-	/****** [グループ]情報参照画面 ******/
-	/********************************/
-	@RequestMapping(value = "/group/showInfo/init", method = RequestMethod.POST)
-	public String groupShowInfoInit(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpShwInfInitCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupShowInfo";
-	}
-	
-	@RequestMapping(value = "/group/showInfo/tmp", method = RequestMethod.POST)
-	public String groupShowInfoTmp(RootBean bean, Model model) throws Exception {
-
-		initilize.exec();
-		this.bean = bean;
-		mc = new GrpShwInfTmpCommandImpl();
-		mc.preProc(this.bean);
-		mc.exec();
-		model.addAttribute("rootData", mc.postProc());
-		finalize.exec();
-		
-		return "groupShowInfo";
-	}
-	
-	/********************************/
 	/****** [グループ]参加申請画面 ******/
 	/********************************/
-	@RequestMapping(value = "/group/reqJoin/init", method = RequestMethod.POST)
+	@RequestMapping(value = "/group/reqJoin/init", method = RequestMethod.GET)
 	public String groupRequestJoinInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
@@ -256,7 +181,7 @@ public class HomeController {
 	/********************************/
 	/**** [グループ]参加申請拒否画面 *****/
 	/********************************/
-	@RequestMapping(value = "/group/rejectJoin/init", method = RequestMethod.POST)
+	@RequestMapping(value = "/group/rejectJoin/init", method = RequestMethod.GET)
 	public String rejectJoinInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
@@ -287,7 +212,7 @@ public class HomeController {
 	/********************************/
 	/***** [グループ]ロール変更画面 *****/
 	/********************************/
-	@RequestMapping(value = "/group/changeRole/init", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/group/changeRole/init", method = RequestMethod.GET)
 	public String groupChangeRoleInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
@@ -327,6 +252,6 @@ public class HomeController {
 		finalize.exec();
 		
 		return "groupChangeRole";
-	}
+	}*/
 	
 }

@@ -15,4 +15,6 @@ public class CommonConstants {
 	public static final String G_CHANGE_ROLE_OK = "***** GROUP CHANGE-ROLE - OK *****";
 	public static final String G_CHANGE_ROLE_NG = "***** GROUP CHANGE-ROLE - NG *****";
 	
+	public static final String A_CREATE_OK = "***** ACCOUNT CREATE - OK *****";
+	
 }

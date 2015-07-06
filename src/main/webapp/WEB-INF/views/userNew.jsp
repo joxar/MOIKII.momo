@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <%@ page session="false" %>
 
@@ -18,6 +17,7 @@
 <!--
 body { margin-top:30px; }
 #login-nav input { margin-bottom: 15px; }
+
 //-->
 </style>
 <!-- Bootstrap -->
@@ -33,16 +33,12 @@ body { margin-top:30px; }
 <spring:url var="bootstrapJs"
 	value="/resources/bootstrap-3.3.2-dist/js/bootstrap.min.js" />
 <script type="text/javascript" src="${bootstrapJs}"></script>
-<!-- baseJs -->
-<%-- <spring:url var="baseJs" value="/resources/js/base.js" />
-<script type="text/javascript" src="${baseJs}"></script> --%>
 
 <title>MOIKII.momo</title>
 
 </head>
 
 <body>
-
    <div class="row">
       <div class="col-md-12">
          <nav class="navbar navbar-default" role="navigation">
@@ -53,7 +49,7 @@ body { margin-top:30px; }
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand" href="${pageContext.request.contextPath}/twt">MOIKII.momo</a>
+               <a class="navbar-brand" href="${pageContext.request.contextPath}/">MOIKII.momo</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                <ul class="nav navbar-nav">
@@ -69,56 +65,47 @@ body { margin-top:30px; }
                   </li>
                </ul>
                <ul class="nav navbar-nav navbar-right">
-                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-user"></span> 
-                        <strong><sec:authentication property="principal.username" /></strong>
-                        <span class="glyphicon glyphicon-chevron-down"></span>
-                    </a>
-                    	<ul class="dropdown-menu">
-                    		<li>
-                    			<a href="${pageContext.request.contextPath}/logout">Sign out</a>
-                    		</li>
-                    	</ul>
-                    </li>
+                  <li><a href="${pageContext.request.contextPath}/user/new">Sign Up</a></li>
+                  <li><a href="${pageContext.request.contextPath}/login">Sign In</a></li>
                </ul>
             </div>
          </nav>
        </div> 
    </div>
    
-	<div class="container">
-			<h1>Group Create Page</h1>
-			<br>
-			<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/invite" id="mainForm">
-			<div id="main">
-				<div class="col-md-5">
-				<div class="form-group">
-					<label for="exampleInputEmail1">GroupName</label>
-					<form:input path="group.groupName" type="text" class="form-control" id="exampleInputEmail1"></form:input>
+   <div class="container">
+   		<form:form modelAttribute="rootData">
+			<c:if test="${not empty rootData.common.mainMessage}">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="alert alert-info" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<span class="sr-only">Error:</span>
+		        		<form:input type="hidden" path="common.mainMessage"></form:input>
+						<c:out value="${rootData.common.mainMessage}"></c:out>
+					</div>
 				</div>
-				<div class="form-group">
-					<label >Development Category</label>
-					<form:select class="form-control" path="group.slctDevCateId" >
-					<option value="">
-					<c:if test="${not empty rootData.group.devCategoryList}">
-						<c:forEach var="list" items="${rootData.group.devCategoryList}">
-							<option value="${list.devCategoryId}" <c:if test="${rootData.group.slctDevCateId == list.devCategoryId}">selected</c:if>>
-								<c:out value="${list.devCategoryId}. ${list.devCategoryName}"/>
-							</option>
-						</c:forEach>
-					</c:if>
-					</form:select>
+			</c:if>
+		<h1>Create your account</h1>
+		<br>
+		    <div class="control-group">
+				<label class="control-label" for="UserName">Username</label>
+				<div class="controls">
+				    <form:input path="user.userName" type="text" id="userName"></form:input>
 				</div>
-				
-				<div id="memberList">
-					<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
-						<c:out value="${list.userName}"></c:out>
-					</c:forEach>
-				</div>
-				<br>
-				<input type="submit" value="Create Group" id="groupCreateBtn" class="btn btn-success">
 			</div>
+			<br>
+			<div class="control-group">
+				<label class="control-label" for="Password">Password </label>
+				<div class="controls">
+				    <form:input path="user.userPassword" type="text" id="userPassword"></form:input>
+				</div>
+			</div>
+			<br>
+			<div class="control-group">
+			     <label class="control-label" for="confirmsignup"></label>
+			     <div class="controls">
+				 	<input type="submit" value="Create an account" name="_event_proceed" class="btn btn-success">
+				 </div> 
 			</div>
 		</form:form>
 	</div>

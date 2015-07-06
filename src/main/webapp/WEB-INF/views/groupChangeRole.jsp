@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <%@ page session="false" %>
 
@@ -13,8 +14,26 @@
 <!-- lib css -->
 <spring:url var="baseCss" value="/resources/css/base.css" />
 <link rel="stylesheet" type="text/css" href='${baseCss}' />
+<style type="text/css">
+<!--
+body { margin-top:30px; }
+#login-nav input { margin-bottom: 15px; }
+//-->
+</style>
+<!-- Bootstrap -->
+<spring:url var="bootstrapCss"
+	value="/resources/bootstrap-3.3.2-dist/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href='${bootstrapCss}' />
 
 <!-- ******** js ******** -->
+<!-- jQuery -->
+<spring:url var="jqueryJs" value="/resources/js/jquery-2.1.1.min.js" />
+<script type="text/javascript" src="${jqueryJs}"></script>
+<!-- Bootstrap -->
+<spring:url var="bootstrapJs"
+	value="/resources/bootstrap-3.3.2-dist/js/bootstrap.min.js" />
+<script type="text/javascript" src="${bootstrapJs}"></script>
+<!-- baseJs -->
 <spring:url var="baseJs" value="/resources/js/base.js" />
 <script type="text/javascript" src="${baseJs}"></script>
 
@@ -23,49 +42,122 @@
 </head>
 
 <body>
-<h1>Group Change Role Page</h1>
-<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/changeRole/exec" id="mainForm">
-	<div id="main">
-		<div>
-			<form:input type="hidden" path="common.mainMessage"></form:input>
-			<c:out value="${rootData.common.mainMessage}"></c:out>
+
+   <div class="row">
+      <div class="col-md-12">
+         <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" href="${pageContext.request.contextPath}/twt">MOIKII.momo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav">
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+                     <ul class="dropdown-menu">
+                        <li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/showInfo/init">groupShowInfo</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/reqJoin/init">requestJoin</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/rejectJoin/init">rejectJoin</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
+                     </ul>
+                  </li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right">
+                   <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span> 
+                        <strong><sec:authentication property="principal.username" /></strong>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    	<ul class="dropdown-menu">
+                    		<li>
+                    			<a href="${pageContext.request.contextPath}/logout">Sign out</a>
+                    		</li>
+                    	</ul>
+                    </li>
+               </ul>
+            </div>
+         </nav>
+       </div> 
+   </div>
+
+	<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/changeRole/exec" id="mainForm">
+		
+		<div class="container">
+			<c:if test="${not empty rootData.common.mainMessage}">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="alert alert-info" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<span class="sr-only">Error:</span>
+		        		<form:input type="hidden" path="common.mainMessage"></form:input>
+						<c:out value="${rootData.common.mainMessage}"></c:out>
+					</div>
+				</div>
+			</c:if>
 		</div>
 		
-		<div>
-			<c:out value="Group Name" />
-			<form:select path="group.slctGroupId" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/changeRole/tmp')">
-				<option value="">
-				<c:if test="${not empty rootData.groupList}">
-					<c:forEach var="list" items="${rootData.groupList}">
-						<option value="${list.groupId}" <c:if test="${rootData.group.slctGroupId == list.groupId}">selected</c:if>>
-						<c:out value="${list.groupId}. ${list.groupName}"/>
-						</option>
-					</c:forEach>
-				</c:if>
-			</form:select>
+		<div class="container">
+			<h1>Group Change Role Page</h1>
+			<br>
+			<div class="col-md-5">
+				<div id="main">
+					
+					
+					
+					<div>
+						<label>Group Name</label>
+						<form:select path="group.slctGroupName" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/changeRole/tmp')" class="form-control">
+							<option value="">
+							<c:if test="${not empty rootData.groupNameList}">
+								<c:forEach var="list" items="${rootData.groupNameList}">
+									<option value="${list}" <c:if test="${rootData.group.slctGroupName == list}">selected</c:if>>
+									<c:out value="${list}"/>
+									</option>
+								</c:forEach>
+							</c:if>
+						</form:select>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="container">
+			<div class="col-md-3">
+				<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
+					<c:set var="listElem" value="${sts.current}"></c:set>
+					<tr>
+						<td><label><c:out value="${list.userName}" /></label></td>
+						<td>
+						<form:select path="group.memberList[${sts.index}].slctRoleId" class="form-control">
+							<c:forEach var="list_a" items="${list.roleList}" >
+								<option value="${list_a.roleId}" <c:if test="${listElem.slctRoleId == list_a.roleId}">selected</c:if>>
+									<c:out value="${list_a.roleName}"></c:out>
+								</option>
+							</c:forEach>
+						</form:select>
+						</td>
+					</tr>
+					<br>
+				</c:forEach>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="col-md-3">			
+				<br>
+				<input type="button" value="Change Role" id="groupCreateBtn" onclick="submitProc('mainForm')" class="btn btn-success">
+	
+			</div>
 		</div>
 
-		<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
-			<c:set var="listElem" value="${sts.current}"></c:set>
-			<tr>
-				<td><c:out value="${list.userName}" /></td>
-				<td>
-					<form:select path="">
-						<c:forEach var="list_a" items="${rootData.constants.roleNameList}">
-							<option>
-								<c:out value="${list_a}"><c:if test="${list.roleName == list_a}">selected</c:if></c:out>
-							</option>
-						</c:forEach>
-					</form:select>
-				</td>
-			</tr>
-			<br>
-		</c:forEach>
-	</div>
-	<input type="button" value="OK" id="groupCreateBtn" onclick="submitProc('mainForm')">
-	<br><br><br>
-	<input type="button" value="BACK" id="loginBtn" onclick="login()">
-</form:form>
-
+	</form:form>
+	
 </body>
 </html>

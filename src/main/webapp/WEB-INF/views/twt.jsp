@@ -1,14 +1,14 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-<%@ page session="false" %>
+<%@ page session="false"%>
 
 <html>
 <head>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- ******** css ******** -->
 <!-- lib css -->
@@ -33,16 +33,14 @@ body { margin-top:30px; }
 <spring:url var="bootstrapJs"
 	value="/resources/bootstrap-3.3.2-dist/js/bootstrap.min.js" />
 <script type="text/javascript" src="${bootstrapJs}"></script>
-<!-- baseJs -->
-<%-- <spring:url var="baseJs" value="/resources/js/base.js" />
-<script type="text/javascript" src="${baseJs}"></script> --%>
+<!-- underscore -->
+<spring:url var="underscoreJs" value="/resources/js/underscore-min.js" />
+<script type="text/javascript" src="${underscoreJs}"></script>
 
 <title>MOIKII.momo</title>
-
 </head>
 
 <body>
-
    <div class="row">
       <div class="col-md-12">
          <nav class="navbar navbar-default" role="navigation">
@@ -86,42 +84,75 @@ body { margin-top:30px; }
          </nav>
        </div> 
    </div>
-   
-	<div class="container">
-			<h1>Group Create Page</h1>
-			<br>
-			<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/invite" id="mainForm">
-			<div id="main">
-				<div class="col-md-5">
-				<div class="form-group">
-					<label for="exampleInputEmail1">GroupName</label>
-					<form:input path="group.groupName" type="text" class="form-control" id="exampleInputEmail1"></form:input>
-				</div>
-				<div class="form-group">
-					<label >Development Category</label>
-					<form:select class="form-control" path="group.slctDevCateId" >
-					<option value="">
-					<c:if test="${not empty rootData.group.devCategoryList}">
-						<c:forEach var="list" items="${rootData.group.devCategoryList}">
-							<option value="${list.devCategoryId}" <c:if test="${rootData.group.slctDevCateId == list.devCategoryId}">selected</c:if>>
-								<c:out value="${list.devCategoryId}. ${list.devCategoryName}"/>
-							</option>
+
+	<div class="container main-content">
+		<table class="table table-bordered table-hover" id="board">
+			<thead>
+				<tr>
+					<td colspan="2">
+ 						<form:form id="postForm" modelAttribute="rootData" action="${pageContext.request.contextPath}/twt/json" >
+						    <div class="form-group">
+							    <form:textarea class="form-control" rows="5" id="postContents" path="momo.momo_contents"></form:textarea>
+								    <div align="right">
+									    <button id="post" class="btn btn-primary">send message!</button>
+								    </div>
+							</div>
+						</form:form>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="dummy">
+					<c:if test="${not empty rootData.momoList}">
+						<c:forEach items="${rootData.momoList}" var="list" begin="${start}" end="${end}">
+							<tr style="height:80">
+								<td>
+									<div class="media">
+										<a class="pull-left" href="#">
+										<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+												class="img-rounded" width="80" height="80"/>
+										</a>
+										<div class="media-body">
+											 <c:out value="${list.createName}"/>
+											 <p class="text-left">
+											 	<c:out value="${list.momo_contents}"/>
+											 </p>
+											 <p class="text-right">
+											 	<small><c:out value="${list.create_date}"/></small>
+											 </p>
+									     </div>
+									 </div>
+								</td>
+							</tr>
 						</c:forEach>
 					</c:if>
-					</form:select>
-				</div>
-				
-				<div id="memberList">
-					<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
-						<c:out value="${list.userName}"></c:out>
-					</c:forEach>
-				</div>
-				<br>
-				<input type="submit" value="Create Group" id="groupCreateBtn" class="btn btn-success">
-			</div>
-			</div>
-		</form:form>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-
+	<script type="text/html" id="tmplString">
+		<tr style="height:80">
+								<td>
+									<div class="media">
+										<a class="pull-left" href="#">
+										<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+												class="img-rounded" width="80" height="80"/>
+										</a>
+										<div class="media-body">
+											 {{name}}
+											 <p class="text-left">
+											 	{{contents}}
+											 </p>
+											 <p class="text-right">
+											 	<small>{{time}}</small>
+											 </p>
+									     </div>
+									 </div>
+								</td>
+							</tr>
+	</script>
+	<!-- ******** js ******** -->
+	<spring:url var="twtJs" value="/resources/js/twt.js" />
+	<script type="text/javascript" src="${twtJs}"></script>
 </body>
 </html>

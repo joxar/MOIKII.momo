@@ -73,26 +73,7 @@ body { margin-top:30px; }
 		</c:if>
 	</div>
 	
-	<div class="container" style="margin-top:40px">
-		<div class="col-md-6 col-md-offset-3">
-			<div class="panel panel-default">
-				<div class="panel-heading"><h3 class="panel-title"><strong>Sign In </strong></h3></div>
-				<div class="panel-body">
-					<form:form modelAttribute="rootData" role="form" name="login_form" action="${pageContext.request.contextPath}/authentication" method="post">
-					<div class="form-group">
-						<label for="exampleInputEmail1">Username or Email</label>
-						<input type="text" name="j_username" class="form-control" id="exampleInputEmail1" >
-					</div>
-					<div class="form-group">
-						<label for="exampleInputPassword1">Password <a href="/sessions/forgot_password">(forgot password)</a></label>
-						<input type="password" name="j_password" class="form-control" id="exampleInputPassword1" >
-					</div>
-						<button type="submit" class="btn btn-default">Sign in</button>
-				</form:form>
-				</div>
-			</div>
-		</div>
-	</div>
+	<h1>defaultError</h1>
 
 </body>
 </html>
