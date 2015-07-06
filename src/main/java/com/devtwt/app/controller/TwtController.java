@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.command.AllReplyGetCommand;
 import com.devtwt.app.command.AllTwtGetCommand;
 import com.devtwt.app.command.InitializeCommand;
+import com.devtwt.app.command.PostReturnCommentCommand;
 import com.devtwt.app.command.TwtPostCommand;
 
 @Controller
@@ -26,15 +28,16 @@ public class TwtController {
 	
 	@Autowired
 	InitializeCommand initilize;
-	
 	@Autowired
 	RootBean bean;
-	
 	@Autowired
-	public TwtPostCommand twtPostCommand;
-	
+	TwtPostCommand twtPostCommand;
 	@Autowired
-	public AllTwtGetCommand allTwtGetCommand;
+	AllTwtGetCommand allTwtGetCommand;
+	@Autowired
+	PostReturnCommentCommand returnCommentCommand;
+	@Autowired
+	AllReplyGetCommand allReplyGetCommand;
 	
 	/********************************/
 	/******** コメント投稿画面 *********/
@@ -49,6 +52,10 @@ public class TwtController {
 		allTwtGetCommand.exec();
 		bean = allTwtGetCommand.postProc();
 		int size = bean.getMomoList().size();
+		
+		allReplyGetCommand.preProc(bean);
+		allReplyGetCommand.exec();
+		bean = allReplyGetCommand.postProc();
 		
 		//過去に投稿したtwtをtwt画面にセット
 		model.addAttribute("rootData", bean);
@@ -80,6 +87,32 @@ public class TwtController {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		//DBから取得した情報(時間、投稿者名など)をajaxに変換
+		String json = mapper.writeValueAsString(bean);
+		
+		return json;
+	}
+	
+	/**/
+	@RequestMapping(value = "/twt/reply", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String  replyMomo(@RequestBody RootBean bean, Model model, Principal principal) throws Exception {
+		
+		initilize.exec();
+		
+		//twtしたアカウントの情報を取得
+		Authentication authentication = (Authentication) principal;
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String userName = userDetails.getUsername();
+		
+		returnCommentCommand.preProc(bean);
+		returnCommentCommand.exec(userName);
+		bean = returnCommentCommand.postProc();
+		
+		model.addAttribute("rootData", bean);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		//DBから取得した情報(時間、投稿者名など)をjsonの文字列に変換
 		String json = mapper.writeValueAsString(bean);
 		
 		return json;

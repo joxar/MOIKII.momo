@@ -17,4 +17,11 @@ public class CommonConstants {
 	
 	public static final String A_CREATE_OK = "***** ACCOUNT CREATE - OK *****";
 	
+	public static final String G_REQUEST_APPROVE_OK = "***** GROUP JOIN APPROVE - OK *****";
+	public static final String G_REQUEST_REFUSE_OK = "***** GROUP JOIN REFUSE - OK *****";
+	
+	/*** JoinRequest Status ***/
+	public static final String STATUS_REQUEST = "REQUEST";
+	public static final String STATUS_APPROVE = "APPROVE";
+	public static final String STATUS_REFUSE = "REFUSE";
 }

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.command.GetRoleListCommand;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.UserCreateCommand;
 
@@ -26,6 +28,8 @@ public class UserCreateController {
 	
 	@Autowired
 	public UserCreateCommand userCreateCommand;
+	@Autowired
+	public GetRoleListCommand getRoleListCommand;
 
 	/********************************/
 	/******** [アカウント]作成画面 ******/
@@ -34,7 +38,11 @@ public class UserCreateController {
 	public String userNew(RootBean bean, Model model) throws Exception {
 		
 		initilize.exec();
-		model.addAttribute("rootData", bean);
+		
+		//全Roleのリストを取得
+		getRoleListCommand.preProc(bean);
+		getRoleListCommand.exec();
+		model.addAttribute("rootData", getRoleListCommand.postProc());
 		
 		return "userNew";
 	}

@@ -96,7 +96,9 @@ body { margin-top:30px; }
 				</div>
 			</div>
 		</c:if>
-		
+	</div>
+	
+	<div class="container">	
 		<h1>Invite team members</h1>
 		<br>
 			<div id="main">

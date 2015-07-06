@@ -34,6 +34,7 @@ public class GroupShowInfoCommandImpl implements GroupShowInfoCommand {
 	@Override
 	public void exec() {
 		// TODO Auto-generated method stub
+		//セレクトボックスで選択したグループのリストを取得
 		bean.setGroupList(dao.getGroupInfo(bean.getGroup().getSlctGroupName()));
 		
 		List<GroupBean> groupList = bean.getGroupList();

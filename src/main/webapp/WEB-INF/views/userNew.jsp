@@ -52,18 +52,6 @@ body { margin-top:30px; }
                <a class="navbar-brand" href="${pageContext.request.contextPath}/">MOIKII.momo</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-               <ul class="nav navbar-nav">
-                  <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/showInfo/init">groupShowInfo</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/reqJoin/init">requestJoin</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/rejectJoin/init">rejectJoin</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
-                     </ul>
-                  </li>
-               </ul>
                <ul class="nav navbar-nav navbar-right">
                   <li><a href="${pageContext.request.contextPath}/user/new">Sign Up</a></li>
                   <li><a href="${pageContext.request.contextPath}/login">Sign In</a></li>
@@ -85,30 +73,42 @@ body { margin-top:30px; }
 					</div>
 				</div>
 			</c:if>
-		<h1>Create your account</h1>
-		<br>
-		    <div class="control-group">
-				<label class="control-label" for="UserName">Username</label>
-				<div class="controls">
-				    <form:input path="user.userName" type="text" id="userName"></form:input>
+		   <h1>Create your account</h1>
+   		　　<div class="col-md-3">
+				<br>
+		    	<div class="control-group">
+					<label class="control-label" for="UserName">Username</label>
+					<div class="controls">
+				    	<form:input path="user.userName" type="text" id="userName"></form:input>
+					</div>
 				</div>
-			</div>
-			<br>
-			<div class="control-group">
-				<label class="control-label" for="Password">Password </label>
-				<div class="controls">
-				    <form:input path="user.userPassword" type="text" id="userPassword"></form:input>
+				<br>
+				<div class="control-group">
+					<label class="control-label" for="Password">Password </label>
+					<div class="controls">
+					    <form:input path="user.userPassword" type="text" id="userPassword" ></form:input>
+					</div>
 				</div>
-			</div>
-			<br>
-			<div class="control-group">
-			     <label class="control-label" for="confirmsignup"></label>
-			     <div class="controls">
-				 	<input type="submit" value="Create an account" name="_event_proceed" class="btn btn-success">
-				 </div> 
+				<br>
+				<label>Role</label>
+			    <form:select path="user.slctRoleId" class="form-control">
+					<c:if test="${not empty rootData.roleList}">
+						<c:forEach var="list" items="${rootData.roleList}">
+							<option value="${list.roleId}"<c:if test="${rootData.user.slctRoleId == list.roleId}">selected</c:if>>
+								<c:out value="${list.roleName}"/>
+							</option>
+						</c:forEach>
+					</c:if>
+				</form:select>
+				<br>
+				<div class="control-group">
+				     <label class="control-label" for="confirmsignup"></label>
+				     <div class="controls">
+					 	<input type="submit" value="Create an account" name="_event_proceed" class="btn btn-success">
+					 </div> 
+				</div>
 			</div>
 		</form:form>
 	</div>
-
 </body>
 </html>

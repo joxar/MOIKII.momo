@@ -29,7 +29,28 @@ public class RootBean implements Serializable {
 	List<String> selectUserName = new ArrayList<String>();
 	List<String> groupNameList = new ArrayList<String>();
 	DevCategoryBean devCategory = new DevCategoryBean();
-
+	JoinRequestBean joinRequest = new JoinRequestBean();
+	List<JoinRequestBean> joinRequestList = new ArrayList<JoinRequestBean>();
+    ReturnCommentBean returnComment = new ReturnCommentBean();
+	
+	public ReturnCommentBean getReturnComment() {
+		return returnComment;
+	}
+	public void setReturnComment(ReturnCommentBean returnComment) {
+		this.returnComment = returnComment;
+	}
+	public List<JoinRequestBean> getJoinRequestList() {
+		return joinRequestList;
+	}
+	public void setJoinRequestList(List<JoinRequestBean> joinRequestList) {
+		this.joinRequestList = joinRequestList;
+	}
+	public JoinRequestBean getJoinRequest() {
+		return joinRequest;
+	}
+	public void setJoinRequest(JoinRequestBean joinRequest) {
+		this.joinRequest = joinRequest;
+	}
 	public DevCategoryBean getDevCategory() {
 		return devCategory;
 	}
@@ -110,7 +131,9 @@ public class RootBean implements Serializable {
 				+ ", constants=" + constants + ", roleList=" + roleList
 				+ ", momo=" + momo + ", momoList=" + momoList
 				+ ", selectUserName=" + selectUserName + ", groupNameList="
-				+ groupNameList + ", devCategory=" + devCategory + "]";
+				+ groupNameList + ", devCategory=" + devCategory
+				+ ", joinRequest=" + joinRequest + ", joinRequestList="
+				+ joinRequestList + ", returnComment=" + returnComment + "]";
 	}
 	
 }

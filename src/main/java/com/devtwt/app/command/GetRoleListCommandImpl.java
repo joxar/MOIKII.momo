@@ -1,21 +1,21 @@
 package com.devtwt.app.command;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.devtwt.app.bean.RoleBean;
 import com.devtwt.app.bean.RootBean;
-import com.devtwt.app.dao.MomoDao;
-import com.devtwt.app.dao.UserMasterDao;
+import com.devtwt.app.dao.RoleDao;
 
 @Component
-public class TwtPostCommandImpl implements TwtPostCommand {
+public class GetRoleListCommandImpl implements GetRoleListCommand {
 	
 	@Autowired
-	MomoDao momo;
+	private RootBean bean;
 	@Autowired
-	RootBean bean;
-	@Autowired
-	UserMasterDao userDao;
+	private RoleDao roleDao;
 
 	@Override
 	public void preProc(RootBean bean) {
@@ -24,11 +24,12 @@ public class TwtPostCommandImpl implements TwtPostCommand {
 	}
 
 	@Override
-	public void exec(String userName) {
+	public void exec() {
 		// TODO Auto-generated method stub
-		momo.exec(bean, userName);
-		//↓いらない気がする
-		bean.getMomo().setCreateName(userDao.getUserName(bean.getMomo().getCreate_id()));
+		
+		//ROLE_MASTERテーブルに格納されている全Roleを取得
+		List<RoleBean> roleList = roleDao.getAllData();
+		this.bean.setRoleList(roleList);
 	}
 
 	@Override

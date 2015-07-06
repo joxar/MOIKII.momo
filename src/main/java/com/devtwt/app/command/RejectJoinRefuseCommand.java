@@ -2,10 +2,10 @@ package com.devtwt.app.command;
 
 import com.devtwt.app.bean.RootBean;
 
-public interface AllTwtGetCommand {
+public interface RejectJoinRefuseCommand {
 	
 	void preProc(RootBean bean);
-	void  exec();
+	void exec();
 	RootBean postProc();
 
 }
