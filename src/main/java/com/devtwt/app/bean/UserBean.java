@@ -25,7 +25,14 @@ public class UserBean implements Serializable {
 	//セレクトボックスで選択された値が設定される
 	private String slctRoleName = "";
 	private String slctRoleId = "";
+	List<GroupBean> groupList = new ArrayList<GroupBean>();
 	
+	public List<GroupBean> getGroupList() {
+		return groupList;
+	}
+	public void setGroupList(List<GroupBean> groupList) {
+		this.groupList = groupList;
+	}
 	public String getSlctRoleId() {
 		return slctRoleId;
 	}
@@ -113,7 +120,8 @@ public class UserBean implements Serializable {
 				+ ", createDate=" + createDate + ", updateId=" + updateId
 				+ ", updateDate=" + updateDate + ", deleteFlag=" + deleteFlag
 				+ ", roleList=" + roleList + ", slctRoleName=" + slctRoleName
-				+ ", slctRoleId=" + slctRoleId + "]";
+				+ ", slctRoleId=" + slctRoleId + ", groupList=" + groupList
+				+ "]";
 	}
 
 }

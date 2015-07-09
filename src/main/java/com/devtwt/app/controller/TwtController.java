@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.AllReplyGetCommand;
 import com.devtwt.app.command.AllTwtGetCommand;
+import com.devtwt.app.command.GetBelongingGroupsCommand;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.PostReturnCommentCommand;
 import com.devtwt.app.command.TwtPostCommand;
@@ -38,14 +39,21 @@ public class TwtController {
 	PostReturnCommentCommand returnCommentCommand;
 	@Autowired
 	AllReplyGetCommand allReplyGetCommand;
+	@Autowired
+	GetBelongingGroupsCommand getBelongGrpCmd;
 	
 	/********************************/
 	/******** コメント投稿画面 *********/
 	/********************************/
 	@RequestMapping(value = "/twt")
-	public String twtHome(RootBean bean, Model model) throws Exception {
+	public String twtHome(RootBean bean, Model model, Principal principal) throws Exception {
 		
 		initilize.exec();
+		
+		//ログインアカウント名を取得
+		Authentication authentication = (Authentication) principal;
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String userName = userDetails.getUsername();
 		
 		//過去に投稿したtwtを取得
 		allTwtGetCommand.preProc(bean);
@@ -53,11 +61,16 @@ public class TwtController {
 		bean = allTwtGetCommand.postProc();
 		int size = bean.getMomoList().size();
 		
+		//過去に投稿した返信を取得
 		allReplyGetCommand.preProc(bean);
 		allReplyGetCommand.exec();
 		bean = allReplyGetCommand.postProc();
 		
-		//過去に投稿したtwtをtwt画面にセット
+		//ログインアカウント名をキーに所属しているグループのリストを取得
+		getBelongGrpCmd.preProc(bean);
+		getBelongGrpCmd.exec(userName);
+		bean = getBelongGrpCmd.postProc();
+		
 		model.addAttribute("rootData", bean);
 		model.addAttribute("start", 0);
 		model.addAttribute("end", --size);

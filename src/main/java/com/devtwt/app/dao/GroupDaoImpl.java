@@ -2,6 +2,7 @@ package com.devtwt.app.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -70,5 +71,31 @@ public class GroupDaoImpl implements GroupDao {
                 		, group.getMemberId(), group.getCreateId(), group.getCreateDate()
                 		, group.getUpdateId(), group.getUpdateDate());
 	}
+
+	@Override
+	public List<GroupBean> selectGroupListBymemberId(String memberId) {
+		// TODO Auto-generated method stub
+		
+		List<GroupBean> groupList = jdbcTemplate.query(
+				"SELECT * FROM COMMUNITY WHERE MEMBER_ID = ?"
+				, new RowMapper<GroupBean>() {
+					public GroupBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+						GroupBean groupBean = new GroupBean();
+						groupBean.setGroupId(rs.getString("COMMUNITY_ID"));
+						groupBean.setGroupName(rs.getString("COMMUNITY_NAME"));
+						groupBean.setDevCategoryId(rs.getString("DEV_CATEGORY_COMMUNITY_ID"));
+						groupBean.setMemberId(rs.getString("MEMBER_ID"));
+						groupBean.setCreateId(rs.getString("CREATE_ID"));
+						groupBean.setCreateDate(rs.getString("CREATE_DATE"));
+						groupBean.setUpdateId(rs.getString("UPDATE_ID"));
+						groupBean.setUpdateDate(rs.getString("UPDATE_DATE"));
+						return groupBean;
+					}}
+				, memberId);
+		
+		return groupList;
+	}
+	
+	
 
 }
