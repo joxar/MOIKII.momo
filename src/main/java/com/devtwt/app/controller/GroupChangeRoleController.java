@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.devtwt.app.bean.RootBean;
-import com.devtwt.app.command.ChangeUserRoleCommand;
 import com.devtwt.app.command.FinalizeCommand;
-import com.devtwt.app.command.GetRoleCommand;
-import com.devtwt.app.command.GroupNameAllGetCommand;
-import com.devtwt.app.command.GroupShowInfoCommand;
+import com.devtwt.app.command.GrpChngRoleExecCommand;
+import com.devtwt.app.command.GrpChngRoleInitCommand;
+import com.devtwt.app.command.GrpChngRoleTmpCommand;
 import com.devtwt.app.command.InitializeCommand;
-import com.devtwt.app.command.MockCommandInterface;
 
 @Controller
 @SessionAttributes("rootData")
@@ -32,27 +30,26 @@ private static final Logger logger = LoggerFactory.getLogger(GroupController.cla
 	@Autowired
 	RootBean bean;
 	@Autowired
-	GroupNameAllGetCommand groupNameAllGetCommand;
+	GrpChngRoleInitCommand grpChngRoleInitCommand;
 	@Autowired
-	GroupShowInfoCommand groupShowInfoCommand;
+	GrpChngRoleTmpCommand grpChngRoleTmpCommand;
 	@Autowired
-	GetRoleCommand getRoleCommand;
-	@Autowired
-	ChangeUserRoleCommand changeUserRoleCommand;
-	
-	MockCommandInterface mc;
+	GrpChngRoleExecCommand grpChngRoleExecCommand;
 	
 	/********************************/
 	/***** [グループ]ロール変更画面 *****/
 	/********************************/
 	@RequestMapping(value = "/group/changeRole/init", method = RequestMethod.GET)
-	public String groupChangeRoleInit(RootBean bean, Model model) throws Exception {
+	public String grpChngRoleInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
 		
-		groupNameAllGetCommand.preProc(bean);
-		groupNameAllGetCommand.exec();
-		model.addAttribute("rootData", groupNameAllGetCommand.postProc());
+		//全グループ名を含むセレクトリストを表示するための処理
+		grpChngRoleInitCommand.preProc(bean);
+		grpChngRoleInitCommand.exec();
+		bean = grpChngRoleInitCommand.postProc();
+		
+		model.addAttribute("rootData", bean);
 		
 		finalize.exec();
 		
@@ -60,19 +57,14 @@ private static final Logger logger = LoggerFactory.getLogger(GroupController.cla
 	}
 	
 	@RequestMapping(value = "/group/changeRole/tmp", method = RequestMethod.POST)
-	public String groupChangeRoleTmp(@ModelAttribute("rootData") RootBean bean, Model model) throws Exception {
+	public String grpChngRoleTmp(@ModelAttribute("rootData") RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
 		
-		//groupの所属メンバリスト,devCategoryを取得
-		groupShowInfoCommand.preProc(bean);
-		groupShowInfoCommand.exec();
-		this.bean = groupShowInfoCommand.postProc();
-		
-		//グループの各メンバにRoleListをセットして取得
-		getRoleCommand.preProc(bean);
-		getRoleCommand.exec();
-		this.bean = getRoleCommand.postProc();
+		//セレクトリストで選択したグループのメンバとロールを表示するための処理
+		grpChngRoleTmpCommand.preProc(bean);
+		grpChngRoleTmpCommand.exec();
+		bean = grpChngRoleTmpCommand.postProc();
 		
 		model.addAttribute("rootData", bean);
 		
@@ -82,12 +74,14 @@ private static final Logger logger = LoggerFactory.getLogger(GroupController.cla
 	}
 	
 	@RequestMapping(value = "/group/changeRole/exec", method = RequestMethod.POST)
-	public String groupChangeRoleExec(@ModelAttribute("rootData") RootBean bean, Model model) throws Exception {
+	public String grpChngRoleExec(@ModelAttribute("rootData") RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
-	
-		changeUserRoleCommand.preProc(bean);
-		changeUserRoleCommand.exec();
+	    
+		//変更したロールをDBに反映する処理を実施
+		grpChngRoleExecCommand.preProc(bean);
+		grpChngRoleExecCommand.exec();
+		bean = grpChngRoleExecCommand.postProc();
 	
 		model.addAttribute("rootData", bean);
 		finalize.exec();

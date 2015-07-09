@@ -7,62 +7,66 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.devtwt.app.bean.GroupBean;
+import com.devtwt.app.bean.RoleBean;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.bean.UserBean;
+import com.devtwt.app.dao.DevCategoryDao;
+import com.devtwt.app.dao.GroupShowInfoDao;
+import com.devtwt.app.dao.RoleDao;
+import com.devtwt.app.dao.UserMasterDao;
 
 @Component
-public class GrpChngRoleTmpCommandImpl implements MockCommandInterface {
-
+public class GrpChngRoleTmpCommandImpl implements GrpChngRoleTmpCommand  {
+	
 	@Autowired
 	private RootBean bean;
+	@Autowired
+	private GroupShowInfoDao grpShowInfodao;
+	@Autowired
+	private DevCategoryDao devCategoryDao;
+	@Autowired
+	private UserMasterDao userMasterDao;
+	@Autowired
+	private RoleDao roleDao;
 	
-	public void preProc(RootBean bean) { this.bean = bean; }
-	public RootBean postProc() { return this.bean; }
-	
-	public void exec() {
+	String tmp;
+	List<RoleBean> roleList;
 
-		/*** 定数リスト ***/
-		this.bean.setConstants(bean.getConstants());
+	@Override
+	public void preProc(RootBean bean) { this.bean = bean; }
+	
+	@Override
+	public RootBean postProc() { return bean; }
+
+	@Override
+	public void exec() {
+		//セレクトボックスで選択したグループのリストを取得
+		bean.setGroupList(grpShowInfodao.getGroupInfo(bean.getGroup().getSlctGroupName()));
 		
-		/*** グループリスト ***/
-		List<GroupBean> groupList = new ArrayList<GroupBean>();
-		GroupBean group = null;
-		String[] arr1 = {"01", "02", "03", "04", "05", "06"};
-		String[] arr2 = {"MOKII.momo", "MOIKII.abc", "MOIKII.def", "MOIKII.ghi", "MOIKII.jkl", "MOIKII.mno"};
+		List<GroupBean> groupList = bean.getGroupList();
 		
-		for (int i=0; i<arr1.length; i++) {
-			group = new GroupBean();
-			/*** グループID ***/
-			group.setGroupId(arr1[i]);
-			/*** グループ名 ***/
-			group.setGroupName(arr2[i]);
-			groupList.add(group);
-		}
-		bean.setGroupList(groupList);
+		//groupをセット DevCateIdとメンバー名の一覧を取得する必要がある
+	    tmp = bean.getGroup().getSlctGroupName();
+		bean.setGroup(groupList.get(0));
+		bean.getGroup().setSlctGroupName(tmp);
+		
+		//RootBeanにDevCategoryをセットする
+		bean.setDevCategory(devCategoryDao.getDevCategory(bean.getGroup().getDevCategoryId()));
 		
 		List<UserBean> memberList = new ArrayList<UserBean>();
-		UserBean user = null;
-		String[] arr1_1 = {"01", "02", "03"};
-		String[] arr1_2 = {"taro", "jiro", "saburo"};
-		String[] arr2_1 = {"0", "1"};
-		String[] arr2_2 = {"user", "admin"};
-		
-		/*** メンバーリスト ***/
-		for (int i=0; i<arr1_1.length; i++) {
-			user = new UserBean();
-			/*** メンバーID ***/
-			user.setUserId(arr1_1[i]);
-			/*** メンバー名 ***/
-			user.setUserName(arr1_2[i]);
-			for (int j=0; j<arr2_1.length; j++) {
-				/*** メンバーロールID ***/
-				user.setRoleId(arr2_1[j]);
-				/*** メンバーロール名 ***/
-				user.setRoleName(arr2_2[j]);
-			}
-			memberList.add(user);
+		//RootBeanにMemberListをセット
+		for(GroupBean group : groupList) {
+				memberList.add(userMasterDao.getMember(group.getMemberId()));
 		}
 		bean.getGroup().setMemberList(memberList);
 		
+		//ROLE_MASTERテーブルに格納されている全Roleを取得
+		roleList = roleDao.getAllData();
+		
+		//リストボックス表示のため、グループの各メンバに全ロール情報をセット
+		for(UserBean member : bean.getGroup().getMemberList()) {
+			member.setRoleList(roleList);
+			member.setSlctRoleId(member.getRoleId());
+		} 
 	}
 }

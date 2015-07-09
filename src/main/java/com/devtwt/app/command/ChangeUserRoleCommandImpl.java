@@ -17,10 +17,10 @@ public class ChangeUserRoleCommandImpl implements ChangeUserRoleCommand {
 	private UserMasterDao userDao;
 
 	@Override
-	public void preProc(RootBean bean) {
-		// TODO Auto-generated method stub
-		this.bean = bean;
-	}
+	public void preProc(RootBean bean) { this.bean = bean;}
+	
+	@Override
+	public RootBean postProc() { return bean; }
 
 	@Override
 	public void exec() {
@@ -34,10 +34,6 @@ public class ChangeUserRoleCommandImpl implements ChangeUserRoleCommand {
 		}
 	}
 
-	@Override
-	public RootBean postProc() {
-		// TODO Auto-generated method stub
-		return bean;
-	}
+	
 
 }
