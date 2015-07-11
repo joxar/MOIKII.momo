@@ -61,7 +61,7 @@ body { margin-top:30px; }
                      <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/showInfo/init">groupShowInfo</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/reqJoin/init">requestJoin</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/request/init">requestJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/rejectJoin/init">rejectJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
                      </ul>

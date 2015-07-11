@@ -48,7 +48,7 @@ public class GroupCreateController {
 		//画面に表示するために、全Development Categoryを取得
 		grpCrtInitCommand.preProc(bean);
 		grpCrtInitCommand.exec();
-		bean = grpCrtInitCommand.postProc();
+		this.bean = grpCrtInitCommand.postProc();
 		
 		model.addAttribute("rootData", bean);
 		
@@ -71,7 +71,7 @@ public class GroupCreateController {
 		  ログインアカウント以外のーザを取得*/
 		grpCrtInviteCommand.preProc(bean);
 		grpCrtInviteCommand.exec(userName);
-		bean = grpCrtInviteCommand.postProc();
+		this.bean = grpCrtInviteCommand.postProc();
 		
 		//ログインアカウント以外のユーザを画面にセット
 		model.addAttribute("rootData", bean);
@@ -90,7 +90,7 @@ public class GroupCreateController {
 		 //招待したメンバをGroupに追加
 		grpCrtExecCommand.preProc(bean);
 		grpCrtExecCommand.exec();
-		bean = grpCrtExecCommand.postProc();
+		this.bean = grpCrtExecCommand.postProc();
 		
 		model.addAttribute("rootData", bean);
 		

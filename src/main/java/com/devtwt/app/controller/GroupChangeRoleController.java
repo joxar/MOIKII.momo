@@ -43,7 +43,7 @@ public class GroupChangeRoleController {
 		//全グループ名を含むセレクトリストを表示するための処理
 		grpChngRoleInitCommand.preProc(bean);
 		grpChngRoleInitCommand.exec();
-		bean = grpChngRoleInitCommand.postProc();
+		this.bean = grpChngRoleInitCommand.postProc();
 		
 		model.addAttribute("rootData", bean);
 		
@@ -60,7 +60,7 @@ public class GroupChangeRoleController {
 		//セレクトリストで選択したグループのメンバとロールを表示するための処理
 		grpChngRoleTmpCommand.preProc(bean);
 		grpChngRoleTmpCommand.exec();
-		bean = grpChngRoleTmpCommand.postProc();
+		this.bean = grpChngRoleTmpCommand.postProc();
 		
 		model.addAttribute("rootData", bean);
 		
@@ -77,7 +77,7 @@ public class GroupChangeRoleController {
 		//変更したロールをDBに反映する処理を実施
 		grpChngRoleExecCommand.preProc(bean);
 		grpChngRoleExecCommand.exec();
-		bean = grpChngRoleExecCommand.postProc();
+		this.bean = grpChngRoleExecCommand.postProc();
 	
 		model.addAttribute("rootData", bean);
 		finalize.exec();

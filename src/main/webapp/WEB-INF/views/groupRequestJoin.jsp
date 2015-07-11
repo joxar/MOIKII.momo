@@ -62,7 +62,7 @@ body { margin-top:30px; }
                      <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/showInfo/init">groupShowInfo</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/reqJoin/init">requestJoin</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/request/init">requestJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/rejectJoin/init">rejectJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
                      </ul>
@@ -87,7 +87,7 @@ body { margin-top:30px; }
        </div> 
    </div>
 	
-	<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/reqJoin/exec" id="mainForm">
+	<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/request/exec" id="mainForm">
 		<div class="container">
 			<c:if test="${not empty rootData.common.mainMessage}">
 				<div class="alert alert-info" role="alert">
@@ -108,7 +108,7 @@ body { margin-top:30px; }
 				
 				<div class="form-group">
 					<label >Group Name</label>
-					<form:select path="group.slctGroupName" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/reqJoin/tmp')" class="form-control">
+					<form:select path="group.slctGroupName" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/request/tmp')" class="form-control">
 						<option value="">
 						<c:if test="${not empty rootData.groupNameList}">
 							<c:forEach var="list" items="${rootData.groupNameList}">
