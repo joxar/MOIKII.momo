@@ -26,7 +26,7 @@ import com.devtwt.app.command.JoinRequestCommand;
 @SessionAttributes("rootData")
 public class GroupJoinRequestController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(GroupController.class);
+	private static final Logger logger = LoggerFactory.getLogger(GroupCreateController.class);
 	
 	@Autowired
 	InitializeCommand initilize;

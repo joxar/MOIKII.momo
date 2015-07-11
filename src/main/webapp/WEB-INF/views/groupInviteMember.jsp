@@ -84,7 +84,7 @@ body { margin-top:30px; }
        </div> 
    </div>
    
-   <form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/select" id="mainForm" method="get" >
+   <form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/exec" id="mainForm" method="get" >
   	 <div class="container">
 		<c:if test="${not empty rootData.common.mainMessage}">
 			<div class="col-md-10 col-md-offset-1">
