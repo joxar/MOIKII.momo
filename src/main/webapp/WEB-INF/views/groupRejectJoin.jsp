@@ -63,7 +63,7 @@ body { margin-top:30px; }
                         <li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/showInfo/init">groupShowInfo</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/request/init">requestJoin</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/rejectJoin/init">rejectJoin</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/approval/init">rejectJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
                      </ul>
                   </li>
@@ -88,7 +88,7 @@ body { margin-top:30px; }
    </div>
 
 
-<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/rejectJoin/exec" id="mainForm">
+<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/approval/exec" id="mainForm">
 	<div class="container">
 			<c:if test="${not empty rootData.common.mainMessage}">
 				<div class="alert alert-info" role="alert">
