@@ -119,7 +119,7 @@ body { margin-top:30px; }
 				<thead>
 					<tr>
 						<td colspan="2">
-	 						<form:form id="postForm" modelAttribute="rootData" action="${pageContext.request.contextPath}/twt/json" >
+	 						<form:form id="postForm" modelAttribute="rootData" action="${pageContext.request.contextPath}/twt/post" >
 							    <div class="form-group">
 								    <form:textarea class="form-control" rows="5" id="postContents" path="momo.momo_contents"></form:textarea>
 									    <div align="right">

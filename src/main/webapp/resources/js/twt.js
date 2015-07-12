@@ -96,7 +96,7 @@ $(function() {
 		$.ajax({
 			contentType: 'application/json; charset=UTF-8',
 			type : 'POST',
-			url : 'http://localhost:8080/app/twt/json',
+			url : 'http://localhost:8080/app/twt/post',
 			dataType : 'json',
 			data : JSON.stringify(momo),
 			success : function(callback) {
