@@ -61,7 +61,7 @@ body { margin-top:30px; }
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
                      <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/showInfo/init">groupShowInfo</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/information/init">groupShowInfo</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/request/init">requestJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/approval/init">rejectJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
@@ -91,7 +91,7 @@ body { margin-top:30px; }
 		<h1>Group Info Page</h1>
 		<br>
 		<div class="col-md-5">
-		<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/showInfo/exec" id="mainForm">
+		<form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/information/exec" id="mainForm">
 			<div id="main">
 				<div>
 					<form:input type="hidden" path="common.mainMessage"></form:input>
@@ -100,7 +100,7 @@ body { margin-top:30px; }
 				
 				<div class="form-group">
 					<label >Group Name</label>
-					<form:select path="group.slctGroupName" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/showInfo/tmp')" class="form-control">
+					<form:select path="group.slctGroupName" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/information/exec')" class="form-control">
 						<option value="">
 						<c:if test="${not empty rootData.groupNameList}">
 							<c:forEach var="list" items="${rootData.groupNameList}">

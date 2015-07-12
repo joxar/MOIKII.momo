@@ -58,7 +58,7 @@ body { margin-top:30px; }
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
                      <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/showInfo/init">groupShowInfo</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/information/init">groupShowInfo</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/request/init">requestJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/approval/init">rejectJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
