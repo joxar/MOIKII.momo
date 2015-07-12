@@ -2,7 +2,7 @@ package com.devtwt.app.command;
 
 import com.devtwt.app.bean.RootBean;
 
-public interface GetRoleListCommand {
+public interface UserNewCommand {
 	
 	void preProc(RootBean bean);
 	void exec();
