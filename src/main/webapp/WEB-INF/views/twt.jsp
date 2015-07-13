@@ -60,9 +60,9 @@ body { margin-top:30px; }
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
                      <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/showInfo/init">groupShowInfo</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/reqJoin/init">requestJoin</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/rejectJoin/init">rejectJoin</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/information/init">groupShowInfo</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/request/init">requestJoin</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/approval/init">rejectJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
                      </ul>
                   </li>
@@ -86,91 +86,120 @@ body { margin-top:30px; }
        </div> 
    </div>
    
+   <div class="container">
+   　　　<div class="row">
+	
+	<!-- プロフィールサイドバー -->
+	<div class="col-md-2">
+		<div class="media">
+			<img src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+					class="media-object" width="120" height="120">
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name" style="text-align:center">
+					<a href="#"><sec:authentication property="principal.username" /></a>
+				</div>
+			</div>
+			<div class="profile-usermenu">
+			   <h4>Groups</h4>
+				<ul class="nav">
+					<c:if test="${not empty rootData.user.groupList}">
+						<c:forEach items="${rootData.user.groupList}" var="list" >
+							<li><a href="#"><c:out value="${list.groupName}"/></a></li>
+						</c:forEach>
+				    </c:if>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+   
 	<!-- コメント投稿フォーム -->
-	<div class="container main-content">
-		<table class="table table-hover" id="board">
-			<thead>
-				<tr>
-					<td colspan="2">
- 						<form:form id="postForm" modelAttribute="rootData" action="${pageContext.request.contextPath}/twt/json" >
-						    <div class="form-group">
-							    <form:textarea class="form-control" rows="5" id="postContents" path="momo.momo_contents"></form:textarea>
-								    <div align="right">
-									    <button id="post" class="btn btn-primary">send message!</button>
-								    </div>
-							</div>
-						</form:form>
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<!-- ここに投稿コメントを表示 -->
-				<tr id="dummy">
-					<c:if test="${not empty rootData.momoList}">
-						<c:forEach items="${rootData.momoList}" var="list" begin="${start}" end="${end}">
-							<tr style="height:80">
-								<td class="momoComment">
-									<div class="media">
-										<a class="pull-left" href="#">
-										<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
-												class="img-rounded" width="80" height="80"/>
-										</a>
-										<div class="media-body">
-											 <input type="hidden" class="hiddenId" value="${list.momoNum}"/>
-											 <c:out value="${list.createName}"/>
-											 <p class="text-left">
-											 	<c:out value="${list.momo_contents}"/>
-											 </p>
-											 <p class="text-right">
-											 	<small><c:out value="${list.create_date}"/></small>
-											 </p>
-											 <p class="text-right">
-											 	<small>
-											 	    <c:if test="${list.childCount == -1}" var="flg" />
-											 	    <c:if test="${flg}">
-											 			<a class="reply-link" >コメントする</a>
-											 		</c:if>
-											 		<c:if test="${!flg}">
-											 			<c:forEach items="${list.childList}" var="list_child" begin="0" end="${list.childCount}">
-											 				 <div class="replyComment">
-																<div class="media">
-																	<a class="pull-left" href="#">
-																		<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
-																				class="img-rounded" width="80" height="80"/>
-																	</a>
-																	<div class="media-body">
-																		<p class="text-left">
-																			 <c:out value="${list_child.createName}"/>
-																		</p>
-																		<p class="text-left">
-																			<c:out value="${list_child.return_contents}"/>
-																		</p>
-																		 <p class="text-right">
-																			<small><c:out value="${list_child.create_date}"/></small>
-																		</p>
+		<div class="col-md-8">
+			<table class="table table-hover" id="board">
+				<thead>
+					<tr>
+						<td colspan="2">
+	 						<form:form id="postForm" modelAttribute="rootData" action="${pageContext.request.contextPath}/twt/post" >
+							    <div class="form-group">
+								    <form:textarea class="form-control" rows="5" id="postContents" path="momo.momo_contents"></form:textarea>
+									    <div align="right">
+										    <button id="post" class="btn btn-primary">send message!</button>
+									    </div>
+								</div>
+							</form:form>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- ここに投稿コメントを表示 -->
+					<tr id="dummy">
+						<c:if test="${not empty rootData.momoList}">
+							<c:forEach items="${rootData.momoList}" var="list" begin="${start}" end="${end}">
+								<tr style="height:80">
+									<td class="momoComment">
+										<div class="media">
+											<a class="pull-left" href="#">
+											<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+													class="img-rounded" width="80" height="80"/>
+											</a>
+											<div class="media-body">
+												 <input type="hidden" class="hiddenId" value="${list.momoNum}"/>
+												 <c:out value="${list.createName}"/>
+												 <p class="text-left">
+												 	<c:out value="${list.momo_contents}"/>
+												 </p>
+												 <p class="text-right">
+												 	<small><c:out value="${list.create_date}"/></small>
+												 </p>
+												 <p class="text-right">
+												 	<small>
+												 	    <c:if test="${list.childCount == -1}" var="flg" />
+												 	    <c:if test="${flg}">
+												 			<a class="reply-link" >コメントする</a>
+												 		</c:if>
+												 		<c:if test="${!flg}">
+												 			<c:forEach items="${list.childList}" var="list_child" begin="0" end="${list.childCount}">
+												 				 <div class="replyComment">
+																	<div class="media">
+																		<a class="pull-left" href="#">
+																			<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+																					class="img-rounded" width="80" height="80"/>
+																		</a>
+																		<div class="media-body">
+																			<p class="text-left">
+																				 <c:out value="${list_child.createName}"/>
+																			</p>
+																			<p class="text-left">
+																				<c:out value="${list_child.return_contents}"/>
+																			</p>
+																			 <p class="text-right">
+																				<small><c:out value="${list_child.create_date}"/></small>
+																			</p>
+																		</div>
+																	</div>
+															        </div>
+															        <input type="hidden" class="hiddenId" value="${list_child.momo_momo_num}"/>
+												 			</c:forEach>
+												 				<div name="replyForm" class="replyForm">		
+																	<textarea name="replyContent" class="form-control" rows="5"></textarea>
+																	<div align="right">
+																		<button name="replyButton" class="btn btn-primary">send message!</button>
 																	</div>
 																</div>
-														        </div>
-														        <input type="hidden" class="hiddenId" value="${list_child.momo_momo_num}"/>
-											 			</c:forEach>
-											 				<div name="replyForm" class="replyForm">		
-																<textarea name="replyContent" class="form-control" rows="5"></textarea>
-																<div align="right">
-																	<button name="replyButton" class="btn btn-primary">send message!</button>
-																</div>
-															</div>
-											 		</c:if>
-											 	</small>
-											 </p>
-									     </div>
-									 </div>
-								</td>
-							</tr>
-						</c:forEach>
-					</c:if>
-				</tr>
-			</tbody>
-		</table>		
+												 		</c:if>
+												 	</small>
+												 </p>
+										     </div>
+										 </div>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>	
 	</div>
 	<!-- 返信コメントの描画に使うテンプレート -->
 	<script type="text/html" id="tmplReplyComment">
@@ -207,28 +236,28 @@ body { margin-top:30px; }
 	<!-- 投稿コメントの描画に使うテンプレート -->
 	<script type="text/html" id="tmplComment">
 		<tr style="height:80">
-								<td class="momoComment">
-									<div class="media">
-										<a class="pull-left" href="#">
-										<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
-												class="img-rounded" width="80" height="80"/>
-										</a>
-										<div class="media-body">
-											 <input type="hidden" class="hiddenId" value="{{momoNum}}"/>
-											 {{name}}
-											 <p class="text-left">
-											 	{{contents}}
-											 </p>
-											 <p class="text-right">
-											 	<small>{{time}}</small>
-											 </p>
-											 <p class="text-right">
-											 	<small><a class="reply-link" >コメントする</a></small>
-											 </p>
-									     </div>
-									 </div>
-								</td>
-							</tr>
+			<td class="momoComment">
+				<div class="media">
+					<a class="pull-left" href="#">
+						<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+								class="img-rounded" width="80" height="80"/>
+					</a>
+					<div class="media-body">
+						<input type="hidden" class="hiddenId" value="{{momoNum}}"/>
+							{{name}}
+						<p class="text-left">
+							{{contents}}
+						</p>
+						<p class="text-right">
+							<small>{{time}}</small>
+						</p>
+						<p class="text-right">
+							<small><a class="reply-link" >コメントする</a></small>
+						</p>
+					</div>
+				</div>
+			</td>
+		</tr>
 	</script>
 	<!-- ******** js ******** -->
 	<spring:url var="twtJs" value="/resources/js/twt.js" />

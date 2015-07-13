@@ -10,7 +10,7 @@ import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.dao.RoleDao;
 
 @Component
-public class GetRoleListCommandImpl implements GetRoleListCommand {
+public class UserNewCommandImpl implements UserNewCommand {
 	
 	@Autowired
 	private RootBean bean;

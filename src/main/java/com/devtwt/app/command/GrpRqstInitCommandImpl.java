@@ -7,22 +7,24 @@ import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.dao.GroupShowInfoDao;
 
 @Component
-public class GrpChngRoleInitCommandImpl implements GrpChngRoleInitCommand{
-	
+public class GrpRqstInitCommandImpl implements GrpRqstInitCommand {
+
 	@Autowired
 	private RootBean bean;
 	@Autowired
-	private GroupShowInfoDao dao;
+	private GroupShowInfoDao grpShowInfodao;
 
 	@Override
-	public void preProc(RootBean bean) { this.bean = bean; }
+	public RootBean postProc() { return bean; }
 	
 	@Override
-	public RootBean postProc() { return bean; }
+	public void preProc(RootBean bean) { this.bean = bean; }
 
 	@Override
 	public void exec() {
-		//全グループのグループ名称を取得
-		bean.setGroupNameList(dao.getAllGroupName());
+		
+		//登録されている全グループのグループ名称を取得
+		bean.setGroupNameList(grpShowInfodao.getAllGroupName());
 	}
+	
 }

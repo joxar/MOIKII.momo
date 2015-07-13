@@ -58,9 +58,9 @@ body { margin-top:30px; }
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
                      <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/showInfo/init">groupShowInfo</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/reqJoin/init">requestJoin</a></li>
-                        <li><a href="${pageContext.request.contextPath}/group/rejectJoin/init">rejectJoin</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/information/init">groupShowInfo</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/request/init">requestJoin</a></li>
+                        <li><a href="${pageContext.request.contextPath}/group/approval/init">rejectJoin</a></li>
                         <li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
                      </ul>
                   </li>
@@ -84,7 +84,7 @@ body { margin-top:30px; }
        </div> 
    </div>
    
-   <form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/select" id="mainForm" method="get" >
+   <form:form modelAttribute="rootData" action="${pageContext.request.contextPath}/group/create/exec" id="mainForm" method="get" >
   	 <div class="container">
 		<c:if test="${not empty rootData.common.mainMessage}">
 			<div class="col-md-10 col-md-offset-1">

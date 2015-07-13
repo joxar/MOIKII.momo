@@ -2,8 +2,6 @@ package com.devtwt.app.controller;
 
 import java.security.Principal;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,17 +15,15 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.FinalizeCommand;
-import com.devtwt.app.command.GroupNameAllGetCommand;
-import com.devtwt.app.command.GroupShowInfoCommand;
+import com.devtwt.app.command.GrpRqstExecCommand;
+import com.devtwt.app.command.GrpRqstInitCommand;
+import com.devtwt.app.command.GrpRqstTmpCommand;
 import com.devtwt.app.command.InitializeCommand;
-import com.devtwt.app.command.JoinRequestCommand;
 
 @Controller
 @SessionAttributes("rootData")
 public class GroupJoinRequestController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(GroupController.class);
-	
+		
 	@Autowired
 	InitializeCommand initilize;
 	@Autowired
@@ -35,48 +31,51 @@ public class GroupJoinRequestController {
 	@Autowired
 	RootBean bean;
 	@Autowired
-	GroupNameAllGetCommand groupNameAllGetCommand;
+	GrpRqstInitCommand grpRqstInitCommand;
 	@Autowired
-	GroupShowInfoCommand groupShowInfoCommand;
+	GrpRqstTmpCommand grpRqstTmpCommand;
 	@Autowired
-	JoinRequestCommand joinRequestCommand;
+	GrpRqstExecCommand grpRqstExecCommand;
 	
 	/********************************/
 	/****** [グループ]参加申請画面 ******/
 	/********************************/
-	@RequestMapping(value = "/group/reqJoin/init", method = RequestMethod.GET)
-	public String groupRequestJoinInit(RootBean bean, Model model) throws Exception {
+	@RequestMapping(value = "/group/request/init", method = RequestMethod.GET)
+	public String grpRqstInit(RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
 	    
-		//DBに登録されているGroup情報を全て取得
-		groupNameAllGetCommand.preProc(bean);
-		groupNameAllGetCommand.exec();
-		model.addAttribute("rootData", groupNameAllGetCommand.postProc());
+		//画面に表示するためにDBに登録されているGroup情報を全て取得
+		grpRqstInitCommand.preProc(bean);
+		grpRqstInitCommand.exec();
+		bean = grpRqstInitCommand.postProc();
+		
+		model.addAttribute("rootData", bean);
 		
 		finalize.exec();
 		
 		return "groupRequestJoin";
 	}
 	
-	@RequestMapping(value = "/group/reqJoin/tmp", method = RequestMethod.POST)
-	public String groupRequestJoinTmp(@ModelAttribute("rootData") RootBean bean, Model model) throws Exception {
+	@RequestMapping(value = "/group/request/tmp", method = RequestMethod.POST)
+	public String grpRqstTmp(@ModelAttribute("rootData") RootBean bean, Model model) throws Exception {
 
 		initilize.exec();
 		
 		//セレクトボックスで選択したグループの情報を取得
-		groupShowInfoCommand.preProc(bean);
-		groupShowInfoCommand.exec();
-		model.addAttribute("rootData", groupShowInfoCommand.postProc());
+		grpRqstTmpCommand.preProc(bean);
+		grpRqstTmpCommand.exec();
+		bean = grpRqstTmpCommand.postProc();
 		
+		model.addAttribute("rootData", bean);
 		
 		finalize.exec();
 		
 		return "groupRequestJoin";
 	}
 	
-	@RequestMapping(value = "/group/reqJoin/exec", method = RequestMethod.POST)
-	public String groupRequestJoinExec(@ModelAttribute("rootData") RootBean bean, Model model
+	@RequestMapping(value = "/group/request/exec", method = RequestMethod.POST)
+	public String grpRqstExec(@ModelAttribute("rootData") RootBean bean, Model model
 			, Principal principal, SessionStatus sessionStatus) throws Exception {
 
 		initilize.exec();
@@ -86,12 +85,15 @@ public class GroupJoinRequestController {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		String userName = userDetails.getUsername();
 		
-		//JoinRequestをDBにINSERT
-		joinRequestCommand.preProc(bean);
-		joinRequestCommand.exec(userName);
-		model.addAttribute("rootData", joinRequestCommand.postProc());
+		//JoinRequestとrequest実施アカウントをDBにINSERT
+		grpRqstExecCommand.preProc(bean);
+		grpRqstExecCommand.exec(userName);
+		bean = grpRqstExecCommand.postProc();
+		
+		model.addAttribute("rootData", bean);
 		
 		sessionStatus.setComplete();
+		
 		finalize.exec();
 		
 		return "groupRequestJoin";

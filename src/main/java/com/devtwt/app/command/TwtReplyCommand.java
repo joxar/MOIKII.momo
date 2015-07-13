@@ -2,10 +2,9 @@ package com.devtwt.app.command;
 
 import com.devtwt.app.bean.RootBean;
 
-public interface GetRoleListCommand {
+public interface TwtReplyCommand {
 	
 	void preProc(RootBean bean);
-	void exec();
+	void exec(String userName);
 	RootBean postProc();
-
 }
