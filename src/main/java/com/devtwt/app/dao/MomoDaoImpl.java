@@ -53,26 +53,9 @@ public class MomoDaoImpl implements MomoDao {
 	public void exec(RootBean bean, String userName) {
 		// TODO Auto-generated method stub
 		
-		String momoNum;
-    	int tmp,cnt;
     	String DATE_PATTERN ="yyyy-MM-dd HH:mm:ss";
-		
-        cnt = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM MOMO");
     	
-    	//テーブルMOMOのデータが0件の場合
-    	if(cnt == 0) {
-    		momoNum = "0";
-    	} else {
-    		momoNum  = jdbcTemplate.queryForObject("SELECT MAX(MOMO_NUM) FROM MOMO", String.class);
-    	}
-    	
-    	//MOMO_NUMをインクリメント
-    	tmp = Integer.parseInt(momoNum);
-    	bean.getMomo().setMomoNum(String.valueOf(++tmp));
-    	
-    	//AllowNullがfalseのカラムに値を設定
-    	bean.getMomo().setStream_stream_num("1");
-    	
+    	//ログインアカウント名から、ユーザIDを取得し、beanの各プロパティにセット
     	String memberId = jdbcTemplate.queryForObject("SELECT MEMBER_ID FROM USER_MASTER WHERE MEMBER_NAME = ?", String.class, userName);
 		bean.getMomo().setUser_master_member_id(memberId);
 		bean.getMomo().setCreate_id(memberId);
@@ -87,9 +70,9 @@ public class MomoDaoImpl implements MomoDao {
 		
     	//MOMOをテーブルにINSERT
 		jdbcTemplate.update(
-                "INSERT INTO MOMO (MOMO_NUM, STREAM_STEREAM_NUM, PHASE, MOMO_CONTENTS, CREATE_ID"
-                + ", CREATE_DATE, UPDATE_ID, UPDATE_DATE, USER_MASTER_MEMBER_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
-                , bean.getMomo().getMomoNum(), bean.getMomo().getStream_stream_num(), bean.getMomo().getPhase(),
+                "INSERT INTO MOMO (STREAM_STEREAM_NUM, PHASE, MOMO_CONTENTS, CREATE_ID"
+                + ", CREATE_DATE, UPDATE_ID, UPDATE_DATE, USER_MASTER_MEMBER_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+                , bean.getMomo().getStream_stream_num(), bean.getMomo().getPhase(),
                 bean.getMomo().getMomo_contents(), bean.getMomo().getCreate_id(), bean.getMomo().getCreate_date(),
                 bean.getMomo().getUpdate_id(), bean.getMomo().getUpdate_date(), bean.getMomo().getUser_master_member_id());
 		
