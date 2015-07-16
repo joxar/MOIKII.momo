@@ -86,23 +86,7 @@ public class GroupCreateDaoImpl implements GroupCreateDao {
 
 	@Override
 	public void insertData(RootBean bean, String userName) {
-		// TODO Auto-generated method stub
-		String communityId;
-    	int tmp,cnt;
-    	
-    	cnt = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM COMMUNITY");
-    	
-    	//テーブルCOMMUNITYのデータが0件の場合
-    	if(cnt == 0) {
-    		communityId = "0";
-    	} else {
-    		communityId = jdbcTemplate.queryForObject("SELECT MAX(COMMUNITY_ID) FROM COMMUNITY", String.class);
-    	}
-        
-    	//COMMUNITY_IDをインクリメント
-    	tmp = Integer.parseInt(communityId);
-    	bean.getGroup().setGroupId(String.valueOf(++tmp));
-    	
+		
     	//Group作成者または、招待メンバの情報を設定
     	String memberId = jdbcTemplate.queryForObject("SELECT MEMBER_ID FROM USER_MASTER WHERE MEMBER_NAME = ?", String.class, userName);
     	bean.getGroup().setCreateId(memberId);
@@ -111,9 +95,9 @@ public class GroupCreateDaoImpl implements GroupCreateDao {
     	
     	//Groupを新規作成
     	jdbcTemplate.update(
-                "INSERT INTO COMMUNITY (COMMUNITY_ID, COMMUNITY_NAME, DEV_CATEGORY_COMMUNITY_ID, MEMBER_ID"
-                			+ ", CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-                , bean.getGroup().getGroupId(), bean.getGroup().getGroupName(), bean.getGroup().getSlctDevCateId()
+                "INSERT INTO COMMUNITY (COMMUNITY_NAME, DEV_CATEGORY_COMMUNITY_ID, MEMBER_ID"
+                			+ ", CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE) VALUES (?, ?, ?, ?, ?, ?, ?)"
+                , bean.getGroup().getGroupName(), bean.getGroup().getSlctDevCateId()
                 		, bean.getGroup().getMemberId(), bean.getGroup().getCreateId(), bean.getGroup().getCreateDate()
                 		, bean.getGroup().getUpdateId(), bean.getGroup().getUpdateDate());
     }
