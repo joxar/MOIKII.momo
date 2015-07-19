@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.devtwt.app.bean.JoinRequestBean;
-import com.devtwt.app.bean.MomoBean;
 import com.devtwt.app.bean.RootBean;
 
 @Component

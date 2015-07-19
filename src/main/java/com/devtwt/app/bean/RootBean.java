@@ -12,8 +12,6 @@ public class RootBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	DbacMockBean dbacMock = new DbacMockBean();
-	@Autowired
 	UserBean user = new UserBean();
 	@Autowired
 	GroupBean group = new GroupBean();
@@ -75,12 +73,6 @@ public class RootBean implements Serializable {
 	public void setMomoList(List<MomoBean> momoList) {
 		this.momoList = momoList;
 	}
-	public DbacMockBean getDbacMock() {
-		return dbacMock;
-	}
-	public void setDbacMock(DbacMockBean dbacMock) {
-		this.dbacMock = dbacMock;
-	}
 	public UserBean getUser() {
 		return user;
 	}
@@ -126,14 +118,14 @@ public class RootBean implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "RootBean [dbacMock=" + dbacMock + ", user=" + user + ", group="
-				+ group + ", common=" + common + ", groupList=" + groupList
-				+ ", constants=" + constants + ", roleList=" + roleList
-				+ ", momo=" + momo + ", momoList=" + momoList
-				+ ", selectUserName=" + selectUserName + ", groupNameList="
-				+ groupNameList + ", devCategory=" + devCategory
-				+ ", joinRequest=" + joinRequest + ", joinRequestList="
-				+ joinRequestList + ", returnComment=" + returnComment + "]";
+		return "RootBean [user=" + user + ", group=" + group + ", common="
+				+ common + ", groupList=" + groupList + ", constants="
+				+ constants + ", roleList=" + roleList + ", momo=" + momo
+				+ ", momoList=" + momoList + ", selectUserName="
+				+ selectUserName + ", groupNameList=" + groupNameList
+				+ ", devCategory=" + devCategory + ", joinRequest="
+				+ joinRequest + ", joinRequestList=" + joinRequestList
+				+ ", returnComment=" + returnComment + "]";
 	}
 	
 }

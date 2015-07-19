@@ -101,10 +101,12 @@ body { margin-top:30px; }
 			</div>
 			<div class="profile-usermenu">
 			   <h4>Groups</h4>
-				<ul class="nav">
+				<ul class="nav nav-pills nav-stacked">
 					<c:if test="${not empty rootData.user.groupList}">
-						<c:forEach items="${rootData.user.groupList}" var="list" >
-							<li><a href="#"><c:out value="${list.groupName}"/></a></li>
+						<c:forEach items="${rootData.user.groupList}" var="list"  varStatus="loop" >
+							<li role="presentation" class ="<c:if test="${loop.first}">active</c:if>">
+								<a href="${pageContext.request.contextPath}/twt/group/${list.groupId}"><span class="badge pull-right">10</span><c:out value="${list.groupName}"/></a>
+							</li>
 						</c:forEach>
 				    </c:if>
 				</ul>

@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -113,5 +114,32 @@ public class TwtController {
 		
 		//DBから取得したデータをjsonに変換して、返す
 		return json;
+	}
+	
+	@RequestMapping(value = "/twt/group/{groupId}")
+	public String twtGroup(RootBean bean, Model model, Principal principal, @PathVariable("groupId") int groupId) throws Exception {
+		
+		initilize.exec();
+		
+		//ログインアカウント名を取得
+		Authentication authentication = (Authentication) principal;
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String userName = userDetails.getUsername();
+		
+		/*過去に投稿したtwtを取得
+		  過去に投稿した返信を取得
+		  ログインアカウント名をキーに所属しているグループのリストを取得*/
+		twtCommand.preProc(bean);
+		twtCommand.exec(userName);
+		bean = twtCommand.postProc();
+		
+		//過去に投稿したmomoコメントの数を取得
+		int size = bean.getMomoList().size();
+		
+		model.addAttribute("rootData", bean);
+		model.addAttribute("start", 0);
+		model.addAttribute("end", --size);
+		
+		return "twt";
 	}
 }
