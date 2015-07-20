@@ -50,7 +50,7 @@ body { margin-top:30px; }
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand" href="${pageContext.request.contextPath}/twt">MOIKII.momo</a>
+               <a class="navbar-brand" href="${pageContext.request.contextPath}/twt/group/0">MOIKII.momo</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                <ul class="nav navbar-nav">

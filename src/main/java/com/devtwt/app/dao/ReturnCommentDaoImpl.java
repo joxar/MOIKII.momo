@@ -26,19 +26,20 @@ public class ReturnCommentDaoImpl implements ReturnCommentDao {
 
 		//Groupを新規作成
     	jdbcTemplate.update(
-                "INSERT INTO RETURN_COMMENT (MOMO_MOMO_NUM, CHILD_NUM, PHASE, RETURN_CONTENTS, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE, USER_MASTER_MEMBER_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                "INSERT INTO RETURN_COMMENT (MOMO_MOMO_NUM, CHILD_NUM, PHASE, RETURN_CONTENTS, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE, USER_MASTER_MEMBER_ID, COMMUNITY_COMMUNITY_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                 , returnComment.getMomo_momo_num(), returnComment.getChild_num(), returnComment.getPhase()
                 , returnComment.getReturn_contents(), returnComment.getCreate_id(), returnComment.getCreate_date()
-                , returnComment.getUpdate_id(), returnComment.getUpdate_date(), returnComment.getUser_master_member_id());
+                , returnComment.getUpdate_id(), returnComment.getUpdate_date(), returnComment.getUser_master_member_id()
+                , returnComment.getGroupId());
 	}
 
 	@Override
-	public List<ReturnCommentBean> selectReturnCommentListByMomoId(String momoId) {
+	public List<ReturnCommentBean> selectReturnCommentListByMomoId(String momoId, String groupId) {
 		// TODO Auto-generated method stub
 		
 		//過去の投稿を全て取得
 				List<ReturnCommentBean> replyList = jdbcTemplate.query(
-							"SELECT * FROM RETURN_COMMENT WHERE MOMO_MOMO_NUM = ? ORDER BY CHILD_NUM ASC"
+							"SELECT * FROM RETURN_COMMENT WHERE MOMO_MOMO_NUM = ? AND COMMUNITY_COMMUNITY_ID = ? ORDER BY CHILD_NUM ASC"
 							, new RowMapper<ReturnCommentBean>() {
 								public ReturnCommentBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 									ReturnCommentBean reply = new ReturnCommentBean();
@@ -54,12 +55,9 @@ public class ReturnCommentDaoImpl implements ReturnCommentDao {
 									reply.setUser_master_member_id(rs.getString("USER_MASTER_MEMBER_ID"));
 									return reply;
 								}}
-							, momoId);
+							, momoId, groupId);
 
 				return replyList;
 		
 	}
-	
-	
-
 }

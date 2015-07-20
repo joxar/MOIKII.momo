@@ -27,10 +27,13 @@ public class TwtReplyCommandImpl implements TwtReplyCommand {
 	
 	public RootBean postProc() { return bean; }
 
-	public void exec(String userName) {
+	public void exec(String userName, String groupId) {
 		
 		//返信コメン投稿時のログインアカウント名称をセット
 		bean.getReturnComment().setCreateName(userName);
+		
+		//グループをセット
+		bean.getReturnComment().setGroupId(groupId);
 		
 		// ログインアカウント名称からユーザIDを取得し、ReturnCommentにセット
 		userId = userDao.getUserId(userName);

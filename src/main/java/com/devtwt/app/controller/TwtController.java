@@ -20,6 +20,7 @@ import com.devtwt.app.command.TwtCommand;
 import com.devtwt.app.command.TwtPostCommand;
 
 @Controller
+@RequestMapping(value = "/twt/group/{groupId}")
 public class TwtController {
 	
 	@Autowired
@@ -36,8 +37,8 @@ public class TwtController {
 	/********************************/
 	/******** コメント投稿画面 *********/
 	/********************************/
-	@RequestMapping(value = "/twt")
-	public String twt(RootBean bean, Model model, Principal principal) throws Exception {
+	@RequestMapping(value = "")
+	public String twt(RootBean bean, Model model, Principal principal, @PathVariable("groupId") String groupId) throws Exception {
 		
 		initilize.exec();
 		
@@ -50,7 +51,7 @@ public class TwtController {
 		  過去に投稿した返信を取得
 		  ログインアカウント名をキーに所属しているグループのリストを取得*/
 		twtCommand.preProc(bean);
-		twtCommand.exec(userName);
+		twtCommand.exec(userName, groupId);
 		bean = twtCommand.postProc();
 		
 		//過去に投稿したmomoコメントの数を取得
@@ -64,9 +65,9 @@ public class TwtController {
 	}
 	
     /*setMomoは、ajaxから渡されたMomo_contentsをDBにInsertし、ajaxにJSONを返すメソッド*/
-	@RequestMapping(value = "/twt/post", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/post", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String  twtPost(@RequestBody RootBean bean, Model model, Principal principal) throws Exception {
+	public String  twtPost(@RequestBody RootBean bean, Model model, Principal principal, @PathVariable("groupId") String groupId) throws Exception {
 		
 		initilize.exec();
 		
@@ -77,7 +78,7 @@ public class TwtController {
 		
 		//twt投稿コマンドを実行
 		twtPostCommand.preProc(bean);
-		twtPostCommand.exec(userName);
+		twtPostCommand.exec(userName, groupId);
 		bean = twtPostCommand.postProc();
 
 		model.addAttribute("rootData", bean);
@@ -91,9 +92,9 @@ public class TwtController {
 	}
 	
 	/*返信ボタンを押下すると呼び出し*/
-	@RequestMapping(value = "/twt/reply", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/reply", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String  twtReply(@RequestBody RootBean bean, Model model, Principal principal) throws Exception {
+	public String  twtReply(@RequestBody RootBean bean, Model model, Principal principal, @PathVariable("groupId") String groupId) throws Exception {
 		
 		initilize.exec();
 		
@@ -103,7 +104,7 @@ public class TwtController {
 		String userName = userDetails.getUsername();
 		
 		twtReplyCommand.preProc(bean);
-		twtReplyCommand.exec(userName);
+		twtReplyCommand.exec(userName, groupId);
 		bean = twtReplyCommand.postProc();
 		
 		model.addAttribute("rootData", bean);
@@ -114,32 +115,5 @@ public class TwtController {
 		
 		//DBから取得したデータをjsonに変換して、返す
 		return json;
-	}
-	
-	@RequestMapping(value = "/twt/group/{groupId}")
-	public String twtGroup(RootBean bean, Model model, Principal principal, @PathVariable("groupId") int groupId) throws Exception {
-		
-		initilize.exec();
-		
-		//ログインアカウント名を取得
-		Authentication authentication = (Authentication) principal;
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		String userName = userDetails.getUsername();
-		
-		/*過去に投稿したtwtを取得
-		  過去に投稿した返信を取得
-		  ログインアカウント名をキーに所属しているグループのリストを取得*/
-		twtCommand.preProc(bean);
-		twtCommand.exec(userName);
-		bean = twtCommand.postProc();
-		
-		//過去に投稿したmomoコメントの数を取得
-		int size = bean.getMomoList().size();
-		
-		model.addAttribute("rootData", bean);
-		model.addAttribute("start", 0);
-		model.addAttribute("end", --size);
-		
-		return "twt";
 	}
 }

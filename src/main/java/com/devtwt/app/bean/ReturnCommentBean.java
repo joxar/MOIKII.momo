@@ -19,7 +19,14 @@ public class ReturnCommentBean implements Serializable {
 	private String update_date = "";
     private String user_master_member_id = "";
     private String createName = "";
+    private String groupId = "";
     
+	public String getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
 	public String getCreateName() {
 		return createName;
 	}
@@ -95,7 +102,7 @@ public class ReturnCommentBean implements Serializable {
 				+ ", create_id=" + create_id + ", create_date=" + create_date
 				+ ", update_id=" + update_id + ", update_date=" + update_date
 				+ ", user_master_member_id=" + user_master_member_id
-				+ ", createName=" + createName + "]";
+				+ ", createName=" + createName + ", groupId=" + groupId + "]";
 	}
 	
 

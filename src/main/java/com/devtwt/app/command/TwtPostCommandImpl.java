@@ -19,21 +19,20 @@ public class TwtPostCommandImpl implements TwtPostCommand {
 
 	@Override
 	public void preProc(RootBean bean) {
-		// TODO Auto-generated method stub
 		this.bean = bean;
 	}
 
 	@Override
-	public void exec(String userName) {
-		// TODO Auto-generated method stub
+	public void exec(String userName, String groupId) {
+		bean.getMomo().setGroupId(groupId);
 		momo.exec(bean, userName);
-		//↓いらない気がする
+		
+		//画面に表示するため、投稿者名をbeanにセット
 		bean.getMomo().setCreateName(userDao.getUserName(bean.getMomo().getCreate_id()));
 	}
 
 	@Override
 	public RootBean postProc() {
-		// TODO Auto-generated method stub
 		return bean;
 	}
 

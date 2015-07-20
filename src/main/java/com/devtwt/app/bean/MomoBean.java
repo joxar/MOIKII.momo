@@ -23,7 +23,14 @@ public class MomoBean implements Serializable {
 	private String createName = "";
 	private List<ReturnCommentBean> childList = new ArrayList<ReturnCommentBean>();
 	private int childCount = 0;
+	private String groupId = "";
 	
+	public String getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
 	public int getChildCount() {
 		return childCount;
 	}
@@ -119,7 +126,7 @@ public class MomoBean implements Serializable {
 				+ ", user_master_member_id=" + user_master_member_id
 				+ ", userList=" + userList + ", createName=" + createName
 				+ ", childList=" + childList + ", childCount=" + childCount
-				+ ", update_id=" + update_id + "]";
+				+ ", groupId=" + groupId + ", update_id=" + update_id + "]";
 	}
 
 }
