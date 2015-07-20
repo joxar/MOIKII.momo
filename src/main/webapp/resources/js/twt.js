@@ -46,8 +46,8 @@ $(function() {
 	    
 		//クリックしたsideMenuの項目をactiveにする。
 		var url_parts = location.href.split('/');
-		var last_segment = url_parts[url_parts.length-1];
-		 $('ul.nav.nav-pills.nav-stacked > li > a[href*="'+ last_segment +'"]').parents('li').addClass('active');
+		var last_segment = '/' + url_parts[url_parts.length-1];
+		 $('ul.nav.nav-pills.nav-stacked > li > a[href$="'+ last_segment +'"]').parents('li').addClass('active');
 		
 		//返信用linkに対して降順にidを割り振る
 		$('.reply-link').attr("id",function(i){
