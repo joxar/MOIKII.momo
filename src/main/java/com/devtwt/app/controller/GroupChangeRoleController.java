@@ -14,6 +14,7 @@ import com.devtwt.app.command.GrpChngRoleExecCommand;
 import com.devtwt.app.command.GrpChngRoleInitCommand;
 import com.devtwt.app.command.GrpChngRoleTmpCommand;
 import com.devtwt.app.command.InitializeCommand;
+import com.devtwt.app.constants.CommonConstants;
 
 @Controller
 @SessionAttributes("rootData")
@@ -47,7 +48,7 @@ public class GroupChangeRoleController {
 		
 		model.addAttribute("rootData", bean);
 		
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_CHANGE_ROLE);
 		
 		return "groupChangeRole";
 	}
@@ -64,7 +65,7 @@ public class GroupChangeRoleController {
 		
 		model.addAttribute("rootData", bean);
 		
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_CHANGE_ROLE);
 		
 		return "groupChangeRole";
 	}
@@ -80,7 +81,7 @@ public class GroupChangeRoleController {
 		this.bean = grpChngRoleExecCommand.postProc();
 	
 		model.addAttribute("rootData", bean);
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_CHANGE_ROLE);
 		
 		return "groupChangeRole";
 	}

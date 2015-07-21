@@ -15,6 +15,7 @@ import com.devtwt.app.command.GrpApprvlApprvCommand;
 import com.devtwt.app.command.GrpApprvlInitCommand;
 import com.devtwt.app.command.GrpApprvlRfsCommand;
 import com.devtwt.app.command.InitializeCommand;
+import com.devtwt.app.constants.*;
 
 @Controller
 @SessionAttributes("rootData")
@@ -48,7 +49,7 @@ public class GroupApprovalController {
 		
 		model.addAttribute("rootData", bean);
 		
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_REJECT_JOIN);
 		
 		return "groupRejectJoin";
 	}
@@ -69,7 +70,7 @@ public class GroupApprovalController {
 		model.addAttribute("rootData", bean);
 
 		sessionStatus.setComplete();
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_REJECT_JOIN);
 		
 		return "groupRejectJoin";
 	}
@@ -91,7 +92,7 @@ public class GroupApprovalController {
 		
 		sessionStatus.setComplete();
 		
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_REJECT_JOIN);
 		
 		return "groupRejectJoin";
 	}

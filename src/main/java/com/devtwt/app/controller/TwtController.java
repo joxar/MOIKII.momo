@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.command.FinalizeCommand;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.TwtReplyCommand;
 import com.devtwt.app.command.TwtCommand;
@@ -24,7 +25,9 @@ import com.devtwt.app.command.TwtPostCommand;
 public class TwtController {
 	
 	@Autowired
-	InitializeCommand initilize;
+	InitializeCommand initilize;	
+	@Autowired
+	FinalizeCommand finalize;
 	@Autowired
 	RootBean bean;
 	@Autowired
@@ -53,6 +56,8 @@ public class TwtController {
 		twtCommand.preProc(bean);
 		twtCommand.exec(userName, groupId);
 		bean = twtCommand.postProc();
+		
+		finalize.exec(bean, "V001");
 		
 		//過去に投稿したmomoコメントの数を取得
 		int size = bean.getMomoList().size();

@@ -19,6 +19,7 @@ import com.devtwt.app.command.GrpCrtExecCommand;
 import com.devtwt.app.command.GrpCrtInitCommand;
 import com.devtwt.app.command.GrpCrtInviteCommand;
 import com.devtwt.app.command.InitializeCommand;
+import com.devtwt.app.constants.CommonConstants;
 
 @Controller
 @SessionAttributes("rootData")
@@ -52,7 +53,7 @@ public class GroupCreateController {
 		
 		model.addAttribute("rootData", bean);
 		
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_CREATE);
 		
 		return "groupCreate";
 	}
@@ -76,7 +77,7 @@ public class GroupCreateController {
 		//ログインアカウント以外のユーザを画面にセット
 		model.addAttribute("rootData", bean);
 		
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_INVITE_MEMBER);
 		
 		return "groupInviteMember";
 	}
@@ -96,7 +97,7 @@ public class GroupCreateController {
 		
 		sessionStatus.setComplete();
 
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_INVITE_MEMBER);
 		
 		return "groupInviteMember";
 	}

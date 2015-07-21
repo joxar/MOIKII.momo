@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.*;
+import com.devtwt.app.constants.CommonConstants;
 import com.devtwt.app.dao.SetupDaoInterface;
 
 
@@ -39,9 +40,10 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String home(RootBean bean, Model model, Principal principal) {
+	public String home(@ModelAttribute RootBean bean, Model model, Principal principal) {
 		
 		initilize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_HOME);
 		
 		return "login";
 	}

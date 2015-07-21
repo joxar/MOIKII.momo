@@ -2,6 +2,16 @@ package com.devtwt.app.constants;
 
 public class CommonConstants {
 	
+	/*** View ID ***/
+	public static final String VIEW_HOME = "V000";
+	public static final String VIEW_MOMO_LIST = "V001";
+	public static final String VIEW_GROUP_REJECT_JOIN = "V002";	
+	public static final String VIEW_GROUP_CHANGE_ROLE = "V003";	
+	public static final String VIEW_GROUP_CREATE = "V004";
+	public static final String VIEW_INVITE_MEMBER = "V005";	
+	public static final String VIEW_GROUP_REQUEST_JOIN = "V006";	
+	public static final String VIEW_GROUP_SHOW_INFO = "V007";	
+	
 	/*** Main message ***/
 	public static final String G_CREATE_OK = "***** GROUP CREATE - OK *****";
 	public static final String G_CREATE_NG = "***** GROUP CREATE - NG *****";

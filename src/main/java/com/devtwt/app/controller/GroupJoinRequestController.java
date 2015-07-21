@@ -19,6 +19,7 @@ import com.devtwt.app.command.GrpRqstExecCommand;
 import com.devtwt.app.command.GrpRqstInitCommand;
 import com.devtwt.app.command.GrpRqstTmpCommand;
 import com.devtwt.app.command.InitializeCommand;
+import com.devtwt.app.constants.CommonConstants;
 
 @Controller
 @SessionAttributes("rootData")
@@ -52,7 +53,7 @@ public class GroupJoinRequestController {
 		
 		model.addAttribute("rootData", bean);
 		
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_REQUEST_JOIN);
 		
 		return "groupRequestJoin";
 	}
@@ -69,7 +70,7 @@ public class GroupJoinRequestController {
 		
 		model.addAttribute("rootData", bean);
 		
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_REQUEST_JOIN);
 		
 		return "groupRequestJoin";
 	}
@@ -94,7 +95,7 @@ public class GroupJoinRequestController {
 		
 		sessionStatus.setComplete();
 		
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_REQUEST_JOIN);
 		
 		return "groupRequestJoin";
 	}

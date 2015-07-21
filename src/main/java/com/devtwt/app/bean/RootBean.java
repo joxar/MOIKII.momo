@@ -14,6 +14,8 @@ public class RootBean implements Serializable {
 	@Autowired
 	UserBean user = new UserBean();
 	@Autowired
+	ViewBean view = new ViewBean();
+	@Autowired
 	GroupBean group = new GroupBean();
 	@Autowired
 	CommonInfoBean common = new CommonInfoBean();
@@ -31,6 +33,12 @@ public class RootBean implements Serializable {
 	List<JoinRequestBean> joinRequestList = new ArrayList<JoinRequestBean>();
     ReturnCommentBean returnComment = new ReturnCommentBean();
 	
+	public ViewBean getView() {
+		return view;
+	}
+	public void setView(ViewBean view) {
+		this.view = view;
+	}
 	public ReturnCommentBean getReturnComment() {
 		return returnComment;
 	}

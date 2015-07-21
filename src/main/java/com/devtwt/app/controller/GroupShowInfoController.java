@@ -14,6 +14,7 @@ import com.devtwt.app.command.FinalizeCommand;
 import com.devtwt.app.command.GrpInfExecCommand;
 import com.devtwt.app.command.GrpInfInitCommand;
 import com.devtwt.app.command.InitializeCommand;
+import com.devtwt.app.constants.CommonConstants;
 
 @Controller
 @SessionAttributes("rootData")
@@ -44,7 +45,7 @@ public class GroupShowInfoController {
 		bean = grpInfInitCommand.postProc();
 		
 		model.addAttribute("rootData", bean);
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_SHOW_INFO);
 		
 		return "groupShowInfo";
 	}
@@ -63,7 +64,7 @@ public class GroupShowInfoController {
 		model.addAttribute("rootData", bean);
 		
 		sessionStatus.setComplete();
-		finalize.exec();
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_SHOW_INFO);
 		
 		return "groupShowInfo";
 	}
