@@ -1,4 +1,4 @@
-package com.devtwt.app.command;
+package com.devtwt.app.command.impl;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.devtwt.app.bean.DevCategoryBean;
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.command.GrpCrtInitCommand;
 import com.devtwt.app.dao.GroupCreateDao;
 
 @Component

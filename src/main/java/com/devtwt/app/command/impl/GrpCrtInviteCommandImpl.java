@@ -1,9 +1,10 @@
-package com.devtwt.app.command;
+package com.devtwt.app.command.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.command.GrpCrtInviteCommand;
 import com.devtwt.app.dao.GroupCreateDao;
 
 @Component

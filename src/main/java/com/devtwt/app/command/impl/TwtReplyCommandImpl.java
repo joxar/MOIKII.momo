@@ -1,4 +1,4 @@
-package com.devtwt.app.command;
+package com.devtwt.app.command.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.command.TwtReplyCommand;
 import com.devtwt.app.dao.ReturnCommentDao;
 import com.devtwt.app.dao.UserMasterDao;
 

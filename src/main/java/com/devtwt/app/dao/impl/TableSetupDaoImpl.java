@@ -1,4 +1,4 @@
-package com.devtwt.app.dao;
+package com.devtwt.app.dao.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +12,7 @@ import java.sql.Statement;
 
 import org.springframework.stereotype.Component;
 
+import com.devtwt.app.dao.SetupDaoInterface;
 import com.devtwt.app.util.DBConnector;
 
 @Component

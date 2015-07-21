@@ -1,4 +1,4 @@
-package com.devtwt.app.dao;
+package com.devtwt.app.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.devtwt.app.bean.MomoBean;
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.dao.MomoDao;
 
 @Component
 public class MomoDaoImpl implements MomoDao {

@@ -1,4 +1,4 @@
-package com.devtwt.app.command;
+package com.devtwt.app.command.impl;
 
 import java.util.List;
 
@@ -8,18 +8,19 @@ import org.springframework.stereotype.Component;
 import com.devtwt.app.bean.GroupBean;
 import com.devtwt.app.bean.JoinRequestBean;
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.command.GrpApprvlRfsCommand;
 import com.devtwt.app.constants.CommonConstants;
 import com.devtwt.app.dao.GroupDao;
 import com.devtwt.app.dao.JoinRequestDao;
 import com.devtwt.app.dao.UserMasterDao;
 
 @Component
-public class GrpApprvlApprvCommandImpl implements GrpApprvlApprvCommand {
+public class GrpApprvlRfsCommandImpl implements GrpApprvlRfsCommand {
 	
 	@Autowired
-	private RootBean bean;
+	RootBean bean;
 	@Autowired
-	private JoinRequestDao requestDao;
+	JoinRequestDao requestDao;
 	@Autowired
 	private GroupDao groupDao;
 	@Autowired
@@ -36,17 +37,13 @@ public class GrpApprvlApprvCommandImpl implements GrpApprvlApprvCommand {
 	public RootBean postProc() { return bean; }
 
 	@Override
-	public void exec() { 
+	public void exec() {
 		
 		for(JoinRequestBean req : bean.getJoinRequestList()) {
-			//チェックボックスで選択したJoinRequestのstatusをApproveにする
+			//チェックボックスで選択したJoinRequestのstatusをRefuseにする
 			if(req.getCheckRequest()) {
-				req.setStatus(CommonConstants.STATUS_APPROVE);
+				req.setStatus(CommonConstants.STATUS_REFUSE);
 				requestDao.updateStatus(req);
-				
-				//JoinRequestを申請したメンバをリクエスト先Groupに追加
-				req.getRequestGroup().setMemberId(req.getRequester().getUserId());
-				groupDao.insertData(req.getRequestGroup());
 			}
 		}
 		
@@ -65,6 +62,8 @@ public class GrpApprvlApprvCommandImpl implements GrpApprvlApprvCommand {
 		bean.setJoinRequestList(requestList);
 		
 		/*** メインメッセージ ***/
-		this.bean.getCommon().setMainMessage(CommonConstants.G_REQUEST_APPROVE_OK);
+		this.bean.getCommon().setMainMessage(CommonConstants.G_REQUEST_REFUSE_OK);
+		
 	}
+
 }

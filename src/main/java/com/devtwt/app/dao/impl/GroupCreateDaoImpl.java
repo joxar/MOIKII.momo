@@ -1,4 +1,4 @@
-package com.devtwt.app.dao;
+package com.devtwt.app.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.devtwt.app.bean.DevCategoryBean;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.bean.UserBean;
+import com.devtwt.app.dao.GroupCreateDao;
 
 @Component
 public class GroupCreateDaoImpl implements GroupCreateDao {

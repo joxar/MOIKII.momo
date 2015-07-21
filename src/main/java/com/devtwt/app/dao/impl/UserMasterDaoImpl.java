@@ -1,4 +1,4 @@
-package com.devtwt.app.dao;
+package com.devtwt.app.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.bean.UserBean;
+import com.devtwt.app.dao.UserMasterDao;
 
 @Component
 public class UserMasterDaoImpl implements UserMasterDao {

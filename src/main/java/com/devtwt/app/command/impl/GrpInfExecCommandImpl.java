@@ -1,4 +1,4 @@
-package com.devtwt.app.command;
+package com.devtwt.app.command.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +9,13 @@ import org.springframework.stereotype.Component;
 import com.devtwt.app.bean.GroupBean;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.bean.UserBean;
+import com.devtwt.app.command.GrpInfExecCommand;
 import com.devtwt.app.dao.DevCategoryDao;
 import com.devtwt.app.dao.GroupShowInfoDao;
 import com.devtwt.app.dao.UserMasterDao;
 
 @Component
-public class GrpRqstTmpCommandImpl implements GrpRqstTmpCommand {
+public class GrpInfExecCommandImpl implements GrpInfExecCommand {
 
 	@Autowired
 	private RootBean bean;
@@ -49,6 +50,5 @@ public class GrpRqstTmpCommandImpl implements GrpRqstTmpCommand {
 				memberList.add(userMasterDao.getMember(group.getMemberId()));
 		}
 		bean.getGroup().setMemberList(memberList);
-		
 	}
 }

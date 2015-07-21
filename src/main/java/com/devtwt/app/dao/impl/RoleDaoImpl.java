@@ -1,4 +1,4 @@
-package com.devtwt.app.dao;
+package com.devtwt.app.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.devtwt.app.bean.RoleBean;
+import com.devtwt.app.dao.RoleDao;
 
 @Component
 public class RoleDaoImpl implements RoleDao {
