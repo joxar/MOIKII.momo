@@ -83,3 +83,12 @@ body { margin-top:30px; }
 
 </body>
 </html>
+
+<script>
+$("#groupCreateBtn").on('click', function() {
+	if ($("#exampleInputEmail1").val() === '') {
+		alert("Please input your group name !");
+		return false;
+	}
+});
+</script>

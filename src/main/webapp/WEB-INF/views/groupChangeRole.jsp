@@ -71,7 +71,7 @@ body { margin-top:30px; }
 					
 					<div>
 						<label>Group Name</label>
-						<form:select path="group.slctGroupName" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/changeRole/tmp')" class="form-control">
+						<form:select path="group.slctGroupName" id="selectGroupName" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/changeRole/tmp')" class="form-control">
 							<option value="">
 							<c:if test="${not empty rootData.groupNameList}">
 								<c:forEach var="list" items="${rootData.groupNameList}">
@@ -111,7 +111,7 @@ body { margin-top:30px; }
 		<div class="container">
 			<div class="col-md-3">			
 				<br>
-				<input type="button" value="Change Role" id="groupCreateBtn" onclick="submitProc('mainForm')" class="btn btn-success">
+				<input type="button" value="Change Role" id="groupCreateBtn" onclick="" class="btn btn-success">
 	
 			</div>
 		</div>
@@ -120,3 +120,13 @@ body { margin-top:30px; }
 	
 </body>
 </html>
+<script>
+$("#groupCreateBtn").on('click', function() {
+	if ($("#selectGroupName").val() === '') {
+		alert("Please select a group name !");
+		return false;
+	} else {
+		submitProc('mainForm');
+	}
+});
+</script>

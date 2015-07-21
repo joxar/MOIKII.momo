@@ -72,7 +72,7 @@ body { margin-top:30px; }
 				<tbody>
 					<c:forEach var="list" items="${rootData.joinRequestList}" varStatus="sts">
 						<tr>
-							<td><form:checkbox path="joinRequestList[${sts.index}].checkRequest" /></td>
+							<td><form:checkbox path="joinRequestList[${sts.index}].checkRequest" class="chkbox" /></td>
 							<td><c:out value="${list.requestGroup.groupName}" /></td>
 							<td><c:out value="${list.requester.userName}" /></td>
 						</tr>
@@ -80,12 +80,33 @@ body { margin-top:30px; }
 				</tbody>
 			</table>
 		</div>
-		<input type="submit" value="Approve" name="_approve" class="btn btn-success">
+		<input type="submit" value="Approve" name="_approve" class="btn btn-success" id="approveBtn">
 		<br><br><br>
-		<input type="submit" value="Refuse" name="_refuse" class="btn btn-success">
+		<input type="submit" value="Refuse" name="_refuse" class="btn btn-success" id="rejectBtn">
 	</div>
 	</div>
 </form:form>
 
 </body>
 </html>
+
+<script>
+$("#approveBtn, #rejectBtn").on('click', function() {
+	var obj = $(".chkbox");
+	var flag = false;
+	var i=0;	
+	var len = obj.length;
+	for (i; i<len; i++) {
+		if (obj[i].checked == true) {
+			flag = true;
+		}		
+	}
+	if (flag) {
+		submitProc('mainForm');
+	} else {
+		alert("Please choose request at least one !");
+		return false;
+	}
+});
+</script>
+
