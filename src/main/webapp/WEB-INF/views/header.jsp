@@ -12,6 +12,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
+				<input type="text" value="${rootData.view.viewID}" />
 				<c:if test="${rootData.view.viewID != 'V000'}">
 					<a class="navbar-brand"	href="${pageContext.request.contextPath}/twt/group/0">MOIKII.momo</a>
 				</c:if>
@@ -22,12 +23,21 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">Pages <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							<c:if test="${rootData.view.viewID != 'V004'}">
 							<li><a href="${pageContext.request.contextPath}/group/create/init">groupCreate</a></li>
+							</c:if>
+							<c:if test="${rootData.view.viewID != 'V007'}">
 							<li><a href="${pageContext.request.contextPath}/group/information/init">groupShowInfo</a></li>
+							</c:if>
+							<c:if test="${rootData.view.viewID != 'V006'}">
 							<li><a href="${pageContext.request.contextPath}/group/request/init">requestJoin</a></li>
+							</c:if>
+							<c:if test="${rootData.view.viewID != 'V002'}">
 							<li><a href="${pageContext.request.contextPath}/group/approval/init">rejectJoin</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
+							</c:if>
+							<c:if test="${rootData.view.viewID != 'V003'}">
+							<li><a href="${pageContext.request.contextPath}/group/changeRole/init">changeRole</a></li>
+							</c:if>
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
