@@ -9,5 +9,6 @@ public interface MomoDao {
 	
 	public void exec(RootBean bean, String userName);
 	public List<MomoBean> getAllData(String groupId);
+	public int selectMaxMomoNum();
 
 }

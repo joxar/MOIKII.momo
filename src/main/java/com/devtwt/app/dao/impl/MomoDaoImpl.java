@@ -79,5 +79,12 @@ public class MomoDaoImpl implements MomoDao {
                 bean.getMomo().getUpdate_id(), bean.getMomo().getUpdate_date(), bean.getMomo().getUser_master_member_id(),
                 bean.getMomo().getGroupId());
 	}
+	
+	public int selectMaxMomoNum() {
+		
+		int momoNum = jdbcTemplate.queryForObject("SELECT MAX(MOMO_NUM) FROM MOMO", Integer.class);
+		return momoNum;
+		
+	}
 
 }
