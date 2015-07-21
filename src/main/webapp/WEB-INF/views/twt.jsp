@@ -52,7 +52,7 @@ body { margin-top:30px; }
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand" href="${pageContext.request.contextPath}/twt">MOIKII.momo</a>
+               <a class="navbar-brand" href="${pageContext.request.contextPath}/twt/group/0">MOIKII.momo</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                <ul class="nav navbar-nav">
@@ -102,10 +102,11 @@ body { margin-top:30px; }
 			<div class="profile-usermenu">
 			   <h4>Groups</h4>
 				<ul class="nav nav-pills nav-stacked">
+				<li role="presentation" ><a id ="listx" href="${pageContext.request.contextPath}/twt/group/0">ALL</a></li>
 					<c:if test="${not empty rootData.user.groupList}">
 						<c:forEach items="${rootData.user.groupList}" var="list"  varStatus="loop" >
-							<li role="presentation" class ="<c:if test="${loop.first}">active</c:if>">
-								<a href="${pageContext.request.contextPath}/twt/group/${list.groupId}"><span class="badge pull-right">10</span><c:out value="${list.groupName}"/></a>
+							<li role="presentation" >
+								<a href="${pageContext.request.contextPath}/twt/group/${list.groupId}"><c:out value="${list.groupName}"/></a>
 							</li>
 						</c:forEach>
 				    </c:if>

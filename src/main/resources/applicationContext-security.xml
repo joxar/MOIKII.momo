@@ -17,10 +17,9 @@
 		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<!-- ログイン画面をlogin.jsp ログイン後遷移画面をtwt.jspに設定 -->
 		<form-login login-page="/"
-			 default-target-url="/twt"
+			 default-target-url="/twt/group/0"
 			  login-processing-url="/authentication"
 			  authentication-failure-url="/login?error=true" />
-			  <!-- authentication-failure-handler-ref="authenticationFailureHandler" /> -->
 			  <sec:logout logout-url="/logout" logout-success-url="/" />
 	</http>
 
@@ -53,28 +52,5 @@
         <beans:property name="driverClassName" value="${jdbc.driverClassName}" />
         <beans:property name="url" value="${jdbc.url}" />
     </beans:bean>
-       
-   <beans:bean id="authenticationFailureHandler" class="com.devtwt.app.handler.MyAuthenticationFailureHandler" />
-   
-	<!-- <sec:http auto-config="true" create-session="ifRequired" >
-	  <sec:session-management
-	    invalid-session-url="/"
-	    session-authentication-error-url="/"
-	    session-fixation-protection="migrateSession"
-	    session-authentication-strategy-ref="sessionStrategy" />
-	</sec:http>
-	
-	<beans:bean id="sessionStrategy"
-    		class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
-	    <beans:constructor-arg index="0">
-	        <beans:list>
-	            <beans:bean
-	                class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
-	            <beans:bean class="org.springframework.security.web.csrf.CsrfAuthenticationStrategy"> 
-	                <beans:constructor-arg index="0" ref="csrfTokenRepository" />
-	            </beans:bean>
-	        </beans:list>
-	    </beans:constructor-arg>
-	</beans:bean> -->
    	
 </beans:beans>

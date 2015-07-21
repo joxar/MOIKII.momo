@@ -2,6 +2,11 @@ $(function() {
 	
 	var index,tmpId,count;
 	
+	//現在のURLを取得し、変数にセット。Ajaxに使用する
+	var href = $(location).attr('href');
+	var postUrl = href + '/post';
+	var replyUrl = href + '/reply';
+	
 	//momoオブジェクトのJSON
 	 var momo ={ "momo": {
 		    "momoNum": "",
@@ -38,6 +43,11 @@ $(function() {
 		_.templateSettings = {
 		  interpolate : /\{\{(.+?)\}\}/g
 		};
+	    
+		//クリックしたsideMenuの項目をactiveにする。
+		var url_parts = location.href.split('/');
+		var last_segment = '/' + url_parts[url_parts.length-1];
+		 $('ul.nav.nav-pills.nav-stacked > li > a[href$="'+ last_segment +'"]').parents('li').addClass('active');
 		
 		//返信用linkに対して降順にidを割り振る
 		$('.reply-link').attr("id",function(i){
@@ -96,7 +106,7 @@ $(function() {
 		$.ajax({
 			contentType: 'application/json; charset=UTF-8',
 			type : 'POST',
-			url : 'http://localhost:8080/app/twt/post',
+			url : postUrl,
 			dataType : 'json',
 			data : JSON.stringify(momo),
 			success : function(callback) {
@@ -231,7 +241,7 @@ $(function() {
 		$.ajax({
 			contentType: 'application/json; charset=UTF-8',
 			type : 'POST',
-			url : 'http://localhost:8080/app/twt/reply',
+			url : replyUrl,
 			dataType : 'json',
 			data : JSON.stringify(returnComment),
 			success : function(callback) {

@@ -43,11 +43,12 @@ public class TwtCommandImpl implements TwtCommand {
 	public RootBean postProc() { return bean; }
 
 	@Override
-	public void exec(String userName) {
+	public void exec(String userName, String groupId) {
 		
 		String id;
-		//タイムラインの全履歴を取得
-		List<MomoBean> momoList = momoDao.getAllData();
+		
+		//選択グループに該当する全履歴コメント(momo)を取得
+		List<MomoBean> momoList = momoDao.getAllData(groupId);
 		bean.setMomoList(momoList);
 		
 		//コメントの投稿者の情報を取得
@@ -59,10 +60,10 @@ public class TwtCommandImpl implements TwtCommand {
 			}	
 		}
 		bean.getMomo().setUserList(userList);
-		//alltwtここまで
 		
 		for(MomoBean momo : bean.getMomoList()) {
-			childList = returnDao.selectReturnCommentListByMomoId(momo.getMomoNum());
+			//childListに該当Momo配下の返信コメントをセット
+			childList = returnDao.selectReturnCommentListByMomoId(momo.getMomoNum(), groupId);
 			momo.setChildList(childList);
 			
 			//各momoの返信コメントの数をセット
@@ -80,7 +81,6 @@ public class TwtCommandImpl implements TwtCommand {
 				}	
 			}
 		}
-		//allreplyここまで
 		
 		//ログインしたアカウントのIDから、所属しているグループを全て取得
 		memberId = userDao.getUserId(userName);

@@ -24,12 +24,12 @@ public class MomoDaoImpl implements MomoDao {
     JdbcTemplate jdbcTemplate = ctx.getBean(JdbcTemplate.class);
 	
 	@Override
-	public List<MomoBean> getAllData() {
+	public List<MomoBean> getAllData(String groupId) {
 		// TODO Auto-generated method stub
 		
 		//過去の投稿を全て取得
 		List<MomoBean> momoList = jdbcTemplate.query(
-					"SELECT * FROM MOMO ORDER BY MOMO_NUM DESC"
+					"SELECT * FROM MOMO WHERE COMMUNITY_COMMUNITY_ID = ? ORDER BY MOMO_NUM DESC"
 					, new RowMapper<MomoBean>() {
 						public MomoBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 							MomoBean momo = new MomoBean();
@@ -42,9 +42,10 @@ public class MomoDaoImpl implements MomoDao {
 							momo.setUpdate_id(rs.getString("UPDATE_ID"));
 							momo.setUpdate_date(rs.getString("UPDATE_DATE"));
 							momo.setUser_master_member_id(rs.getString("USER_MASTER_MEMBER_ID"));
+							momo.setGroupId(rs.getString("COMMUNITY_COMMUNITY_ID"));
 							return momo;
-						}
-					});
+						}}
+					, groupId);
 
 		return momoList;
 	}
@@ -71,11 +72,11 @@ public class MomoDaoImpl implements MomoDao {
     	//MOMOをテーブルにINSERT
 		jdbcTemplate.update(
                 "INSERT INTO MOMO (STREAM_STEREAM_NUM, PHASE, MOMO_CONTENTS, CREATE_ID"
-                + ", CREATE_DATE, UPDATE_ID, UPDATE_DATE, USER_MASTER_MEMBER_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+                + ", CREATE_DATE, UPDATE_ID, UPDATE_DATE, USER_MASTER_MEMBER_ID, COMMUNITY_COMMUNITY_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
                 , bean.getMomo().getStream_stream_num(), bean.getMomo().getPhase(),
                 bean.getMomo().getMomo_contents(), bean.getMomo().getCreate_id(), bean.getMomo().getCreate_date(),
-                bean.getMomo().getUpdate_id(), bean.getMomo().getUpdate_date(), bean.getMomo().getUser_master_member_id());
-		
+                bean.getMomo().getUpdate_id(), bean.getMomo().getUpdate_date(), bean.getMomo().getUser_master_member_id(),
+                bean.getMomo().getGroupId());
 	}
 
 }
