@@ -47,28 +47,12 @@ public class GroupDaoImpl implements GroupDao {
 
 	@Override
 	public void insertData(GroupBean group) {
-		// TODO Auto-generated method stub
-		String communityId;
-    	int tmp,cnt;
-    	
-    	cnt = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM COMMUNITY");
-    	
-    	//テーブルCOMMUNITYのデータが0件の場合
-    	if(cnt == 0) {
-    		communityId = "0";
-    	} else {
-    		communityId = jdbcTemplate.queryForObject("SELECT MAX(COMMUNITY_ID) FROM COMMUNITY", String.class);
-    	}
-        
-    	//COMMUNITY_IDをインクリメント
-    	tmp = Integer.parseInt(communityId);
-    	group.setGroupId(String.valueOf(++tmp));
-    	
+		
     	//Groupを新規作成
     	jdbcTemplate.update(
-                "INSERT INTO COMMUNITY (COMMUNITY_ID, COMMUNITY_NAME, DEV_CATEGORY_COMMUNITY_ID, MEMBER_ID"
-                			+ ", CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-                , group.getGroupId(), group.getGroupName(), group.getDevCategoryId()
+                "INSERT INTO COMMUNITY (COMMUNITY_NAME, DEV_CATEGORY_COMMUNITY_ID, MEMBER_ID"
+                			+ ", CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE) VALUES (?, ?, ?, ?, ?, ?, ?)"
+                , group.getGroupName(), group.getDevCategoryId()
                 		, group.getMemberId(), group.getCreateId(), group.getCreateDate()
                 		, group.getUpdateId(), group.getUpdateDate());
 	}
