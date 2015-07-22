@@ -60,12 +60,9 @@ public class GroupShowInfoController {
 		grpInfExecCommand.preProc(bean);
 		grpInfExecCommand.exec();
 		bean = grpInfExecCommand.postProc();
-		
-		model.addAttribute("rootData", bean);
-		
-		sessionStatus.setComplete();
 		finalize.exec(bean, CommonConstants.VIEW_GROUP_SHOW_INFO);
-		
+		model.addAttribute("rootData", bean);
+				
 		return "groupShowInfo";
 	}
 

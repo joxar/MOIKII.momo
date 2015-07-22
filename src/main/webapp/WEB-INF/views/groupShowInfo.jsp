@@ -70,26 +70,54 @@ body { margin-top:30px; }
 					</form:select>
 				</div>
 				
-				<div id="devCategoryName">
-					<c:out value="${rootData.devCategory.devCategoryName}"></c:out>
-				</div>
-				
-				<div id="phNameList">
-					<c:forEach var="list" items="${rootData.group.devCategory.phNameList}" varStatus="sts">
-						<c:out value="[${list}]"></c:out>
-						<c:if test="${!sts.last}"> -> </c:if>
-					</c:forEach>
-				</div>
-				
-				<div id="memberList">
-					<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
-						<c:out value="${list.userName}"></c:out>
-						<br>
-					</c:forEach>
-				</div>
-				<br>
-				
-				<input type="button" value="BACK" id="loginBtn" onclick="login()">
+				<c:if test="${rootData.group.slctGroupName != ''}">
+					<table class="table table-hover table-condensed" style="width: 900px" >
+					<thead>
+						<tr class="info">
+							<td>Devlopment Category</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><c:out value="${rootData.devCategory.devCategoryName}"></c:out></td>
+						</tr>
+					</tbody>
+					
+					<thead>
+						<tr class="info">				
+							<td>Phase</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="list" items="${rootData.group.devCategory.phNameList}" varStatus="sts">
+						<tr>
+					 		<td>
+					 			<c:out value="[${list}]"></c:out>
+					 			<c:if test="${!sts.last}"> -></c:if>
+					 		</td>
+					 	</tr>
+					 	</c:forEach>
+					</tbody>
+					
+					<thead>
+						<tr class="info">
+							<td>Members</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
+							<tr>
+								<td>
+									<c:out value="${list.userName}"></c:out>
+									<br>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:if>
+						
+			<input type="button" value="BACK" id="loginBtn" onclick="login()" class="btn btn-success" >
 			</div>
 		</form:form>
 		</div>
