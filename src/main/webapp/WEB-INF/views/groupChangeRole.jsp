@@ -67,8 +67,6 @@ body { margin-top:30px; }
 			<div class="col-md-5">
 				<div id="main">
 					
-					
-					
 					<div>
 						<label>Group Name</label>
 						<form:select path="group.slctGroupName" id="selectGroupName" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/changeRole/tmp')" class="form-control">
@@ -83,28 +81,45 @@ body { margin-top:30px; }
 						</form:select>
 						<br>
 					</div>
+					
 				</div>
 			</div>
 		</div>
 	
 		<div class="container">
 			<div class="col-md-3">
-				<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
-					<c:set var="listElem" value="${sts.current}"></c:set>
-					<tr>
-						<td><label><c:out value="${list.userName}" /></label></td>
-						<td>
-						<form:select path="group.memberList[${sts.index}].slctRoleId" class="form-control">
-							<c:forEach var="list_a" items="${list.roleList}" >
-								<option value="${list_a.roleId}" <c:if test="${listElem.slctRoleId == list_a.roleId}">selected</c:if>>
-									<c:out value="${list_a.roleName}"></c:out>
-								</option>
+
+				<c:if test="${rootData.group.slctGroupName != ''}">
+					<table class="table table-hover table-condensed" style="width: 600px" >
+					
+						<thead>
+							<tr class="info">
+								<td class="td-style">Member</td>
+								<td>Role</td>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
+								<c:set var="listElem" value="${sts.current}"></c:set>
+								<tr>
+									<td class="td-style"><label><c:out value="${list.userName}" /></label></td>
+									<td>
+									<form:select path="group.memberList[${sts.index}].slctRoleId" class="form-control">
+										<c:forEach var="list_a" items="${list.roleList}" >
+											<option value="${list_a.roleId}" <c:if test="${listElem.slctRoleId == list_a.roleId}">selected</c:if>>
+												<c:out value="${list_a.roleName}"></c:out>
+											</option>
+										</c:forEach>
+									</form:select>
+									</td>
+								</tr>
 							</c:forEach>
-						</form:select>
-						</td>
-					</tr>
-					<br>
-				</c:forEach>
+						</tbody>
+						
+					</table>
+				</c:if>
+			
 			</div>
 		</div>
 		
@@ -120,6 +135,13 @@ body { margin-top:30px; }
 	
 </body>
 </html>
+
+<style>
+.td-style {
+	border-right: 1px solid #b9b9b9;
+}
+</style>
+
 <script>
 $("#groupCreateBtn").on('click', function() {
 	if ($("#selectGroupName").val() === '') {
