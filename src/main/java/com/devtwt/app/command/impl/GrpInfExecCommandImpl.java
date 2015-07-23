@@ -13,6 +13,7 @@ import com.devtwt.app.command.GrpInfExecCommand;
 import com.devtwt.app.dao.DevCategoryDao;
 import com.devtwt.app.dao.GroupShowInfoDao;
 import com.devtwt.app.dao.UserMasterDao;
+import com.devtwt.app.util.UserStatusCheck;
 
 @Component
 public class GrpInfExecCommandImpl implements GrpInfExecCommand {
@@ -50,5 +51,26 @@ public class GrpInfExecCommandImpl implements GrpInfExecCommand {
 				memberList.add(userMasterDao.getMember(group.getMemberId()));
 		}
 		bean.getGroup().setMemberList(memberList);
+		
+		// ユーザが選択されたグループのメンバーかどうか判断して参加リクエスト可能フラグを設定		
+		String userId = bean.getUser().getUserId();
+		String groupId = bean.getGroup().getSlctGroupId();
+		UserStatusCheck uscUtil = new UserStatusCheck();
+		
+		if (uscUtil.checkGroupMember(userId, groupId)) {
+			// 参加申請可能フラグ設定
+			bean.getView().setRequestable_join(true);
+			
+			// ユーザが選択されたグループメンバーの場合、ROLEを判断して更新可能フラグを設定
+			if (uscUtil.checkGroupUpdatableMember(userId)) {
+				// 更新可能フラグ設定
+				bean.getView().setUpdatable(true);
+			}
+			
+		} else {
+			bean.getView().setRequestable_join(false);
+			bean.getView().setUpdatable(false);
+		}
+
 	}
 }

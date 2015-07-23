@@ -58,9 +58,14 @@ public class GroupShowInfoController {
 		
 		//セレクトリストで選択したグループの全メンバと開発カテゴリを取得
 		grpInfExecCommand.preProc(bean);
+		// FIXME: ROLE_ID設定		
 		grpInfExecCommand.exec();
 		bean = grpInfExecCommand.postProc();
-		finalize.exec(bean, CommonConstants.VIEW_GROUP_SHOW_INFO);
+		
+		// TODO: コマンド内でROLE_ID設定できたら消す
+		bean.getUser().setRoleId("2");
+		
+		finalize.exec(bean, CommonConstants.VIEW_GROUP_SHOW_INFO);		
 		model.addAttribute("rootData", bean);
 				
 		return "groupShowInfo";

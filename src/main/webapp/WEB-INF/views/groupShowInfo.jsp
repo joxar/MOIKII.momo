@@ -57,7 +57,7 @@ body { margin-top:30px; }
 				</div>
 				
 				<div class="form-group">
-					<label >Group Name</label>
+					<label>Group Name</label>
 					<form:select path="group.slctGroupName" onchange="pullDownSelect(this, '${pageContext.request.contextPath}/group/information/exec')" class="form-control">
 						<option value="">
 						<c:if test="${not empty rootData.groupNameList}">
@@ -71,10 +71,10 @@ body { margin-top:30px; }
 				</div>
 				
 				<c:if test="${rootData.group.slctGroupName != ''}">
-					<table class="table table-hover table-condensed" style="width: 900px" >
+					<table class="table table-hover table-condensed">
 					<thead>
 						<tr class="info">
-							<td>Devlopment Category</td>
+							<td colspan="2">Devlopment Category</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -85,7 +85,7 @@ body { margin-top:30px; }
 					
 					<thead>
 						<tr class="info">				
-							<td>Phase</td>
+							<td colspan="2">Phase</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -101,23 +101,55 @@ body { margin-top:30px; }
 					
 					<thead>
 						<tr class="info">
-							<td>Members</td>
+							<td colspan="2">Members</td>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="list" items="${rootData.group.memberList}" varStatus="sts">
 							<tr>
+								<td style="width:160px;">
+									<select title="Role" class="form-control">
+										<!-- GroupManager以外は変更不可やねんで -->
+										<option ${!rootData.view.updatable ? "disabled='disabled'" : ''}>(sample)Manager</option>
+										<option ${!rootData.view.updatable ? "disabled='disabled'" : ''}>(sample)Developer</option>
+									</select>
+								</td>
 								<td>
 									<c:out value="${list.userName}"></c:out>
-									<br>
 								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
+					
+					<thead>
+						<tr class="info">				
+							<td colspan="2">Requester</td>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr>
+							<td style="text-align:right	;">
+								<c:if test="${rootData.view.updatable}">
+									<input type="checkbox" />
+								</c:if>
+							</td>
+							<td>(sample)Taro</td>
+						</tr>
+					</tbody>
+					
 				</table>
 			</c:if>
-						
-			<input type="button" value="BACK" id="loginBtn" onclick="login()" class="btn btn-success" >
+
+			<!-- 更新できるのはManagerの特権 -->
+			<c:if test="${rootData.view.updatable}">
+				<input type="button" value="UPDATE" id="loginBtn" onclick="login()" class="btn btn-success" >
+			</c:if>
+			<!-- グループ外の人には参加申請ボタンをお渡しする約束 -->
+			<c:if test="${rootData.view.requestable_join}">
+				<input type="button" value="JOIN" id="loginBtn" onclick="login()" class="btn btn-success" >
+			</c:if>
+
 			</div>
 		</form:form>
 		</div>
@@ -125,3 +157,9 @@ body { margin-top:30px; }
 
 </body>
 </html>
+
+<style>
+table {
+	width: 900px;
+}
+</style>

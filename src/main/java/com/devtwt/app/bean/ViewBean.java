@@ -12,7 +12,26 @@ import org.springframework.stereotype.Component;
 public class ViewBean implements Serializable {
 	
 	private String viewID = "";
+	private boolean updatable = false;
+	private boolean requestable_join = false;
 	
+
+	public boolean isUpdatable() {
+		return updatable;
+	}
+
+	public void setUpdatable(boolean updatable) {
+		this.updatable = updatable;
+	}
+
+	public boolean isRequestable_join() {
+		return requestable_join;
+	}
+
+	public void setRequestable_join(boolean requestable_join) {
+		this.requestable_join = requestable_join;
+	}
+
 	public String getViewID() {
 		return viewID;
 	}
