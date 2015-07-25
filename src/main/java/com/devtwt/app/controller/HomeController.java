@@ -55,4 +55,11 @@ public class HomeController {
 	
 		return "login";
 	}
+	
+	@RequestMapping(value = "/portal", method = RequestMethod.GET)
+	public String portal(RootBean bean, Model model, Principal principal) {
+		
+		return "easterEgg_login";
+	}
+	
 }

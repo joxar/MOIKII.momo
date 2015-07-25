@@ -15,6 +15,7 @@
 				<input type="text" value="${rootData.view.viewID}" />
 				<c:if test="${rootData.view.viewID != 'V000'}">
 					<a class="navbar-brand"	href="${pageContext.request.contextPath}/twt/group/0">MOIKII.momo</a>
+					<a class="navbar-brand"	href="${pageContext.request.contextPath}/portal">Portal</a>
 				</c:if>
 			</div>
 			<div class="collapse navbar-collapse"
