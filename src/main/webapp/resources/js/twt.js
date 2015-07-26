@@ -98,9 +98,16 @@ $(function() {
 	$('#postForm').submit(function(event) {
 		//HTMLでの送信をキャンセル
 		event.preventDefault();
-		 
-		 momo.momo.momo_contents = $('#postContents').val();
 		
+		//コメントテキストエリアからテキストを取得
+		var tmpMomo = $('#postContents').val();
+		
+	    //改行コードを<br>に変換
+		tmpMomo = tmpMomo.replace(/\r\n/g, "<br />");
+		tmpMomo = tmpMomo.replace(/(\n|\r)/g, "<br />");
+		
+		momo.momo.momo_contents = tmpMomo;
+
 		$('#postContents').val('');
 		
 		$.ajax({
@@ -116,7 +123,7 @@ $(function() {
 				var name = JSON.parse(JSON.stringify(callback.momo.createName));
 				var time = JSON.parse(JSON.stringify(callback.momo.create_date));
 				var momoNum = JSON.parse(JSON.stringify(callback.momo.momoNum));
-
+				
 				var message = {"contents" : contents,
 								"name" : name,
 								"time" : time,
@@ -210,7 +217,13 @@ $(function() {
 		var replyContentSelector = '#' + replyContentId;
 		
 		//返信テキストエリア内の入力テキストを取得
-		returnComment.returnComment.return_contents = $(replyContentSelector).val();
+		var tmpReply = $(replyContentSelector).val();
+		
+		//改行コードを<br>に変換
+		tmpReply = tmpReply.replace(/\r\n/g, "<br />");
+		tmpReply = tmpReply.replace(/(\n|\r)/g, "<br />");
+		returnComment.returnComment.return_contents = tmpReply;
+		
 		$(replyContentSelector).val('');
 		
 		//返信対象のmomoBeanのIdを取得
@@ -223,14 +236,10 @@ $(function() {
 		
 		//返信対象のmomoを格納している<td>のID
 		var MomoTdId = '#' + $(this).closest('.momoComment').attr('id');
-
-		console.log('MomoTdId:' + MomoTdId);
 		
 		//返信したmomoの配下のコメント数を取得
 	    MomoTdId = MomoTdId + ' .replyComment'
 	    var childNum = $(MomoTdId).size();
-		
-		console.log('childNum:' + childNum);
 		
 		//返信対象のmomoの何番目の子要素かをセット(0始まり)
 		returnComment.returnComment.child_num = childNum;
