@@ -21,6 +21,7 @@
 			  login-processing-url="/authentication"
 			  authentication-failure-url="/login?error=true" />
 			  <sec:logout logout-url="/logout" logout-success-url="/" />
+			  
 	</http>
 
 	<authentication-manager>

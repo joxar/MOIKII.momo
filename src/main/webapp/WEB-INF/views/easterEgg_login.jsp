@@ -39,7 +39,7 @@ body { margin-top:30px; }
 <body>
 
 	<div class="container">
-		<div class="wrap" style="width:290px; float:left;">
+		<div class="wrap" style="width:410px; float:left;">
 			<div class="type-wrap">
 		       	<span id="typed" style="white-space:pre;"></span>
 	   		</div>
@@ -47,17 +47,21 @@ body { margin-top:30px; }
    		
         <div id="systemFullName">
         	<h1>
-            	<span id="capitalLetter">M</span><span id="">xxxxx </spaN>
-            	<span id="capitalLetter">O</span><span id="">xxxxx </spaN>
-                <span id="capitalLetter">I</span><span id="">xxxxx </span>
+            	<span class="capitalLetter">M</span><span class="lowerLetter">ake </span>
+            	<br>
+            	<span class="capitalLetter">O</span><span class="lowerLetter">bstructions </span>
+            	<br>
+                <span class="capitalLetter">I</span><span class="lowerLetter">nto </span>
                 <br>
-                <span style="padding-left:500px;"> </span>
-                <span id="capitalLetter">K</span><span id="">xxxxx </span>
-                <span id="capitalLetter">I</span><span id="">xxxxx </span>
-                <span id="capitalLetter">I</span><span id="">xxxxx</span>
+                <span class="capitalLetter">K</span><span class="lowerLetter">eys for</span>
+                <br>
+                <span class="capitalLetter">I</span><span class="lowerLetter">nnovation and </span>
+                <br>
+                <span class="capitalLetter">I</span><span class="lowerLetter">mpact</span>
+                <br>
 			</h1>
 			<br>
-			<div style="text-align: right;">				
+			<div style="text-align: right;">
 				<a href="${pageContext.request.contextPath}/login" id="formId" style="text-decoration: underline;">MOIKII.momo</a>
             </div>
 	    </div>
@@ -70,10 +74,11 @@ body { margin-top:30px; }
 <script type="text/javascript" src="${typedJs}"></script>
 
 <script>
-canvas = ".type-wrap";
-canvasArea = ".wrap";
-sysName = "#systemFullName";
-typedCursor = ".typed-cursor";
+var canvas = ".type-wrap";
+var canvasArea = ".wrap";
+var sysName = "#systemFullName";
+var typedCursor = ".typed-cursor";
+var lowerLetter = ".lowerLetter";
 
 $(function(){
 	
@@ -81,9 +86,10 @@ $(function(){
 	
 	
 	$(sysName).hide();
+	$(lowerLetter).hide();
 
 	$(canvas).typed({
-		strings: ["acquire IT knowledgs by . . . studying?", "start MOIKII↵"],
+		strings: ["acquire IT knowledges by working and studying . . . . . ?", "Start MOIKII↵"],
         typeSpeed: 80,
         backDelay: 80,
         loop: false,
@@ -91,7 +97,7 @@ $(function(){
         // defaults to false for infinite loop
         loopCount: false,
         callback: function(){ window.setTimeout(newTyped(), 8000); },
-        resetCallback: function() { }
+        resetCallback: function() {}
 	});
 });
 
@@ -102,28 +108,44 @@ function hideElem(obj) {
 function newTyped() {
 	hideElem(canvas);	
 	hideElem(canvasArea);
-	$(sysName).fadeIn(1000);
+	$(sysName).fadeIn(800);
+	window.setTimeout(function() {
+		   $(lowerLetter).each(function(i) {
+			   $(this).delay(1200 * i).fadeIn(2000);
+		   })},
+		   1000
+	);
 }
 </script>
 <style>
 .container {	
 	width: 1000px;  
-    margin: 250px;
+    margin: 200px;
     text-align: left;
+}
+#systemFullName {
+    margin: 0 0 0 280px;
 }
 #systemFullName H1 span {
 	margin: -0.4em;
 	font-family: monospace;
 	font-size: 48px;
-	color: #0066ff;
 	letter-spacing: 0.1em;
+	
 }
-#systemFullName H1 #capitalLetter {
-	margin: 0 12px 0 1px;
-	color: red;
+#systemFullName H1 .capitalLetter {
+	margin: 0 20px 0 1px;
+	color: #1d9cff;
+}
+#systemFullName H1 .lowerLetter {
+    color: #909090;
+}
+#systemFullName H1 .initspace {
+    flaot: left;
+    margin: 0 0 0 40px;
 }
 .wrap{
-	max-width: 600px;	
+	max-width: 500px;
 	margin: 50px 290px 50px 290px;
 	padding: 15px;
 	background:#f0f0f0;
