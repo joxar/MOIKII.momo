@@ -107,7 +107,7 @@ body { margin-top:30px; }
 												 <input type="hidden" class="hiddenId" value="${list.momoNum}"/>
 												 <c:out value="${list.createName}"/>
 												 <p class="text-left">
-												 	<c:out value="${list.momo_contents}"/>
+												 	<span>${list.momo_contents}</span>
 												 </p>
 												 <p class="text-right">
 												 	<small><c:out value="${list.create_date}"/></small>
@@ -131,7 +131,7 @@ body { margin-top:30px; }
 																				 <c:out value="${list_child.createName}"/>
 																			</p>
 																			<p class="text-left">
-																				<c:out value="${list_child.return_contents}"/>
+																				<span>${list_child.return_contents}</span>
 																			</p>
 																			 <p class="text-right">
 																				<small><c:out value="${list_child.create_date}"/></small>
