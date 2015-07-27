@@ -93,6 +93,16 @@ $(function() {
 				$(element).attr('id','replyContent-' + count);
 			}
 		});
+		
+		//Momoコメント内の http、https などで始まる文字列を正規表現でリンクに置換する
+		$(".contents").each(function(){
+			$(this).html( $(this).html().replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a href="$1">$1</a> ') );
+		 });
+		
+		//返信コメント内の http、https などで始まる文字列を正規表現でリンクに置換する
+		$(".replyContents").each(function(){
+			$(this).html( $(this).html().replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a href="$1">$1</a> ') );
+		 });
 	
 	//twt画面の投稿ボタンを押下した時に呼び出し
 	$('#postForm').submit(function(event) {
@@ -147,6 +157,11 @@ $(function() {
 					index -= i;
 					return 'momoComment-' + index;
 				});
+				
+				//Momoコメント内の http、https などで始まる文字列を正規表現でリンクに置換する
+				$(".contents").each(function(){
+					$(this).html( $(this).html().replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a href="$1">$1</a> ') );
+				 });
 				
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown){
@@ -269,6 +284,11 @@ $(function() {
 				var template = $("#tmplReplyComment").html();
 				var compiled = _.template(template);
 				$(clickFormSelector).before(compiled(message));
+				
+				//返信コメント内の http、https などで始まる文字列を正規表現でリンクに置換する
+				$(".replyContents").each(function(){
+					$(this).html( $(this).html().replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a href="$1">$1</a> ') );
+				 });
 			
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown){
