@@ -1,13 +1,19 @@
 package com.devtwt.app.controller;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -18,7 +24,7 @@ import com.devtwt.app.bean.FileUploadForm;
 public class ArticleController {
 
     //@Value("${upload.allowableFileSize}")
-    private int uploadAllowableFileSize;
+   /* private int uploadAllowableFileSize;*/
 
     // omitted
 
@@ -35,7 +41,7 @@ public class ArticleController {
     }
 
     // (3)
-    @RequestMapping(value = "upload", method = RequestMethod.POST)
+  /*  @RequestMapping(value = "upload", method = RequestMethod.POST)
     public String upload(@Validated FileUploadForm form,
             BindingResult result, RedirectAttributes redirectAttributes) {
 
@@ -55,7 +61,7 @@ public class ArticleController {
         if (uploadFile.isEmpty()) {
             result.rejectValue(uploadFile.getName(), "e.xx.at.6003");
             return "uploadForm";
-        }
+        }*/
 
         // (6)
        /* if (uploadAllowableFileSize < uploadFile.getSize()) {
@@ -72,12 +78,20 @@ public class ArticleController {
                 "i.xx.at.0001"));*/
 
         // (9)
+      /*  System.out.println("DEF");
         return "redirect:/article/upload?complete";
     }
-
-    @RequestMapping(value = "upload", method = RequestMethod.GET, params = "complete")
-    public String uploadComplate() {
-        return "uploadForm";
+*/
+    @RequestMapping(value = "upload", method = RequestMethod.POST,headers=("content-type=multipart/*"))
+    public String uploadComplate(@RequestParam MultipartFile file, Model model)throws IOException {
+    	
+    	 Path path = Paths.get(System.getProperty("java.io.tmpdir"),
+                 file.getOriginalFilename());
+         file.transferTo(path.toFile());
+         model.addAttribute("fileName", path);
+         System.out.println("ABC");
+    	
+        return "uploadRecv";
     }
 
     // omitted
