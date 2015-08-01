@@ -6,7 +6,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadForm implements Serializable {
 	
-	 private MultipartFile file; // (1)
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	private MultipartFile file; // (1)
 
 
 		/*	    @NotNull
