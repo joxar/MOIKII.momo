@@ -48,6 +48,8 @@
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
 						<ul class="dropdown-menu">
+							<li><a href="${pageContext.request.contextPath}/profile">Your
+							 profile</a></li>
 							<li><a href="${pageContext.request.contextPath}/logout">Sign
 									out</a></li>
 						</ul></li>
