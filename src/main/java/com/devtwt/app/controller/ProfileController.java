@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.devtwt.app.bean.FileUploadForm;
+import com.devtwt.app.bean.ProfileImageBean;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.FinalizeCommand;
 import com.devtwt.app.command.InitializeCommand;
+import com.devtwt.app.command.PrflUpldCommand;
+import com.devtwt.app.dao.ProfileImageDao;
 
+@RequestMapping("profile")
 @Controller
 public class ProfileController {
 	
@@ -29,29 +33,49 @@ public class ProfileController {
 	FinalizeCommand finalize;
 	@Autowired
 	RootBean bean;
+	@Autowired
+	PrflUpldCommand prflUpldCommand;
+	@Autowired
+	ProfileImageDao profileImageDao;
 	
-	  @ModelAttribute
-	    public FileUploadForm setFileUploadForm() {
-	        return new FileUploadForm();
-	    }
+	@ModelAttribute
+    public ProfileImageBean setProfileImageBean() {
+        return new ProfileImageBean();
+    }
 
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public String profileInit(RootBean bean, Model model) {
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String prfl(RootBean bean, Model model) {
+		
 		return "profile";
 	}
 	
-	@RequestMapping(value = "upload", method = RequestMethod.POST,headers=("content-type=multipart/*"))
-    public String uploadComplate(@RequestParam MultipartFile file, Model model)throws IOException {
+	@RequestMapping(value = "/upload", method = RequestMethod.POST,headers=("content-type=multipart/*"))
+    public String prflUpld(@RequestParam MultipartFile file,RootBean bean,Model model)throws IOException {
     	
-    	Resource res = new ClassPathResource("profile.png");
-    	File profile = res.getFile();
-    	Path path = profile.toPath();
-
-    	file.transferTo(profile);
- 
-        model.addAttribute("fileName", path);
+    	//uploadしたファイルをbeanにセットする
+    	bean.getProfileImage().setFile(file);
+    	
+    	prflUpldCommand.preProc(bean);
+    	prflUpldCommand.exec();
+    	prflUpldCommand.postProc();
+    	
+    	System.out.println("c:" + bean.getProfileImage());
+        model.addAttribute("rootData", bean);
        
         return "uploadRecv";
+        
+    }
+	
+	@RequestMapping(value = "/download", method = RequestMethod.GET)
+	@ResponseBody
+    public byte[] prflDwnld(RootBean bean,Model model)throws IOException {
+    	
+		bean.setProfileImage(profileImageDao.selectBinaryById("30"));
+    
+        model.addAttribute("rootData", bean);
+       
+        return bean.getProfileImage().getBinary();
+        
     }
 
 }

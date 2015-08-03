@@ -48,8 +48,8 @@ body { margin-top:30px; }
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3 class="panel-title"><strong>Profile </strong></h3></div>
 				<div class="panel-body">
-					<form:form action="${pageContext.request.contextPath}/article/upload" method="post"
-							modelAttribute="fileUploadForm" enctype="multipart/form-data">
+					<form:form action="${pageContext.request.contextPath}/profile/upload" method="post"
+							modelAttribute="profileImageBean" enctype="multipart/form-data">
   
 						<div class="media">
 							<figure>

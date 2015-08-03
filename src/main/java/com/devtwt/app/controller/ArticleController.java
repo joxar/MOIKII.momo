@@ -28,7 +28,7 @@ public class ArticleController {
 	@Autowired
 	ServletContext context;
 
-    @ModelAttribute
+   /* @ModelAttribute
     public FileUploadForm setFileUploadForm() {
         return new FileUploadForm();
     }
@@ -37,8 +37,8 @@ public class ArticleController {
     public String uploadForm() {
         return "uploadForm";
     }
-
-    @RequestMapping(value = "upload", method = RequestMethod.POST,headers=("content-type=multipart/*"))
+*/
+   /* @RequestMapping(value = "upload", method = RequestMethod.POST,headers=("content-type=multipart/*"))
     public String uploadComplate(@RequestParam MultipartFile file, Model model)throws IOException {
     	
     	//imagesディレクトリがなければ作成
@@ -54,7 +54,7 @@ public class ArticleController {
     	//コピー先のパスを取得
     	//File profile = new File("classpath:../webapp/resources/bootstrap-3.3.2-dist/profile.png");
     	//File profile = new File("src/main/resources/profile.png");
-    	/*Path path = Paths.get("classpath:profile.png");
+    	Path path = Paths.get("classpath:profile.png");
     	File profile = path.toFile();
     	System.out.println("profile:" + profile.toPath());
     	if (profile.exists()) {
@@ -64,7 +64,7 @@ public class ArticleController {
     	
     	//Path path = Paths.get("src/main/resources/profile.png");
     	URL url = this.getClass().getClassLoader().getResource("classpath:log4j.xml");
-    	System.out.println("url;" + url);*/
+    	System.out.println("url;" + url);
     	Resource res = new ClassPathResource("profile.png");
     	File profile = res.getFile();
     	Path path = profile.toPath();
@@ -74,5 +74,5 @@ public class ArticleController {
         model.addAttribute("fileName", path);
        
         return "uploadRecv";
-    }
+    }*/
 }
