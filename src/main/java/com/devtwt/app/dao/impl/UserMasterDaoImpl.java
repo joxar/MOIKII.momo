@@ -47,6 +47,7 @@ public class UserMasterDaoImpl implements UserMasterDao {
 						m.setUpdateId(rs.getString("UPDATE_ID"));
 						m.setUpdateDate(rs.getString("UPDATE_DATE"));
 						m.setDeleteFlag(rs.getString("DELETE_FLAG"));
+						m.setProfileImageId(rs.getString("PROFILE_IMAGE_ID"));
 						return m;
 					}}
 				, userId);

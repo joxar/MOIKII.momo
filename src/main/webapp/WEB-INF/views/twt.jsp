@@ -50,7 +50,7 @@ body { margin-top:30px; }
 	<!-- プロフィールサイドバー -->
 	<div class="col-md-2">
 		<div class="media">
-			<img src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+			<img src="${pageContext.request.contextPath}/profile/download/<sec:authentication	property="principal.username" />"
 					class="media-object" width="120" height="120">
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name" style="text-align:center">
@@ -100,7 +100,7 @@ body { margin-top:30px; }
 									<td class="momoComment">
 										<div class="media">
 											<a class="pull-left" href="#">
-											<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+											<img class="media-object" src="${pageContext.request.contextPath}/profile/download/${list.createName}"
 													class="img-rounded" width="80" height="80"/>
 											</a>
 											<div class="media-body">
@@ -123,7 +123,7 @@ body { margin-top:30px; }
 												 				 <div class="replyComment">
 																	<div class="media">
 																		<a class="pull-left" href="#">
-																			<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+																			<img class="media-object" src="${pageContext.request.contextPath}/profile/download/${list_child.createName}"
 																					class="img-rounded" width="80" height="80"/>
 																		</a>
 																		<div class="media-body">
@@ -167,7 +167,7 @@ body { margin-top:30px; }
         <div class="replyComment">
 		<div class="media">
 			<a class="pull-left" href="#">
-				<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+				<img class="media-object" src="${pageContext.request.contextPath}/profile/download/{{name}}"
 						class="img-rounded" width="80" height="80"/>
 			</a>
 			<div class="media-body">
@@ -202,7 +202,7 @@ body { margin-top:30px; }
 			<td class="momoComment">
 				<div class="media">
 					<a class="pull-left" href="#">
-						<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+						<img class="media-object" src="${pageContext.request.contextPath}/profile/download/{{name}}"
 								class="img-rounded" width="80" height="80"/>
 					</a>
 					<div class="media-body">

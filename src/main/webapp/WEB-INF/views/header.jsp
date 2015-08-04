@@ -48,7 +48,7 @@
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="${pageContext.request.contextPath}/profile">Your
+							<li><a href="${pageContext.request.contextPath}/profile/<sec:authentication	property="principal.username" />">Your
 							 profile</a></li>
 							<li><a href="${pageContext.request.contextPath}/logout">Sign
 									out</a></li>

@@ -55,7 +55,7 @@ body { margin-top:30px; }
 							<figure>
 								<figcaption>Profile picture</figcaption>
 								<a class="pull-left" href="#">				
-									<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+									<img class="media-object" src="${pageContext.request.contextPath}/profile/download/<sec:authentication	property="principal.username" />"
 											class="img-rounded" width="80" height="80"  title="Profile picture"/>
 								</a>
 							</figure>
