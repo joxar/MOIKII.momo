@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import com.devtwt.app.bean.GroupBean;
 import com.devtwt.app.bean.ProfileImageBean;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.dao.ProfileImageDao;
@@ -56,6 +55,4 @@ public class ProfileImageDaoImpl implements ProfileImageDao {
 		
 	}
 	
-	
-
 }

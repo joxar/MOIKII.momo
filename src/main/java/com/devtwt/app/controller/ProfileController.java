@@ -15,10 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.devtwt.app.bean.ProfileImageBean;
 import com.devtwt.app.bean.RootBean;
+import com.devtwt.app.bean.UserBean;
 import com.devtwt.app.command.FinalizeCommand;
 import com.devtwt.app.command.InitializeCommand;
 import com.devtwt.app.command.PrflDwnldCommand;
 import com.devtwt.app.command.PrflUpldCommand;
+import com.devtwt.app.dao.ProfileImageDao;
+import com.devtwt.app.dao.UserMasterDao;
 
 @RequestMapping("profile/{userName}")
 @Controller
@@ -32,6 +35,10 @@ public class ProfileController {
 	RootBean bean;
 	@Autowired
 	PrflUpldCommand prflUpldCommand;
+	@Autowired
+	ProfileImageDao profileImageDao;
+	@Autowired
+	UserMasterDao userDao;
 	@Autowired
 	PrflDwnldCommand prflDwnldCommand;
 	
@@ -67,12 +74,16 @@ public class ProfileController {
 	@ResponseBody
     public byte[] prflDwnld(RootBean bean, Model model, @PathVariable("userName") String userName)throws IOException {
     	
-		prflDwnldCommand.preProc(bean);
-		prflDwnldCommand.exec(userName);
-		prflDwnldCommand.postProc();
-    
-        model.addAttribute("rootData", bean);
-        model.addAttribute("userName",userName);
+		/*コマンドクラスを呼び出すと、画像読み込みがうまくいかなかったため、コントローラ内に、
+		　ビジネスロジックを記述　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　*/
+		
+		//userNameをキーにuserIdを取得
+		String userId = userDao.getUserId(userName);
+		UserBean user = userDao.getMember(userId);
+		
+		String imgId = user.getProfileImageId();
+		
+		bean.setProfileImage(profileImageDao.selectBinaryById(imgId));
        
         return bean.getProfileImage().getBinary();
         
