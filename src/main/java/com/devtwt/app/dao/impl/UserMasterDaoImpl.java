@@ -79,6 +79,15 @@ public class UserMasterDaoImpl implements UserMasterDao {
 				, String.class, userName);
 	return userId;
 	}
+
+	@Override
+	public void updateProfileId(String userId, String profileId) {
+		
+		jdbcTemplate.update(
+                "UPDATE USER_MASTER SET PROFILE_IMAGE_ID=? WHERE MEMBER_ID = ?"
+                , profileId, userId);
+		
+	}
 	
 	
 	

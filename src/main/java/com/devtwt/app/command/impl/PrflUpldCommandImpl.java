@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.devtwt.app.bean.RootBean;
 import com.devtwt.app.command.PrflUpldCommand;
 import com.devtwt.app.dao.ProfileImageDao;
+import com.devtwt.app.dao.UserMasterDao;
 
 @Component
 public class PrflUpldCommandImpl implements PrflUpldCommand {
@@ -18,6 +19,8 @@ public class PrflUpldCommandImpl implements PrflUpldCommand {
 	RootBean bean;
 	@Autowired
 	ProfileImageDao profileImageDao;
+	@Autowired
+	UserMasterDao userDao;
 	
 	byte[] fileContent = null;
 	InputStream is = null;
@@ -29,7 +32,7 @@ public class PrflUpldCommandImpl implements PrflUpldCommand {
 	public RootBean postProc() { return bean; }
 
 	@Override
-	public void exec() {
+	public void exec(String userName) {
 		
 		try{
 			
@@ -42,8 +45,13 @@ public class PrflUpldCommandImpl implements PrflUpldCommand {
 		
 		//ファイルをDBのBLOB型のカラムにセット
 		profileImageDao.insertData(bean);
-		bean.setProfileImage(profileImageDao.selectBinaryById("7"));
-		System.out.println("B:" + bean.getProfileImage());
+		
+		int tmp = profileImageDao.selectMaxId();
+		String maxId = Integer.toString(tmp);
+		String userId = userDao.getUserId(userName);
+		userDao.updateProfileId(userId, maxId);
+	
+		
 		}catch (IOException e) {
             e.printStackTrace();
         } finally {

@@ -6,6 +6,7 @@ import com.devtwt.app.bean.RootBean;
 public interface ProfileImageDao {
 	
 	public void insertData(RootBean bean);
-	public ProfileImageBean selectBinaryById(String Id);;
+	public ProfileImageBean selectBinaryById(String Id);
+	public int selectMaxId();
 
 }

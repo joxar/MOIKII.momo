@@ -36,7 +36,6 @@ body { margin-top:30px; }
 <!-- underscore -->
 <spring:url var="underscoreJs" value="/resources/js/underscore-min.js" />
 <script type="text/javascript" src="${underscoreJs}"></script>
-
 <title>MOIKII.momo</title>
 </head>
 
@@ -50,7 +49,7 @@ body { margin-top:30px; }
 	<!-- プロフィールサイドバー -->
 	<div class="col-md-2">
 		<div class="media">
-			<img src="${pageContext.request.contextPath}/profile/download/<sec:authentication	property="principal.username" />"
+			<img src="${pageContext.request.contextPath}/profile/<sec:authentication	property="principal.username" />/download/"
 					class="media-object" width="120" height="120">
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name" style="text-align:center">
@@ -100,7 +99,7 @@ body { margin-top:30px; }
 									<td class="momoComment">
 										<div class="media">
 											<a class="pull-left" href="#">
-											<img class="media-object" src="${pageContext.request.contextPath}/profile/download/${list.createName}"
+											<img class="media-object" src="${pageContext.request.contextPath}/profile/${list.createName}/download"
 													class="img-rounded" width="80" height="80"/>
 											</a>
 											<div class="media-body">
@@ -123,7 +122,7 @@ body { margin-top:30px; }
 												 				 <div class="replyComment">
 																	<div class="media">
 																		<a class="pull-left" href="#">
-																			<img class="media-object" src="${pageContext.request.contextPath}/profile/download/${list_child.createName}"
+																			<img class="media-object" src="${pageContext.request.contextPath}/profile/${list_child.createName}/download"
 																					class="img-rounded" width="80" height="80"/>
 																		</a>
 																		<div class="media-body">
@@ -167,7 +166,7 @@ body { margin-top:30px; }
         <div class="replyComment">
 		<div class="media">
 			<a class="pull-left" href="#">
-				<img class="media-object" src="${pageContext.request.contextPath}/profile/download/{{name}}"
+				<img class="media-object" src="${pageContext.request.contextPath}/profile/{{name}}/download"
 						class="img-rounded" width="80" height="80"/>
 			</a>
 			<div class="media-body">
@@ -202,7 +201,7 @@ body { margin-top:30px; }
 			<td class="momoComment">
 				<div class="media">
 					<a class="pull-left" href="#">
-						<img class="media-object" src="${pageContext.request.contextPath}/profile/download/{{name}}"
+						<img class="media-object" src="${pageContext.request.contextPath}/profile/{{name}}/download"
 								class="img-rounded" width="80" height="80"/>
 					</a>
 					<div class="media-body">

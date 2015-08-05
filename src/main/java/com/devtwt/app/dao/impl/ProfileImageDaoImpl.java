@@ -47,6 +47,14 @@ public class ProfileImageDaoImpl implements ProfileImageDao {
 		return profile;
 		
 	}
+
+	@Override
+	public int selectMaxId() {
+		
+		int maxId = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM PROFILE_IMAGE", Integer.class);
+		return maxId;
+		
+	}
 	
 	
 

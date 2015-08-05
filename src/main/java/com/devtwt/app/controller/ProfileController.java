@@ -15,14 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.devtwt.app.bean.ProfileImageBean;
 import com.devtwt.app.bean.RootBean;
-import com.devtwt.app.bean.UserBean;
 import com.devtwt.app.command.FinalizeCommand;
 import com.devtwt.app.command.InitializeCommand;
+import com.devtwt.app.command.PrflDwnldCommand;
 import com.devtwt.app.command.PrflUpldCommand;
-import com.devtwt.app.dao.ProfileImageDao;
-import com.devtwt.app.dao.UserMasterDao;
 
-@RequestMapping("profile")
+@RequestMapping("profile/{userName}")
 @Controller
 public class ProfileController {
 	
@@ -35,62 +33,46 @@ public class ProfileController {
 	@Autowired
 	PrflUpldCommand prflUpldCommand;
 	@Autowired
-	ProfileImageDao profileImageDao;
-	@Autowired
-	UserMasterDao userDao;
+	PrflDwnldCommand prflDwnldCommand;
 	
 	@ModelAttribute
     public ProfileImageBean setProfileImageBean() {
         return new ProfileImageBean();
     }
 
-	@RequestMapping(value = "/{userName}", method = RequestMethod.GET)
-	public String prfl(RootBean bean, Model model) {
-		
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String prfl(RootBean bean, Model model, @PathVariable("userName") String userName) {
+		model.addAttribute("userName",userName);
 		return "profile";
 	}
 	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST,headers=("content-type=multipart/*"))
-    public String prflUpld(@RequestParam MultipartFile file, RootBean bean, Model model)throws IOException {
+    public String prflUpld(@RequestParam MultipartFile file, RootBean bean, Model model, @PathVariable("userName") String userName)throws IOException {
     	
     	//uploadしたファイルをbeanにセットする
     	bean.getProfileImage().setFile(file);
     	
     	prflUpldCommand.preProc(bean);
-    	prflUpldCommand.exec();
+    	prflUpldCommand.exec(userName);
     	prflUpldCommand.postProc();
     	
-    	System.out.println("c:" + bean.getProfileImage());
         model.addAttribute("rootData", bean);
+        model.addAttribute("userName",userName);
        
-        return "uploadRecv";
+        return "profile";
         
     }
 	
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	@ResponseBody
-    public byte[] prflDwnld(RootBean bean, Model model)throws IOException {
+    public byte[] prflDwnld(RootBean bean, Model model, @PathVariable("userName") String userName)throws IOException {
     	
-		bean.setProfileImage(profileImageDao.selectBinaryById("30"));
+		prflDwnldCommand.preProc(bean);
+		prflDwnldCommand.exec(userName);
+		prflDwnldCommand.postProc();
     
         model.addAttribute("rootData", bean);
-       
-        return bean.getProfileImage().getBinary();
-        
-    }
-	
-	@RequestMapping(value = "/download/{userName}", method = RequestMethod.GET)
-	@ResponseBody
-    public byte[] prflDwnldUsrNm(RootBean bean, Model model, @PathVariable("userName") String userName)throws IOException {
-    	
-		String userId = userDao.getUserId(userName);
-		UserBean user = userDao.getMember(userId);
-		
-		String imgId = user.getProfileImageId();
-		
-		bean.setProfileImage(profileImageDao.selectBinaryById(imgId));
-    
-        model.addAttribute("rootData", bean);
+        model.addAttribute("userName",userName);
        
         return bean.getProfileImage().getBinary();
         
