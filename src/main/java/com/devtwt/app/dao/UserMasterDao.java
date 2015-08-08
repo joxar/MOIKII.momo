@@ -10,5 +10,6 @@ public interface UserMasterDao {
 	public String getUserName(String userId);
 	public void updateRoleId(UserBean bean);
 	public String getUserId(String userName);
+	public void updateProfileId(String userId, String profileId);
 	
 }

@@ -1,6 +1,5 @@
 package com.devtwt.app.command.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.devtwt.app.bean.RootBean;

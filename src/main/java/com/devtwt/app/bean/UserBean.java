@@ -26,7 +26,14 @@ public class UserBean implements Serializable {
 	private String slctRoleName = "";
 	private String slctRoleId = "";
 	List<GroupBean> groupList = new ArrayList<GroupBean>();
+	private String profileImageId = "";
 	
+	public String getProfileImageId() {
+		return profileImageId;
+	}
+	public void setProfileImageId(String profileImageId) {
+		this.profileImageId = profileImageId;
+	}
 	public List<GroupBean> getGroupList() {
 		return groupList;
 	}
@@ -121,7 +128,7 @@ public class UserBean implements Serializable {
 				+ ", updateDate=" + updateDate + ", deleteFlag=" + deleteFlag
 				+ ", roleList=" + roleList + ", slctRoleName=" + slctRoleName
 				+ ", slctRoleId=" + slctRoleId + ", groupList=" + groupList
-				+ "]";
+				+ ", profileImageId=" + profileImageId + "]";
 	}
 
 }

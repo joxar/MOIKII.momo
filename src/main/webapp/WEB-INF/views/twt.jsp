@@ -36,7 +36,6 @@ body { margin-top:30px; }
 <!-- underscore -->
 <spring:url var="underscoreJs" value="/resources/js/underscore-min.js" />
 <script type="text/javascript" src="${underscoreJs}"></script>
-
 <title>MOIKII.momo</title>
 </head>
 
@@ -50,7 +49,7 @@ body { margin-top:30px; }
 	<!-- プロフィールサイドバー -->
 	<div class="col-md-2">
 		<div class="media">
-			<img src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+			<img src="${pageContext.request.contextPath}/profile/<sec:authentication	property="principal.username" />/download/"
 					class="media-object" width="120" height="120">
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name" style="text-align:center">
@@ -100,14 +99,14 @@ body { margin-top:30px; }
 									<td class="momoComment">
 										<div class="media">
 											<a class="pull-left" href="#">
-											<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+											<img class="media-object" src="${pageContext.request.contextPath}/profile/${list.createName}/download"
 													class="img-rounded" width="80" height="80"/>
 											</a>
 											<div class="media-body">
 												 <input type="hidden" class="hiddenId" value="${list.momoNum}"/>
 												 <c:out value="${list.createName}"/>
 												 <p class="text-left">
-												 	<span>${list.momo_contents}</span>
+												 	<span class="contents">${list.momo_contents}</span>
 												 </p>
 												 <p class="text-right">
 												 	<small><c:out value="${list.create_date}"/></small>
@@ -123,7 +122,7 @@ body { margin-top:30px; }
 												 				 <div class="replyComment">
 																	<div class="media">
 																		<a class="pull-left" href="#">
-																			<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+																			<img class="media-object" src="${pageContext.request.contextPath}/profile/${list_child.createName}/download"
 																					class="img-rounded" width="80" height="80"/>
 																		</a>
 																		<div class="media-body">
@@ -131,7 +130,7 @@ body { margin-top:30px; }
 																				 <c:out value="${list_child.createName}"/>
 																			</p>
 																			<p class="text-left">
-																				<span>${list_child.return_contents}</span>
+																				<span class="replyContents">${list_child.return_contents}</span>
 																			</p>
 																			 <p class="text-right">
 																				<small><c:out value="${list_child.create_date}"/></small>
@@ -167,7 +166,7 @@ body { margin-top:30px; }
         <div class="replyComment">
 		<div class="media">
 			<a class="pull-left" href="#">
-				<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+				<img class="media-object" src="${pageContext.request.contextPath}/profile/{{name}}/download"
 						class="img-rounded" width="80" height="80"/>
 			</a>
 			<div class="media-body">
@@ -175,7 +174,9 @@ body { margin-top:30px; }
 					{{name}}
 				</p>
 				<p class="text-left">
-					{{contents}}
+					<span class="replyContents">
+						{{contents}}
+					</span>
 				</p>
 				 <p class="text-right">
 					<small>{{time}}</small>
@@ -200,14 +201,16 @@ body { margin-top:30px; }
 			<td class="momoComment">
 				<div class="media">
 					<a class="pull-left" href="#">
-						<img class="media-object" src="<c:url value='/resources/bootstrap-3.3.2-dist/profile.png'/>"
+						<img class="media-object" src="${pageContext.request.contextPath}/profile/{{name}}/download"
 								class="img-rounded" width="80" height="80"/>
 					</a>
 					<div class="media-body">
 						<input type="hidden" class="hiddenId" value="{{momoNum}}"/>
 							{{name}}
 						<p class="text-left">
-							{{contents}}
+							<span class="contents">
+								{{contents}}
+							</span>
 						</p>
 						<p class="text-right">
 							<small>{{time}}</small>

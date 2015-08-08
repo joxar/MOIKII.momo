@@ -32,6 +32,7 @@ public class RootBean implements Serializable {
 	JoinRequestBean joinRequest = new JoinRequestBean();
 	List<JoinRequestBean> joinRequestList = new ArrayList<JoinRequestBean>();
     ReturnCommentBean returnComment = new ReturnCommentBean();
+    ProfileImageBean profileImage = new ProfileImageBean();
 	
 	public ViewBean getView() {
 		return view;
@@ -123,17 +124,24 @@ public class RootBean implements Serializable {
 	public void setRoleList(List<RoleBean> roleList) {
 		this.roleList = roleList;
 	}
+	public ProfileImageBean getProfileImage() {
+		return profileImage;
+	}
+	public void setProfileImage(ProfileImageBean profileImage) {
+		this.profileImage = profileImage;
+	}
 	
 	@Override
 	public String toString() {
-		return "RootBean [user=" + user + ", group=" + group + ", common="
-				+ common + ", groupList=" + groupList + ", constants="
-				+ constants + ", roleList=" + roleList + ", momo=" + momo
-				+ ", momoList=" + momoList + ", selectUserName="
-				+ selectUserName + ", groupNameList=" + groupNameList
-				+ ", devCategory=" + devCategory + ", joinRequest="
-				+ joinRequest + ", joinRequestList=" + joinRequestList
-				+ ", returnComment=" + returnComment + "]";
+		return "RootBean [user=" + user + ", view=" + view + ", group=" + group
+				+ ", common=" + common + ", groupList=" + groupList
+				+ ", constants=" + constants + ", roleList=" + roleList
+				+ ", momo=" + momo + ", momoList=" + momoList
+				+ ", selectUserName=" + selectUserName + ", groupNameList="
+				+ groupNameList + ", devCategory=" + devCategory
+				+ ", joinRequest=" + joinRequest + ", joinRequestList="
+				+ joinRequestList + ", returnComment=" + returnComment
+				+ ", profileImage=" + profileImage + "]";
 	}
 	
 }
