@@ -22,7 +22,12 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-			
+	
+	<!-- ファイルアップロード用の設定 -->
+	<beans:bean id="multipartResolver"
+    		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+    </beans:bean>
+    
 	<context:component-scan base-package="com.devtwt.app.bean"></context:component-scan>
 	<context:component-scan base-package="com.devtwt.app.command"></context:component-scan>
 	<context:component-scan base-package="com.devtwt.app.constants"></context:component-scan>

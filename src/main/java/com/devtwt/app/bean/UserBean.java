@@ -1,6 +1,8 @@
 package com.devtwt.app.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,79 @@ public class UserBean implements Serializable {
 	private String userPassword = "";
 	private String roleId = "";
 	private String roleName = "";
+	private String createId = "";
+	private String createDate = "";
+	private String updateId = "";
+	private String updateDate = "";
+	//Spring Securityの設定により、0:無効,1:有効
+	private String deleteFlag = "";
+	List<RoleBean> roleList = new ArrayList<RoleBean>();
+	//セレクトボックスで選択された値が設定される
+	private String slctRoleName = "";
+	private String slctRoleId = "";
+	List<GroupBean> groupList = new ArrayList<GroupBean>();
+	private String profileImageId = "";
+	
+	public String getProfileImageId() {
+		return profileImageId;
+	}
+	public void setProfileImageId(String profileImageId) {
+		this.profileImageId = profileImageId;
+	}
+	public List<GroupBean> getGroupList() {
+		return groupList;
+	}
+	public void setGroupList(List<GroupBean> groupList) {
+		this.groupList = groupList;
+	}
+	public String getSlctRoleId() {
+		return slctRoleId;
+	}
+	public void setSlctRoleId(String slctRoleId) {
+		this.slctRoleId = slctRoleId;
+	}
+	public List<RoleBean> getRoleList() {
+		return roleList;
+	}
+	public void setRoleList(List<RoleBean> roleList) {
+		this.roleList = roleList;
+	}
+	public String getSlctRoleName() {
+		return slctRoleName;
+	}
+	public void setSlctRoleName(String slctRoleName) {
+		this.slctRoleName = slctRoleName;
+	}
+	public String getCreateId() {
+		return createId;
+	}
+	public void setCreateId(String createId) {
+		this.createId = createId;
+	}
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+	public String getUpdateId() {
+		return updateId;
+	}
+	public void setUpdateId(String updateId) {
+		this.updateId = updateId;
+	}
+	public String getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
+	public String getDeleteFlag() {
+		return deleteFlag;
+	}
+	public void setDeleteFlag(String deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
 	public String getUserId() {
 		return userId;
 	}
@@ -48,7 +123,12 @@ public class UserBean implements Serializable {
 	public String toString() {
 		return "UserBean [userId=" + userId + ", userName=" + userName
 				+ ", userPassword=" + userPassword + ", roleId=" + roleId
-				+ ", roleName=" + roleName + "]";
+				+ ", roleName=" + roleName + ", createId=" + createId
+				+ ", createDate=" + createDate + ", updateId=" + updateId
+				+ ", updateDate=" + updateDate + ", deleteFlag=" + deleteFlag
+				+ ", roleList=" + roleList + ", slctRoleName=" + slctRoleName
+				+ ", slctRoleId=" + slctRoleId + ", groupList=" + groupList
+				+ ", profileImageId=" + profileImageId + "]";
 	}
 
 }
